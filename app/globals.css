@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&display=swap');
+
+/* ═══════════════════════════════════════════
+   RESET + TOKENS
+═══════════════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white:         #FFFFFF;
+  --off-white:     #F8F7F4;
+  --warm-gray:     #F0EDE7;
+  --border:        rgba(0,0,0,0.07);
+  --border-med:    rgba(0,0,0,0.11);
+  --border-strong: rgba(0,0,0,0.15);
+  --text-1:        #0D0D0D;
+  --text-2:        #555550;
+  --text-3:        #9A9992;
+  --accent:        #C4601A;
+  --accent-blue:   #1653A6;
+  --accent-light:  rgba(196,96,26,0.07);
+  --serif:         'Fraunces', Georgia, serif;
+  --sans:          'Inter', system-ui, sans-serif;
+  --nav-h:         64px;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--white);
+  color: var(--text-1);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ═══════════════════════════════════════════
+   CURSOR
+═══════════════════════════════════════════ */
+#cur-dot {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  background: var(--text-1);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .15s, height .15s, background .15s;
+  will-change: left, top;
+}
+
+#cur-ring {
+  position: fixed;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(13,13,13,.25);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  will-change: left, top;
+  transition: width .3s cubic-bezier(.22,1,.36,1),
+              height .3s cubic-bezier(.22,1,.36,1),
+              border-color .2s;
+}
+
+body.ch #cur-dot  { width: 9px; height: 9px; background: var(--accent); }
+body.ch #cur-ring { width: 50px; height: 50px; border-color: rgba(196,96,26,.35); }
+body.cc #cur-dot  { transform: translate(-50%,-50%) scale(.5); }
+
+@media (max-width: 900px) {
+  #cur-dot, #cur-ring { display: none; }
+  body { cursor: auto; }
+}
+
+/* ═══════════════════════════════════════════
+   PROGRESS BAR
+═══════════════════════════════════════════ */
+#pb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 1.5px;
+  background: var(--accent);
+  z-index: 9997;
+  width: 0%;
+  transition: width .1s linear;
+}
+
+/* ═══════════════════════════════════════════
+   NOISE OVERLAY
+═══════════════════════════════════════════ */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  opacity: .45;
+}
+
+/* ═══════════════════════════════════════════
+   MARQUEE
+═══════════════════════════════════════════ */
+.mq-wrap {
+  overflow: hidden;
+  border-top: .5px solid var(--border);
+  border-bottom: .5px solid var(--border);
+  background: var(--off-white);
+  padding: 14px 0;
+}
+
+.mq-track {
+  display: flex;
+  width: max-content;
+  animation: mq 28s linear infinite;
+}
+
+.mq-track:hover { animation-play-state: paused; }
+
+.mq-item {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 0 40px;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+
+.mq-item b {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-3);
+  opacity: .5;
+  display: inline-block;
+  font-weight: 400;
+}
+
+@keyframes mq {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════════
+   SECTION SHELL
+═══════════════════════════════════════════ */
+section {
+  padding: 140px 56px;
+  border-bottom: .5px solid var(--border);
+  position: relative;
+}
+
+.si {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sec-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 72px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sec-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: .5px;
+  background: var(--text-3);
+}
+
+@media (max-width: 900px) {
+  section { padding: 80px 24px; }
+}
+
+/* ═══════════════════════════════════════════
+   MAGNETIC BUTTON
+═══════════════════════════════════════════ */
+.mbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 13px 28px;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: box-shadow .3s;
+  cursor: none;
+  will-change: transform;
+}
+
+.mbtn-dark { color: var(--white); background: var(--text-1); }
+.mbtn-dark:hover { box-shadow: 0 8px 36px rgba(13,13,13,.2); }
+
+.mbtn-light {
+  color: var(--text-1);
+  background: transparent;
+  border: .5px solid var(--border-strong);
+}
+
+.mbtn-light:hover { box-shadow: 0 8px 24px rgba(13,13,13,.07); }
+
+/* ═══════════════════════════════════════════
+   REVEAL UTILITIES
+   NOTE: hidden state is applied via JS only
+   so content is never invisible without JS
+═══════════════════════════════════════════ */
+.split-line {
+  overflow: hidden;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL INDICATOR
+═══════════════════════════════════════════ */
+.scroll-ind {
+  position: absolute;
+  right: 56px;
+  bottom: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+}
+
+.scroll-track {
+  width: 1px;
+  height: 56px;
+  background: var(--border-med);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-fill {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  background: var(--text-2);
+  height: 100%;
+  animation: sf 2s cubic-bezier(.22,1,.36,1) infinite;
+}
+
+@keyframes sf {
+  0%   { top: -100%; }
+  50%  { top: 0; }
+  100% { top: 100%; }
+}
+
+.scroll-lbl {
+  font-size: 9.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  writing-mode: vertical-rl;
+}
+
+/* ═══════════════════════════════════════════
+   LINE SEP
+═══════════════════════════════════════════ */
+.line-sep {
+  display: block;
+  width: 100%;
+  height: .5px;
+  background: var(--border);
+}
+
+/* ═══════════════════════════════════════════
+   PULSE ANIMATION
+═══════════════════════════════════════════ */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: .4; transform: scale(.7); }
+}
