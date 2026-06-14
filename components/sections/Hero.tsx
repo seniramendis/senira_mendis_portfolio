@@ -1,6 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useRef } from 'react';
 import { PERSONAL, STATS } from '@/lib/data';
 import { useMagnetic } from '@/hooks/useMagnetic';
 import { useCounter } from '@/hooks/useCounter';
@@ -33,16 +32,8 @@ export default function Hero() {
   const tagRef     = useRef<HTMLDivElement>(null);
   const headRef    = useRef<HTMLHeadingElement>(null);
   const subRef     = useRef<HTMLDivElement>(null);
-  const stageRef   = useRef<HTMLDivElement>(null);
   const bottomRef  = useRef<HTMLDivElement>(null);
   const scrollRef  = useRef<HTMLDivElement>(null);
-
-  // Crossfade between the two profile photos
-  const [activeImg, setActiveImg] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setActiveImg(i => (i === 0 ? 1 : 0)), 5000);
-    return () => clearInterval(id);
-  }, []);
 
   // Canvas grain field (light particles, sits above the video)
   useEffect(() => {
@@ -114,10 +105,9 @@ export default function Hero() {
     const tag    = tagRef.current;
     const head   = headRef.current;
     const sub    = subRef.current;
-    const stage  = stageRef.current;
     const bottom = bottomRef.current;
     const scroll = scrollRef.current;
-    if (!tag || !head || !sub || !stage || !bottom || !scroll) return;
+    if (!tag || !head || !sub || !bottom || !scroll) return;
 
     const inners = head.querySelectorAll<HTMLSpanElement>('.inner');
 
@@ -136,14 +126,12 @@ export default function Hero() {
       }, 100 + i * 120);
     });
     animate(sub,    { opacity: '1', transform: 'translateY(0)' }, 500);
-    animate(stage,  { opacity: '1', transform: 'translateY(0) scale(1)' }, 350);
     animate(bottom, { opacity: '1', transform: 'translateY(0)' }, 650);
     animate(scroll, { opacity: '1' }, 1000);
 
     // Parallax on scroll
     const onScroll = () => {
       if (head) head.style.transform = `translateY(${window.scrollY * -0.07}px)`;
-      if (stage) stage.style.transform = `translateY(${window.scrollY * 0.04}px)`;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -194,42 +182,6 @@ export default function Hero() {
               <div className={styles.acts}>
                 <MagBtn href="#work" className={styles.btnPrimary}>View my work ↓</MagBtn>
                 <MagBtn href={PERSONAL.github} external className={styles.btnGhost}>GitHub ↗</MagBtn>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.heroRight}>
-            <div
-              className={styles.imageStage}
-              ref={stageRef}
-              style={{ opacity: 0, transform: 'translateY(24px) scale(.97)' }}
-            >
-              <div className={styles.ring} aria-hidden="true" />
-
-              <div className={styles.frameMain}>
-                <div className={`${styles.frameImg} ${activeImg === 0 ? styles.show : ''}`}>
-                  <Image src="/images/Home_Hero_Page/1.jpg" alt="Senira Mendis" fill sizes="380px" priority />
-                </div>
-                <div className={`${styles.frameImg} ${activeImg === 1 ? styles.show : ''}`}>
-                  <Image src="/images/Home_Hero_Page/2.jpg" alt="Senira Mendis at the beach" fill sizes="380px" />
-                </div>
-                <div className={styles.frameShade} aria-hidden="true" />
-
-                <div className={styles.badge}>
-                  <span className={styles.badgeDot} />
-                  Available
-                </div>
-
-                <div className={styles.caption}>Hi, I&apos;m Senira 👋</div>
-              </div>
-
-              <div className={styles.frameAccent}>
-                <div className={`${styles.frameImg} ${activeImg === 1 ? styles.show : ''}`}>
-                  <Image src="/images/Home_Hero_Page/1.jpg" alt="" fill sizes="200px" aria-hidden="true" />
-                </div>
-                <div className={`${styles.frameImg} ${activeImg === 0 ? styles.show : ''}`}>
-                  <Image src="/images/Home_Hero_Page/2.jpg" alt="" fill sizes="200px" aria-hidden="true" />
-                </div>
               </div>
             </div>
           </div>
