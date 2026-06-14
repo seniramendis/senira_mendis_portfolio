@@ -35,7 +35,7 @@ export default function Hero() {
   const bottomRef  = useRef<HTMLDivElement>(null);
   const scrollRef  = useRef<HTMLDivElement>(null);
 
-  // Canvas grain field (light particles, sits above the video)
+  // Canvas grain field (light particles)
   useEffect(() => {
     const c = canvasRef.current;
     if (!c) return;
@@ -100,7 +100,7 @@ export default function Hero() {
     return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', resize); };
   }, []);
 
-  // Entrance animations (pure CSS/JS, no GSAP dependency on server)
+  // Entrance animations
   useEffect(() => {
     const tag    = tagRef.current;
     const head   = headRef.current;
@@ -139,7 +139,8 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} style={{ borderBottom: 'none', padding: 0, paddingTop: 'var(--nav-h)' }}>
-      {/* Background video */}
+      
+      {/* Background video restored, poster image removed */}
       <video
         className={styles.bgVideo}
         autoPlay
@@ -147,7 +148,6 @@ export default function Hero() {
         loop
         playsInline
         preload="auto"
-        poster="/images/Home_Hero_Page/1.jpg"
       >
         <source src="/images/Home_Hero_Page/hero-bg.mp4" type="video/mp4" />
       </video>
