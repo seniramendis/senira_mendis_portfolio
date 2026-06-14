@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { PERSONAL, STATS } from '@/lib/data';
 import { useMagnetic } from '@/hooks/useMagnetic';
 import { useCounter } from '@/hooks/useCounter';
@@ -15,12 +16,12 @@ function StatCounter({ num, label }: { num: number; label: string }) {
   );
 }
 
-function MagBtn({ href, variant, children, external }: {
-  href: string; variant: 'dark' | 'light'; children: React.ReactNode; external?: boolean;
+function MagBtn({ href, children, external, className }: {
+  href: string; children: React.ReactNode; external?: boolean; className: string;
 }) {
   const ref = useMagnetic();
   return (
-    <a ref={ref} href={href} className={`mbtn mbtn-${variant}`} data-mag
+    <a ref={ref} href={href} className={className} data-mag
        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
       {children}
     </a>
@@ -32,10 +33,18 @@ export default function Hero() {
   const tagRef     = useRef<HTMLDivElement>(null);
   const headRef    = useRef<HTMLHeadingElement>(null);
   const subRef     = useRef<HTMLDivElement>(null);
+  const stageRef   = useRef<HTMLDivElement>(null);
   const bottomRef  = useRef<HTMLDivElement>(null);
   const scrollRef  = useRef<HTMLDivElement>(null);
 
-  // Canvas grain field
+  // Crossfade between the two profile photos
+  const [activeImg, setActiveImg] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setActiveImg(i => (i === 0 ? 1 : 0)), 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Canvas grain field (light particles, sits above the video)
   useEffect(() => {
     const c = canvasRef.current;
     if (!c) return;
@@ -53,7 +62,7 @@ export default function Hero() {
         this.r  = Math.random() * 1.4 + 0.4;
         this.vx = (Math.random() - 0.5) * 0.28;
         this.vy = (Math.random() - 0.5) * 0.28;
-        this.a  = Math.random() * 0.2 + 0.04;
+        this.a  = Math.random() * 0.18 + 0.04;
       }
       step() {
         this.x += this.vx; this.y += this.vy;
@@ -62,7 +71,7 @@ export default function Hero() {
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(13,13,13,${this.a})`;
+        ctx.fillStyle = `rgba(255,255,255,${this.a})`;
         ctx.fill();
       }
     }
@@ -70,7 +79,7 @@ export default function Hero() {
     const resize = () => { W = c.width = c.offsetWidth; H = c.height = c.offsetHeight; };
     resize();
     window.addEventListener('resize', resize);
-    for (let i = 0; i < 90; i++) pts.push(new Particle());
+    for (let i = 0; i < 70; i++) pts.push(new Particle());
 
     const lines = () => {
       for (let i = 0; i < pts.length; i++) {
@@ -81,7 +90,7 @@ export default function Hero() {
             ctx.beginPath();
             ctx.moveTo(pts[i].x, pts[i].y);
             ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.strokeStyle = `rgba(13,13,13,${0.04 * (1 - d / 115)})`;
+            ctx.strokeStyle = `rgba(255,255,255,${0.05 * (1 - d / 115)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -105,9 +114,10 @@ export default function Hero() {
     const tag    = tagRef.current;
     const head   = headRef.current;
     const sub    = subRef.current;
+    const stage  = stageRef.current;
     const bottom = bottomRef.current;
     const scroll = scrollRef.current;
-    if (!tag || !head || !sub || !bottom || !scroll) return;
+    if (!tag || !head || !sub || !stage || !bottom || !scroll) return;
 
     const inners = head.querySelectorAll<HTMLSpanElement>('.inner');
 
@@ -126,12 +136,14 @@ export default function Hero() {
       }, 100 + i * 120);
     });
     animate(sub,    { opacity: '1', transform: 'translateY(0)' }, 500);
+    animate(stage,  { opacity: '1', transform: 'translateY(0) scale(1)' }, 350);
     animate(bottom, { opacity: '1', transform: 'translateY(0)' }, 650);
     animate(scroll, { opacity: '1' }, 1000);
 
     // Parallax on scroll
     const onScroll = () => {
       if (head) head.style.transform = `translateY(${window.scrollY * -0.07}px)`;
+      if (stage) stage.style.transform = `translateY(${window.scrollY * 0.04}px)`;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -139,25 +151,87 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} style={{ borderBottom: 'none', padding: 0, paddingTop: 'var(--nav-h)' }}>
+      {/* Background video */}
+      <video
+        className={styles.bgVideo}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster="/images/Home_Hero_Page/1.jpg"
+      >
+        <source src="/images/Home_Hero_Page/hero-bg.mp4" type="video/mp4" />
+      </video>
+
+      {/* Dark gradient overlay for readability */}
+      <div className={styles.overlay} aria-hidden="true" />
+
+      {/* Soft drifting color glow */}
+      <div className={styles.glow} aria-hidden="true">
+        <span className={styles.glowSpot} />
+        <span className={styles.glowSpot} />
+      </div>
+
       <canvas id="grain" ref={canvasRef} aria-hidden="true" className={styles.grain} />
 
       <div className={styles.heroTop}>
-        <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>
-          <span className={styles.tagDot} />
-          {PERSONAL.tagline}
-        </div>
+        <div className={styles.heroGrid}>
+          <div className={styles.heroLeft}>
+            <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>
+              <span className={styles.tagDot} />
+              {PERSONAL.tagline}
+            </div>
 
-        <h1 className={styles.h1} id="hero-h1" ref={headRef}>
-          <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>Building software</span></span>
-          <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>that <em>solves real-world</em></span></span>
-          <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>problems.</span></span>
-        </h1>
+            <h1 className={styles.h1} id="hero-h1" ref={headRef}>
+              <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>Building software</span></span>
+              <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>that <em>solves real-world</em></span></span>
+              <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>problems.</span></span>
+            </h1>
 
-        <div className={styles.subRow} ref={subRef} id="hero-sub" style={{ opacity: 0, transform: 'translateY(16px)' }}>
-          <p className={styles.sub}>{PERSONAL.sub}</p>
-          <div className={styles.acts}>
-            <MagBtn href="#work" variant="dark">View my work ↓</MagBtn>
-            <MagBtn href={PERSONAL.github} variant="light" external>GitHub ↗</MagBtn>
+            <div className={styles.subRow} ref={subRef} id="hero-sub" style={{ opacity: 0, transform: 'translateY(16px)' }}>
+              <p className={styles.sub}>{PERSONAL.sub}</p>
+              <div className={styles.acts}>
+                <MagBtn href="#work" className={styles.btnPrimary}>View my work ↓</MagBtn>
+                <MagBtn href={PERSONAL.github} external className={styles.btnGhost}>GitHub ↗</MagBtn>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.heroRight}>
+            <div
+              className={styles.imageStage}
+              ref={stageRef}
+              style={{ opacity: 0, transform: 'translateY(24px) scale(.97)' }}
+            >
+              <div className={styles.ring} aria-hidden="true" />
+
+              <div className={styles.frameMain}>
+                <div className={`${styles.frameImg} ${activeImg === 0 ? styles.show : ''}`}>
+                  <Image src="/images/Home_Hero_Page/1.jpg" alt="Senira Mendis" fill sizes="380px" priority />
+                </div>
+                <div className={`${styles.frameImg} ${activeImg === 1 ? styles.show : ''}`}>
+                  <Image src="/images/Home_Hero_Page/2.jpg" alt="Senira Mendis at the beach" fill sizes="380px" />
+                </div>
+                <div className={styles.frameShade} aria-hidden="true" />
+
+                <div className={styles.badge}>
+                  <span className={styles.badgeDot} />
+                  Available
+                </div>
+
+                <div className={styles.caption}>Hi, I&apos;m Senira 👋</div>
+              </div>
+
+              <div className={styles.frameAccent}>
+                <div className={`${styles.frameImg} ${activeImg === 1 ? styles.show : ''}`}>
+                  <Image src="/images/Home_Hero_Page/1.jpg" alt="" fill sizes="200px" aria-hidden="true" />
+                </div>
+                <div className={`${styles.frameImg} ${activeImg === 0 ? styles.show : ''}`}>
+                  <Image src="/images/Home_Hero_Page/2.jpg" alt="" fill sizes="200px" aria-hidden="true" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -166,9 +240,9 @@ export default function Hero() {
         {STATS.map(s => <StatCounter key={s.label} {...s} />)}
       </div>
 
-      <div className="scroll-ind" ref={scrollRef} id="scroll-ind" style={{ opacity: 0 }}>
-        <div className="scroll-track"><div className="scroll-fill" /></div>
-        <span className="scroll-lbl">Scroll</span>
+      <div className={styles.scrollInd} ref={scrollRef} id="scroll-ind" style={{ opacity: 0 }}>
+        <div className={styles.scrollTrack}><div className={styles.scrollFill} /></div>
+        <span className={styles.scrollLbl}>Scroll</span>
       </div>
     </section>
   );

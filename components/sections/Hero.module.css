@@ -1,10 +1,98 @@
 .hero {
+  --h-text-1: #FBFAF8;
+  --h-text-2: rgba(251,250,248,.78);
+  --h-text-3: rgba(251,250,248,.5);
+  --h-border: rgba(255,255,255,.14);
+  --h-border-med: rgba(255,255,255,.24);
+  --h-glass: rgba(20,18,16,.46);
+
   min-height: 100vh;
   position: relative;
   display: grid;
   grid-template-rows: 1fr auto;
-  background: var(--white);
+  background: #0B0A09;
+  color: var(--h-text-1);
   overflow: hidden;
+  isolation: isolate;
+}
+
+/* ═══════════════════════════════════════════
+   BACKGROUND VIDEO + OVERLAYS
+═══════════════════════════════════════════ */
+.bgVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  z-index: 0;
+  filter: saturate(1.05) contrast(1.02) brightness(.92);
+  animation: videoIn 2.4s ease-out both;
+}
+
+@keyframes videoIn {
+  from { opacity: 0; transform: scale(1.04); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(125deg,
+      rgba(8,7,6,.92) 0%,
+      rgba(10,9,8,.82) 32%,
+      rgba(12,10,9,.46) 58%,
+      rgba(10,9,8,.7) 100%),
+    linear-gradient(to top, rgba(6,5,4,.6) 0%, rgba(6,5,4,0) 38%);
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  mix-blend-mode: screen;
+  opacity: .55;
+}
+
+.glowSpot {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: .5;
+}
+
+.glowSpot:nth-child(1) {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  top: -10%;
+  right: 8%;
+  animation: drift1 22s ease-in-out infinite alternate;
+}
+
+.glowSpot:nth-child(2) {
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%);
+  bottom: -12%;
+  left: -6%;
+  animation: drift2 26s ease-in-out infinite alternate;
+}
+
+@keyframes drift1 {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(-60px,40px) scale(1.15); }
+}
+
+@keyframes drift2 {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(50px,-30px) scale(1.1); }
 }
 
 .grain {
@@ -13,14 +101,31 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: .4;
+  opacity: .35;
+  z-index: 2;
 }
 
+/* ═══════════════════════════════════════════
+   TOP CONTENT
+═══════════════════════════════════════════ */
 .heroTop {
+  position: relative;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 80px 56px 0;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1.15fr .85fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.heroLeft {
+  max-width: 640px;
 }
 
 .heroTag {
@@ -31,7 +136,7 @@
   font-weight: 500;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: var(--text-3);
+  color: var(--h-text-3);
   margin-bottom: 40px;
 }
 
@@ -46,13 +151,14 @@
 
 .h1 {
   font-family: var(--serif);
-  font-size: clamp(54px, 8vw, 118px);
+  font-size: clamp(50px, 7.4vw, 108px);
   font-weight: 200;
-  line-height: .97;
+  line-height: .98;
   letter-spacing: -.04em;
-  color: var(--text-1);
+  color: var(--h-text-1);
   max-width: 1100px;
   overflow: hidden;
+  text-shadow: 0 2px 40px rgba(0,0,0,.35);
 }
 
 .line {
@@ -62,22 +168,21 @@
 
 .h1 em {
   font-style: italic;
-  color: var(--text-3);
+  color: var(--h-text-3);
 }
 
 .subRow {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-top: 56px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+  margin-top: 40px;
 }
 
 .sub {
   font-size: 15px;
-  color: var(--text-2);
-  max-width: 360px;
+  color: var(--h-text-2);
+  max-width: 400px;
   line-height: 1.75;
 }
 
@@ -87,16 +192,201 @@
   flex-wrap: wrap;
 }
 
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 13px 28px;
+  border-radius: 100px;
+  text-decoration: none;
+  color: #16140F;
+  background: var(--h-text-1);
+  border: .5px solid transparent;
+  transition: box-shadow .3s, transform .2s;
+}
+.btnPrimary:hover { box-shadow: 0 8px 36px rgba(255,255,255,.18); }
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 13px 28px;
+  border-radius: 100px;
+  text-decoration: none;
+  color: var(--h-text-1);
+  background: rgba(255,255,255,.04);
+  backdrop-filter: blur(6px);
+  border: .5px solid var(--h-border-med);
+  transition: box-shadow .3s, background .3s;
+}
+.btnGhost:hover { box-shadow: 0 8px 24px rgba(0,0,0,.25); background: rgba(255,255,255,.08); }
+
+/* ═══════════════════════════════════════════
+   RIGHT — IMAGE STAGE
+═══════════════════════════════════════════ */
+.heroRight {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.imageStage {
+  position: relative;
+  width: min(100%, 380px);
+  aspect-ratio: 4 / 5;
+}
+
+.ring {
+  position: absolute;
+  top: -34px;
+  right: -28px;
+  width: 110px;
+  height: 110px;
+  border: 1px dashed var(--h-border-med);
+  border-radius: 50%;
+  animation: spin 36s linear infinite;
+  pointer-events: none;
+}
+
+.ring::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translateY(-50%);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.frameMain {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--h-border);
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,.6);
+  background: #15130F;
+}
+
+.frameAccent {
+  position: absolute;
+  width: 48%;
+  aspect-ratio: 3 / 4;
+  left: -10%;
+  bottom: -9%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--h-border);
+  box-shadow: 0 24px 60px -16px rgba(0,0,0,.55);
+  background: #15130F;
+  z-index: 4;
+  animation: float 7.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-16px) rotate(1.5deg); }
+}
+
+.frameImg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s cubic-bezier(.22,1,.36,1);
+}
+
+.frameImg.show {
+  opacity: 1;
+}
+
+.frameImg :global(img) {
+  object-fit: cover;
+  animation: kenburns 24s ease-in-out infinite alternate;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.12); }
+}
+
+.frameShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.45) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 100px;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--h-text-1);
+  background: rgba(15,13,11,.5);
+  border: .5px solid var(--h-border-med);
+  backdrop-filter: blur(10px);
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #6FE3A1;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+.caption {
+  position: absolute;
+  bottom: 16px;
+  left: 18px;
+  right: 18px;
+  z-index: 5;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--h-text-1);
+  text-shadow: 0 2px 16px rgba(0,0,0,.5);
+}
+
+/* ═══════════════════════════════════════════
+   BOTTOM STATS
+═══════════════════════════════════════════ */
 .heroBottom {
+  position: relative;
+  z-index: 3;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: .5px solid var(--border);
+  border-top: 1px solid var(--h-border);
   margin-top: 80px;
+  background: var(--h-glass);
+  backdrop-filter: blur(16px);
 }
 
 .stat {
   padding: 28px 56px;
-  border-right: .5px solid var(--border);
+  border-right: 1px solid var(--h-border);
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -110,16 +400,77 @@
   font-weight: 200;
   letter-spacing: -.03em;
   line-height: 1;
+  color: var(--h-text-1);
 }
 
 .statLbl {
   font-size: 11px;
-  color: var(--text-3);
+  color: var(--h-text-3);
   letter-spacing: .05em;
 }
 
+/* ═══════════════════════════════════════════
+   SCROLL INDICATOR (dark variant)
+═══════════════════════════════════════════ */
+.scrollInd {
+  position: absolute;
+  right: 56px;
+  bottom: 44px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.scrollTrack {
+  width: 1px;
+  height: 56px;
+  background: var(--h-border-med);
+  position: relative;
+  overflow: hidden;
+}
+
+.scrollFill {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  background: var(--h-text-1);
+  height: 100%;
+  animation: heroSf 2s cubic-bezier(.22,1,.36,1) infinite;
+}
+
+@keyframes heroSf {
+  0%   { top: -100%; }
+  50%  { top: 0; }
+  100% { top: 100%; }
+}
+
+.scrollLbl {
+  font-size: 9.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--h-text-3);
+  writing-mode: vertical-rl;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
 @media (max-width: 900px) {
   .heroTop { padding: 48px 24px 0; }
-  .heroBottom { grid-template-columns: 1fr; border-top: none; }
-  .stat { padding: 20px 24px; border-right: none; border-bottom: .5px solid var(--border); }
+  .heroGrid { grid-template-columns: 1fr; gap: 48px; }
+  .heroRight { order: -1; }
+  .imageStage { width: min(78%, 320px); aspect-ratio: 4 / 5; margin: 0 auto; }
+  .ring { display: none; }
+  .heroBottom { grid-template-columns: 1fr; border-top: none; margin-top: 48px; }
+  .stat { padding: 20px 24px; border-right: none; border-bottom: 1px solid var(--h-border); }
+  .stat:last-child { border-bottom: none; }
+  .scrollInd { display: none; }
+}
+
+@media (max-width: 520px) {
+  .h1 { font-size: clamp(40px, 13vw, 64px); }
+  .frameAccent { width: 56%; left: -8%; bottom: -8%; }
 }
