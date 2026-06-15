@@ -6,11 +6,7 @@
   --h-border-med: rgba(255,255,255,.24);
   --h-glass: rgba(20,18,16,.46);
 
-  /* UPDATED: Forces 16:9 ratio so the video fits perfectly without heavy cropping */
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: 100vh;
-
+  min-height: 100vh;
   position: relative;
   display: grid;
   grid-template-rows: 1fr auto;
@@ -33,6 +29,15 @@
   z-index: 0;
   filter: saturate(1.05) contrast(1.02) brightness(.92);
   animation: videoIn 2.4s ease-out both;
+}
+
+/* Visiblity toggles for the two videos */
+.desktopVideo {
+  display: block;
+}
+
+.mobileVideo {
+  display: none;
 }
 
 @keyframes videoIn {
@@ -410,13 +415,37 @@
   .introLine { font-size: 16px; margin-top: 20px; }
   .techRow { margin-top: 12px; }
   
-  /* UPDATED: Fallback for tablets/mobile so it doesn't squish too small */
-  .hero {
-    aspect-ratio: auto;
-    min-height: 100vh;
+  .bgVideo {
+    object-position: 70% center; 
   }
 }
 
 @media (max-width: 520px) {
   .h1 { font-size: clamp(40px, 13vw, 64px); }
+  
+  /* Hide the desktop video entirely on mobile */
+  .desktopVideo {
+    display: none;
+  }
+  
+  /* Show the vertical mobile video */
+  .mobileVideo {
+    display: block;
+  }
+
+  .bgVideo {
+    /* Kept the fade-in, but removed the panning animation since the mobile video is already cropped perfectly! */
+    animation: videoIn 2.4s ease-out both; 
+    object-position: center center; 
+  }
+
+  .overlay {
+    background:
+      linear-gradient(125deg,
+        rgba(8,7,6,.85) 0%,
+        rgba(10,9,8,.70) 32%,
+        rgba(12,10,9,.30) 58%,
+        rgba(10,9,8,.6) 100%),
+      linear-gradient(to top, rgba(6,5,4,.5) 0%, rgba(6,5,4,0) 38%);
+  }
 }

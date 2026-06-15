@@ -195,9 +195,9 @@ export default function Hero() {
   return (
     <section className={styles.hero} style={{ borderBottom: 'none', padding: 0, paddingTop: 'var(--nav-h)' }}>
       
-      {/* Background video restored, poster image removed */}
+      {/* Desktop Video (Hidden on mobile) */}
       <video
-        className={styles.bgVideo}
+        className={`${styles.bgVideo} ${styles.desktopVideo}`}
         autoPlay
         muted
         loop
@@ -205,6 +205,19 @@ export default function Hero() {
         preload="auto"
       >
         <source src="/images/Home_Hero_Page/hero-bg.mp4" type="video/mp4" />
+      </video>
+
+      {/* Mobile Video (Hidden on desktop) */}
+      <video
+        className={`${styles.bgVideo} ${styles.mobileVideo}`}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      >
+        {/* Make sure your vertical video is named exactly this and in the same folder */}
+        <source src="/images/Home_Hero_Page/hero-bg-mobile.mp4" type="video/mp4" />
       </video>
 
       {/* Dark gradient overlay for readability */}
