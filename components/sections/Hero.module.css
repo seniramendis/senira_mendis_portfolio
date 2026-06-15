@@ -9,7 +9,6 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   max-height: 100vh;
-  
   position: relative;
   display: grid;
   grid-template-rows: 1fr auto;
@@ -250,43 +249,21 @@
 
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* ─── RIGHT SIDE (ADVANCED SLIDESHOW) ─── */
+/* ─── PURE TEXT, NO BOXES, HEAVY SHADOWS ─── */
 .heroRight {
   position: relative;
-  height: 300px; /* Slightly taller for the new skill chips */
+  height: 300px;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(145deg, rgba(20, 18, 16, 0.4), rgba(10, 9, 8, 0.6));
-  border: 1px solid var(--h-border);
-  box-shadow: inset 0 0 40px rgba(255,255,255,0.02), 0 20px 40px rgba(0,0,0,0.4);
-  border-radius: 24px;
-  padding: 36px 36px 60px 36px;
-  backdrop-filter: blur(16px);
-  overflow: hidden;
+  background: transparent; /* COMPLETELY REMOVED BACKGROUND */
+  border: none; /* COMPLETELY REMOVED BORDERS */
+  padding: 36px 0; /* Aligned left without box padding */
+  overflow: visible; /* Allows shadows to bleed */
 }
 
-/* Subtle animated gradient border effect */
-.heroRight::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  padding: 1px;
-  background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* Advanced Slide Transitions (Blur Reveal) */
 .slide {
   position: absolute;
-  inset: 36px 36px 60px 36px;
-  opacity: 0;
-  transform: translateY(15px) scale(0.98);
-  filter: blur(8px);
-  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  inset: 36px 0 60px 0;
   pointer-events: none;
   visibility: hidden;
   display: flex;
@@ -295,261 +272,117 @@
 }
 
 .slideActive {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
   pointer-events: auto;
   visibility: visible;
+  z-index: 2;
+}
+
+/* Staggered Element Animations */
+.slideActive .slideTitle { animation: floatTextUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards; }
+.slideActive .sub { animation: floatTextUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; }
+.slideActive .acts { animation: floatTextUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards; }
+
+@keyframes floatTextUp {
+  from { opacity: 0; transform: translateY(20px); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
 .slideTitle {
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 20px;
-  display: inline-flex;
-}
-
-.slideTitleText {
-  padding: 4px 10px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 4px;
+  margin-bottom: 24px;
+  opacity: 0; /* Handled by animation */
+  text-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.8);
 }
 
 .sub {
-  font-size: 16px;
+  font-size: 17px;
   color: var(--h-text-1);
   line-height: 1.7;
-  font-weight: 300;
+  font-weight: 400;
+  opacity: 0; /* Handled by animation */
+  text-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.8);
 }
 
-/* Advanced Skill Chips */
+/* Floating Skill Text (No Badges) */
 .skillsGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
 }
 
 .skillBadge {
-  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 18px;
-  background: rgba(20, 18, 16, 0.8);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: 500;
+  padding: 0; /* No padding needed for text */
+  background: transparent; /* No background */
+  border: none; /* No border */
+  font-size: 15px;
+  font-weight: 600;
   color: var(--h-text-1);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-  
-  /* Staggered load animation */
   opacity: 0;
-  transform: translateY(10px);
+  text-shadow: 0 4px 20px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.8);
+  transition: all 0.3s ease;
 }
 
 .slideActive .skillBadge {
-  animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes popIn {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.skillBadge::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  /* Using the delay set in the TSX file */
+  animation: floatTextUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .skillBadge:hover {
-  transform: translateY(-4px) scale(1.02);
-  border-color: rgba(255,255,255,0.3);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4), 0 0 15px rgba(255,255,255,0.05);
+  color: var(--accent);
+  transform: translateY(-4px) scale(1.05);
+  text-shadow: 0 6px 24px rgba(0,0,0,1), 0 0 15px var(--accent);
 }
 
-.skillBadge:hover::after { opacity: 1; }
-
-.skillIcon { font-size: 15px; }
-
-/* Story-Style Progress Navigation */
-.storyNav {
-  position: absolute;
-  bottom: 24px;
-  left: 36px;
-  right: 36px;
-  display: flex;
-  gap: 8px;
-  z-index: 5;
+.skillIcon { 
+  font-size: 18px; 
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8)); 
 }
 
-.storyTrack {
-  flex: 1;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
-  overflow: hidden;
-  cursor: pointer;
-  position: relative;
-}
+/* Shadows for the buttons */
+.acts { opacity: 0; display: flex; gap: 12px; flex-wrap: wrap; }
+.btnPrimary { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; padding: 13px 28px; border-radius: 100px; text-decoration: none; color: #16140F; background: var(--h-text-1); border: .5px solid transparent; transition: box-shadow .3s, transform .2s; box-shadow: 0 4px 16px rgba(0,0,0,0.6); }
+.btnPrimary:hover { box-shadow: 0 8px 36px rgba(255,255,255,.2); transform: translateY(-2px); }
+.btnGhost { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; padding: 13px 28px; border-radius: 100px; text-decoration: none; color: var(--h-text-1); background: rgba(0,0,0,.3); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.15); box-shadow: 0 4px 16px rgba(0,0,0,0.6); transition: box-shadow .3s, background .3s, transform .2s; }
+.btnGhost:hover { box-shadow: 0 8px 24px rgba(0,0,0,.4); background: rgba(0,0,0,.5); transform: translateY(-2px); border-color: rgba(255,255,255,.3); }
 
-/* Adds a larger click area for mobile */
-.storyTrack::after {
-  content: '';
-  position: absolute;
-  inset: -10px 0;
-}
-
-.storyFill {
-  height: 100%;
-  width: 0%;
-  background: var(--h-text-1);
-  border-radius: 4px;
-}
-
-.storyFillComplete {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.5);
-}
-
-/* 5s matches the setInterval in Hero.tsx */
-.storyFillActive {
-  animation: storyProgress 5s linear forwards; 
-}
-
-@keyframes storyProgress {
-  0% { width: 0%; }
-  100% { width: 100%; }
-}
-
-/* Buttons */
-.acts { display: flex; gap: 12px; flex-wrap: wrap; }
-
-.btnPrimary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 13px 28px;
-  border-radius: 100px;
-  text-decoration: none;
-  color: #16140F;
-  background: var(--h-text-1);
-  border: .5px solid transparent;
-  transition: box-shadow .3s, transform .2s;
-}
-.btnPrimary:hover { box-shadow: 0 8px 36px rgba(255,255,255,.18); transform: translateY(-2px); }
-
-.btnGhost {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 13px 28px;
-  border-radius: 100px;
-  text-decoration: none;
-  color: var(--h-text-1);
-  background: rgba(255,255,255,.04);
-  backdrop-filter: blur(6px);
-  border: .5px solid var(--h-border-med);
-  transition: box-shadow .3s, background .3s, transform .2s;
-}
-.btnGhost:hover { box-shadow: 0 8px 24px rgba(0,0,0,.25); background: rgba(255,255,255,.08); transform: translateY(-2px); }
+/* Progress bars with Drop Shadow */
+.storyNav { position: absolute; bottom: 20px; left: 0; right: 0; display: flex; gap: 8px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.9)); }
+.storyTrack { flex: 1; height: 3px; background: rgba(255,255,255,0.2); border-radius: 4px; cursor: pointer; position: relative; }
+.storyTrack::after { content: ''; position: absolute; inset: -10px 0; }
+.storyFill { height: 100%; width: 0%; background: var(--h-text-1); border-radius: 4px; }
+.storyFillComplete { width: 100%; background: rgba(255, 255, 255, 0.5); }
+.storyFillActive { animation: storyProgress 5s linear forwards; }
+@keyframes storyProgress { 0% { width: 0%; } 100% { width: 100%; } }
 
 /* ═══════════════════════════════════════════
    BOTTOM STATS
 ═══════════════════════════════════════════ */
-.heroBottom {
-  position: relative;
-  z-index: 3;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--h-border);
-  margin-top: 80px;
-  background: var(--h-glass);
-  backdrop-filter: blur(16px);
-}
-
-.stat {
-  padding: 28px 56px;
-  border-right: 1px solid var(--h-border);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
+.heroBottom { position: relative; z-index: 3; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--h-border); margin-top: 80px; background: var(--h-glass); backdrop-filter: blur(16px); }
+.stat { padding: 28px 56px; border-right: 1px solid var(--h-border); display: flex; flex-direction: column; gap: 4px; }
 .stat:last-child { border-right: none; }
-
-.statNum {
-  font-family: var(--serif);
-  font-size: 36px;
-  font-weight: 200;
-  letter-spacing: -.03em;
-  line-height: 1;
-  color: var(--h-text-1);
-}
-
-.statLbl {
-  font-size: 11px;
-  color: var(--h-text-3);
-  letter-spacing: .05em;
-}
+.statNum { font-family: var(--serif); font-size: 36px; font-weight: 200; letter-spacing: -.03em; line-height: 1; color: var(--h-text-1); }
+.statLbl { font-size: 11px; color: var(--h-text-3); letter-spacing: .05em; }
 
 /* ═══════════════════════════════════════════
-   SCROLL INDICATOR (dark variant)
+   SCROLL INDICATOR
 ═══════════════════════════════════════════ */
-.scrollInd {
-  position: absolute;
-  right: 56px;
-  bottom: 44px;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.scrollTrack {
-  width: 1px;
-  height: 56px;
-  background: var(--h-border-med);
-  position: relative;
-  overflow: hidden;
-}
-
-.scrollFill {
-  position: absolute;
-  top: -100%;
-  left: 0;
-  right: 0;
-  background: var(--h-text-1);
-  height: 100%;
-  animation: heroSf 2s cubic-bezier(.22,1,.36,1) infinite;
-}
-
-@keyframes heroSf {
-  0%   { top: -100%; }
-  50%  { top: 0; }
-  100% { top: 100%; }
-}
+.scrollInd { position: absolute; right: 56px; bottom: 44px; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.scrollTrack { width: 1px; height: 56px; background: var(--h-border-med); position: relative; overflow: hidden; }
+.scrollFill { position: absolute; top: -100%; left: 0; right: 0; background: var(--h-text-1); height: 100%; animation: heroSf 2s cubic-bezier(.22,1,.36,1) infinite; }
+@keyframes heroSf { 0% { top: -100%; } 50% { top: 0; } 100% { top: 100%; } }
 
 /* ═══════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════ */
-@media (max-width: 1100px) {
-  .heroGrid { grid-template-columns: 1fr; gap: 40px; }
-}
-
+@media (max-width: 1100px) { .heroGrid { grid-template-columns: 1fr; gap: 40px; } }
 @media (max-width: 900px) {
   .hero { aspect-ratio: auto; min-height: 100vh; }
   .heroTop { padding: 48px 24px 0; }
@@ -561,11 +394,10 @@
   .techRow { margin-top: 12px; }
   .bgVideo { object-position: 70% center; }
   
-  .heroRight { height: 320px; padding: 24px 24px 50px 24px; }
-  .slide { inset: 24px 24px 50px 24px; }
-  .storyNav { left: 24px; right: 24px; bottom: 20px; }
+  .heroRight { height: 320px; padding: 24px 0 50px 0; }
+  .slide { inset: 24px 0 50px 0; }
+  .storyNav { left: 0; right: 0; bottom: 20px; }
 }
-
 @media (max-width: 520px) {
   .hero { aspect-ratio: auto; min-height: 100vh; }
   .h1 { font-size: clamp(40px, 13vw, 64px); }
@@ -573,7 +405,6 @@
   .mobileVideo { display: block; }
   .bgVideo { animation: videoIn 2.4s ease-out both; object-position: center center; }
 
-  /* Make sure buttons fit on small phones */
   .acts { gap: 8px; flex-direction: column; width: 100%; }
   .btnPrimary, .btnGhost { width: 100%; justify-content: center; }
 

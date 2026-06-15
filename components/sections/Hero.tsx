@@ -64,11 +64,11 @@ export default function Hero() {
     if (!c) return;
     const ctx = c.getContext('2d')!;
     let W: number, H: number;
-    const pts: Particle[] = [];
+    const pts: any[] = [];
     let raf: number;
 
     class Particle {
-      x = 0; y = 0; r = 0; vx = 0; vy = 0; a = 0;
+      x: number = 0; y: number = 0; r: number = 0; vx: number = 0; vy: number = 0; a: number = 0;
       constructor() { this.reset(); }
       reset() {
         this.x  = Math.random() * W;
@@ -95,27 +95,9 @@ export default function Hero() {
     window.addEventListener('resize', resize);
     for (let i = 0; i < 70; i++) pts.push(new Particle());
 
-    const lines = () => {
-      for (let i = 0; i < pts.length; i++) {
-        for (let j = i + 1; j < pts.length; j++) {
-          const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 115) {
-            ctx.beginPath();
-            ctx.moveTo(pts[i].x, pts[i].y);
-            ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.strokeStyle = `rgba(255,255,255,${0.05 * (1 - d / 115)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-    };
-
     const loop = () => {
       ctx.clearRect(0, 0, W, H);
       pts.forEach(p => { p.step(); p.draw(); });
-      lines();
       raf = requestAnimationFrame(loop);
     };
     loop();
@@ -125,10 +107,10 @@ export default function Hero() {
 
   // Entrance animations
   useEffect(() => {
-    const tag    = tagRef.current;
-    const head   = headRef.current;
-    const intro  = introRef.current;
-    const tech   = techRef.current;
+    const tag = tagRef.current;
+    const head = headRef.current;
+    const intro = introRef.current;
+    const tech = techRef.current;
     const slideBox = slideRef.current;
     const bottom = bottomRef.current;
     const scroll = scrollRef.current;
@@ -150,21 +132,11 @@ export default function Hero() {
         inner.style.transform = 'translateY(0%)';
       }, 100 + i * 120);
     });
-
     animate(intro, { opacity: '1', transform: 'translateY(0)' }, 1500);
     animate(tech,  { opacity: '1', transform: 'translateY(0)' }, 2150);
-
-    // Fade in the new right-side container
     animate(slideBox, { opacity: '1', transform: 'translateY(0)' }, 2600);
-    
     animate(bottom, { opacity: '1', transform: 'translateY(0)' }, 3050);
     animate(scroll, { opacity: '1' }, 3350);
-
-    const onScroll = () => {
-      if (head) head.style.transform = `translateY(${window.scrollY * -0.07}px)`;
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   // Tech-stack typewriter
@@ -212,76 +184,35 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} style={{ borderBottom: 'none', padding: 0, paddingTop: 'var(--nav-h)' }}>
-      
-      {/* Desktop Video */}
-      <video
-        className={`${styles.bgVideo} ${styles.desktopVideo}`}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster="/images/Home_Hero_Page/hero-poster.jpg" 
-      >
+      <video className={`${styles.bgVideo} ${styles.desktopVideo}`} autoPlay muted loop playsInline preload="auto" poster="/images/Home_Hero_Page/hero-poster.jpg">
         <source src="https://res.cloudinary.com/dukv2otyn/video/upload/f_auto,q_auto/v1781517951/hero-bg_anzt23.mp4" type="video/mp4" />
       </video>
-
-      {/* Mobile Video */}
-      <video
-        className={`${styles.bgVideo} ${styles.mobileVideo}`}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        poster="/images/Home_Hero_Page/hero-poster.jpg" 
-      >
+      <video className={`${styles.bgVideo} ${styles.mobileVideo}`} autoPlay muted loop playsInline preload="auto" poster="/images/Home_Hero_Page/hero-poster.jpg">
         <source src="https://res.cloudinary.com/dukv2otyn/video/upload/f_auto,q_auto/v1781518706/hero-bg-mobile_gxv4wm.mp4" type="video/mp4" />
       </video>
 
-      <div className={styles.overlay} aria-hidden="true" />
-
-      <div className={styles.glow} aria-hidden="true">
-        <span className={styles.glowSpot} />
-        <span className={styles.glowSpot} />
-      </div>
-
-      <canvas id="grain" ref={canvasRef} aria-hidden="true" className={styles.grain} />
+      <div className={styles.overlay} />
+      <canvas id="grain" ref={canvasRef} className={styles.grain} />
 
       <div className={styles.heroTop}>
         <div className={styles.heroGrid}>
           
-          {/* Left Column: Titles */}
           <div className={styles.heroLeft}>
-            <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>
-              <span className={styles.tagDot} />
-              {PERSONAL.tagline}
-            </div>
-
+            <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}><span className={styles.tagDot} />{PERSONAL.tagline}</div>
             <h1 className={styles.h1} id="hero-h1" ref={headRef}>
               <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>Building software</span></span>
               <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>that <em>solves real-world</em></span></span>
               <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>problems.</span></span>
             </h1>
-
-            <div className={styles.introLine} ref={introRef} style={{ opacity: 0, transform: 'translateY(14px)' }}>
-              <span className={styles.wave} aria-hidden="true">👋</span>
-              <span>Hey, I&apos;m <span className={styles.introName}>Senira Mendis</span></span>
-            </div>
-
+            <div className={styles.introLine} ref={introRef} style={{ opacity: 0, transform: 'translateY(14px)' }}><span className={styles.wave} aria-hidden="true">👋</span><span>Hey, I&apos;m <span className={styles.introName}>Senira Mendis</span></span></div>
             <div className={styles.techRow} ref={techRef} style={{ opacity: 0, transform: 'translateY(10px)' }}>
               <span className={styles.techLabel}>Currently building with</span>
-              <span className={styles.techWordWrap}>
-                <span className={styles.techWord} ref={techWordRef} />
-                <span className={styles.techCursor} aria-hidden="true" />
-              </span>
+              <span className={styles.techWordWrap}><span className={styles.techWord} ref={techWordRef} /><span className={styles.techCursor} aria-hidden="true" /></span>
             </div>
           </div>
 
-          {/* Right Column: Advanced Slideshow */}
           <div className={styles.heroRight} ref={slideRef} style={{ opacity: 0, transform: 'translateY(24px)' }}>
             
-            {/* Slide 1: Description */}
             <div className={`${styles.slide} ${activeSlide === 0 ? styles.slideActive : ''}`}>
               <h3 className={styles.slideTitle}>
                 <span className={styles.slideTitleText}>01 // The Mission</span>
@@ -289,7 +220,6 @@ export default function Hero() {
               <p className={styles.sub}>{PERSONAL.sub}</p>
             </div>
 
-            {/* Slide 2: Skills with Glowing Tech Chips */}
             <div className={`${styles.slide} ${activeSlide === 1 ? styles.slideActive : ''}`}>
               <h3 className={styles.slideTitle}>
                 <span className={styles.slideTitleText}>02 // Core Stack</span>
@@ -299,16 +229,14 @@ export default function Hero() {
                   <div 
                     key={skill.name} 
                     className={styles.skillBadge}
-                    style={{ animationDelay: `${index * 0.05}s` }} /* Staggered entrance */
+                    style={{ animationDelay: `${0.15 + (index * 0.05)}s` }} 
                   >
-                    <span className={styles.skillIcon}>{skill.icon}</span>
-                    {skill.name}
+                    <span className={styles.skillIcon}>{skill.icon}</span> {skill.name}
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Slide 3: Contacts & Booking */}
             <div className={`${styles.slide} ${activeSlide === 2 ? styles.slideActive : ''}`}>
               <h3 className={styles.slideTitle}>
                 <span className={styles.slideTitleText}>03 // Connect</span>
@@ -320,7 +248,6 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Story-style Progress Navigation */}
             <div className={styles.storyNav}>
               {[0, 1, 2].map((i) => (
                 <div 
@@ -341,15 +268,8 @@ export default function Hero() {
 
         </div>
       </div>
-
-      <div className={styles.heroBottom} ref={bottomRef} id="hero-bottom" style={{ opacity: 0, transform: 'translateY(12px)' }}>
-        {STATS.map(s => <StatCounter key={s.label} {...s} />)}
-      </div>
-
-      <div className={styles.scrollInd} ref={scrollRef} id="scroll-ind" style={{ opacity: 0 }}>
-        <div className={styles.scrollTrack}><div className={styles.scrollFill} /></div>
-        <span className={styles.scrollLbl}>Scroll</span>
-      </div>
+      <div className={styles.heroBottom} ref={bottomRef} id="hero-bottom" style={{ opacity: 0, transform: 'translateY(12px)' }}>{STATS.map(s => <StatCounter key={s.label} {...s} />)}</div>
+      <div className={styles.scrollInd} ref={scrollRef} id="scroll-ind" style={{ opacity: 0 }}><div className={styles.scrollTrack}><div className={styles.scrollFill} /></div><span className={styles.scrollLbl}>Scroll</span></div>
     </section>
   );
 }
