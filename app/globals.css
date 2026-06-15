@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&display=swap');
 
 /* ═══════════════════════════════════════════
-   RESET + TOKENS
+   RESET + LUXURY TOKENS (Rolex / Patek Vibe)
 ═══════════════════════════════════════════ */
 *, *::before, *::after {
   margin: 0;
@@ -10,18 +10,32 @@
 }
 
 :root {
+  /* Core Luxury Palette */
+  --navy-core:     #0A192F; /* Deep rich navy */
+  --navy-dark:     #040C18; /* Almost black navy for ultimate contrast */
+  --gold-primary:  #D4AF37; /* Classic Metallic Gold */
+  --gold-light:    #F3E5AB; /* Soft Champagne Gold */
+  --gold-dark:     #AA8C2C; /* Deep Brass/Gold */
+
+  /* Backgrounds: Removed cheap greys, replaced with pristine White & Ivory Cream */
   --white:         #FFFFFF;
-  --off-white:     #F8F7F4;
-  --warm-gray:     #F0EDE7;
-  --border:        rgba(0,0,0,0.07);
-  --border-med:    rgba(0,0,0,0.11);
-  --border-strong: rgba(0,0,0,0.15);
-  --text-1:        #0D0D0D;
-  --text-2:        #555550;
-  --text-3:        #9A9992;
-  --accent:        #C4601A;
-  --accent-blue:   #1653A6;
-  --accent-light:  rgba(196,96,26,0.07);
+  --off-white:     #FDFBF7; /* Warm luxury cream (Patek style) */
+  --warm-gray:     #F4EFE6; /* Richer cream */
+
+  /* Borders: Tinted with gold instead of flat grey */
+  --border:        rgba(212, 175, 55, 0.25);
+  --border-med:    rgba(212, 175, 55, 0.45);
+  --border-strong: rgba(10, 25, 47, 0.2);
+
+  /* Typography: Mapped to Navy & Gold */
+  --text-1:        var(--navy-dark);    /* Primary text: Deep Navy instead of black */
+  --text-2:        var(--gold-dark);    /* Secondary text: Dark Gold instead of dark grey */
+  --text-3:        var(--gold-primary); /* Tertiary/Labels: Bright Gold instead of light grey */
+  
+  --accent:        var(--gold-primary);
+  --accent-blue:   var(--navy-core);
+  --accent-light:  rgba(212, 175, 55, 0.08); /* Soft gold wash for hovers */
+
   --serif:         'Fraunces', Georgia, serif;
   --sans:          'Inter', system-ui, sans-serif;
   --nav-h:         64px;
@@ -43,13 +57,13 @@ body {
 }
 
 /* ═══════════════════════════════════════════
-   CURSOR
+   LUXURY CURSOR (Navy & Gold)
 ═══════════════════════════════════════════ */
 #cur-dot {
   position: fixed;
   width: 5px;
   height: 5px;
-  background: var(--text-1);
+  background: var(--navy-core);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -62,7 +76,7 @@ body {
   position: fixed;
   width: 34px;
   height: 34px;
-  border: 1px solid rgba(13,13,13,.25);
+  border: 1px solid rgba(10, 25, 47, 0.3);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
@@ -74,7 +88,7 @@ body {
 }
 
 body.ch #cur-dot  { width: 9px; height: 9px; background: var(--accent); }
-body.ch #cur-ring { width: 50px; height: 50px; border-color: rgba(196,96,26,.35); }
+body.ch #cur-ring { width: 50px; height: 50px; border-color: var(--gold-primary); }
 body.cc #cur-dot  { transform: translate(-50%,-50%) scale(.5); }
 
 @media (max-width: 900px) {
@@ -89,8 +103,9 @@ body.cc #cur-dot  { transform: translate(-50%,-50%) scale(.5); }
   position: fixed;
   top: 0;
   left: 0;
-  height: 1.5px;
-  background: var(--accent);
+  height: 2px;
+  background: var(--gold-primary);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
   z-index: 9997;
   width: 0%;
   transition: width .1s linear;
@@ -134,19 +149,19 @@ body::after {
   gap: 30px;
   padding: 0 40px;
   font-size: 10.5px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--text-3);
+  color: var(--gold-dark); /* Replaced grey with dark gold */
   white-space: nowrap;
 }
 
 .mq-item b {
-  width: 3px;
-  height: 3px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
-  background: var(--text-3);
-  opacity: .5;
+  background: var(--gold-primary);
+  opacity: .8;
   display: inline-block;
   font-weight: 400;
 }
@@ -172,10 +187,10 @@ section {
 
 .sec-label {
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--text-3);
+  color: var(--gold-primary); /* Luxury Gold Label */
   margin-bottom: 72px;
   display: flex;
   align-items: center;
@@ -186,8 +201,8 @@ section {
   content: '';
   display: block;
   width: 24px;
-  height: .5px;
-  background: var(--text-3);
+  height: 1px;
+  background: var(--gold-primary);
 }
 
 @media (max-width: 900px) {
@@ -195,37 +210,47 @@ section {
 }
 
 /* ═══════════════════════════════════════════
-   MAGNETIC BUTTON
+   MAGNETIC BUTTON (Navy & Gold spec)
 ═══════════════════════════════════════════ */
 .mbtn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   padding: 13px 28px;
   border-radius: 100px;
   text-decoration: none;
-  transition: box-shadow .3s;
+  transition: all .3s ease;
   cursor: none;
   will-change: transform;
 }
 
-.mbtn-dark { color: var(--white); background: var(--text-1); }
-.mbtn-dark:hover { box-shadow: 0 8px 36px rgba(13,13,13,.2); }
-
-.mbtn-light {
-  color: var(--text-1);
-  background: transparent;
-  border: .5px solid var(--border-strong);
+/* Solid Navy Button with Gold Text */
+.mbtn-dark { 
+  color: var(--gold-light); 
+  background: var(--navy-core); 
+  border: 1px solid var(--gold-dark);
+}
+.mbtn-dark:hover { 
+  box-shadow: 0 8px 30px rgba(10, 25, 47, 0.3), 0 0 15px rgba(212, 175, 55, 0.2); 
+  background: var(--navy-dark); 
+  color: var(--gold-primary);
 }
 
-.mbtn-light:hover { box-shadow: 0 8px 24px rgba(13,13,13,.07); }
+/* Outlined Gold Button with Navy Text */
+.mbtn-light {
+  color: var(--navy-core);
+  background: transparent;
+  border: 1px solid var(--gold-primary);
+}
+.mbtn-light:hover { 
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15); 
+  background: var(--accent-light); 
+}
 
 /* ═══════════════════════════════════════════
    REVEAL UTILITIES
-   NOTE: hidden state is applied via JS only
-   so content is never invisible without JS
 ═══════════════════════════════════════════ */
 .split-line {
   overflow: hidden;
@@ -259,7 +284,7 @@ section {
   top: -100%;
   left: 0;
   right: 0;
-  background: var(--text-2);
+  background: var(--gold-primary); /* Gold Scroll fill */
   height: 100%;
   animation: sf 2s cubic-bezier(.22,1,.36,1) infinite;
 }
@@ -272,9 +297,10 @@ section {
 
 .scroll-lbl {
   font-size: 9.5px;
+  font-weight: 600;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--text-3);
+  color: var(--gold-dark);
   writing-mode: vertical-rl;
 }
 
@@ -284,7 +310,7 @@ section {
 .line-sep {
   display: block;
   width: 100%;
-  height: .5px;
+  height: 1px;
   background: var(--border);
 }
 
