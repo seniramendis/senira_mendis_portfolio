@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PERSONAL, STATS, HERO_TECH_WORDS } from '@/lib/data';
 import { useMagnetic } from '@/hooks/useMagnetic';
 import { useCounter } from '@/hooks/useCounter';
@@ -28,17 +28,37 @@ function MagBtn({ href, children, external, className }: {
 }
 
 export default function Hero() {
+  const [activeSlide, setActiveSlide] = useState(0);
+
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   const tagRef     = useRef<HTMLDivElement>(null);
   const headRef    = useRef<HTMLHeadingElement>(null);
   const introRef   = useRef<HTMLDivElement>(null);
   const techRef    = useRef<HTMLDivElement>(null);
   const techWordRef = useRef<HTMLSpanElement>(null);
-  const subRef     = useRef<HTMLDivElement>(null);
+  const slideRef   = useRef<HTMLDivElement>(null);
   const bottomRef  = useRef<HTMLDivElement>(null);
   const scrollRef  = useRef<HTMLDivElement>(null);
 
-  // Canvas grain field (light particles)
+  const SKILLS = [
+    { name: 'React', icon: '⚛️' },
+    { name: 'Next.js', icon: '▲' },
+    { name: 'Node.js', icon: '🟢' },
+    { name: 'PHP', icon: '🐘' },
+    { name: 'MySQL', icon: '🐬' },
+    { name: 'Java', icon: '☕' },
+    { name: 'Kotlin', icon: '📱' },
+  ];
+
+  // Auto-play Slideshow (5 seconds per slide)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % 3);
+    }, 5000); 
+    return () => clearInterval(interval);
+  }, []);
+
+  // Canvas grain field
   useEffect(() => {
     const c = canvasRef.current;
     if (!c) return;
@@ -109,10 +129,10 @@ export default function Hero() {
     const head   = headRef.current;
     const intro  = introRef.current;
     const tech   = techRef.current;
-    const sub    = subRef.current;
+    const slideBox = slideRef.current;
     const bottom = bottomRef.current;
     const scroll = scrollRef.current;
-    if (!tag || !head || !intro || !tech || !sub || !bottom || !scroll) return;
+    if (!tag || !head || !intro || !tech || !slideBox || !bottom || !scroll) return;
 
     const inners = head.querySelectorAll<HTMLSpanElement>('.inner');
 
@@ -131,17 +151,15 @@ export default function Hero() {
       }, 100 + i * 120);
     });
 
-    // After the headline has fully settled, introduce the "Hey, I'm Senira" line
     animate(intro, { opacity: '1', transform: 'translateY(0)' }, 1500);
-    // Then reveal the tech-stack typewriter row
     animate(tech,  { opacity: '1', transform: 'translateY(0)' }, 2150);
 
-    // Remaining content follows once the intro beats have had time to be read
-    animate(sub,    { opacity: '1', transform: 'translateY(0)' }, 2900);
+    // Fade in the new right-side container
+    animate(slideBox, { opacity: '1', transform: 'translateY(0)' }, 2600);
+    
     animate(bottom, { opacity: '1', transform: 'translateY(0)' }, 3050);
     animate(scroll, { opacity: '1' }, 3350);
 
-    // Parallax on scroll
     const onScroll = () => {
       if (head) head.style.transform = `translateY(${window.scrollY * -0.07}px)`;
     };
@@ -149,15 +167,15 @@ export default function Hero() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Tech-stack typewriter — cycles through HERO_TECH_WORDS
+  // Tech-stack typewriter
   useEffect(() => {
     const el = techWordRef.current;
     if (!el) return;
 
-    const TYPE_SPEED   = 70;   // ms per character while typing
-    const DELETE_SPEED = 40;   // ms per character while deleting
-    const HOLD_TIME    = 1500; // ms to pause once a word is fully typed
-    const START_DELAY  = 2500; // sync with techRow reveal (2150ms + settle)
+    const TYPE_SPEED   = 70;
+    const DELETE_SPEED = 40;
+    const HOLD_TIME    = 1500;
+    const START_DELAY  = 2500;
 
     let wordIndex = 0;
     let charIndex = 0;
@@ -195,7 +213,7 @@ export default function Hero() {
   return (
     <section className={styles.hero} style={{ borderBottom: 'none', padding: 0, paddingTop: 'var(--nav-h)' }}>
       
-      {/* Desktop Video (Hidden on mobile) */}
+      {/* Desktop Video */}
       <video
         className={`${styles.bgVideo} ${styles.desktopVideo}`}
         autoPlay
@@ -208,7 +226,7 @@ export default function Hero() {
         <source src="https://res.cloudinary.com/dukv2otyn/video/upload/f_auto,q_auto/v1781517951/hero-bg_anzt23.mp4" type="video/mp4" />
       </video>
 
-      {/* Mobile Video (Hidden on desktop) */}
+      {/* Mobile Video */}
       <video
         className={`${styles.bgVideo} ${styles.mobileVideo}`}
         autoPlay
@@ -221,10 +239,8 @@ export default function Hero() {
         <source src="https://res.cloudinary.com/dukv2otyn/video/upload/f_auto,q_auto/v1781518706/hero-bg-mobile_gxv4wm.mp4" type="video/mp4" />
       </video>
 
-      {/* Dark gradient overlay for readability */}
       <div className={styles.overlay} aria-hidden="true" />
 
-      {/* Soft drifting color glow */}
       <div className={styles.glow} aria-hidden="true">
         <span className={styles.glowSpot} />
         <span className={styles.glowSpot} />
@@ -234,6 +250,8 @@ export default function Hero() {
 
       <div className={styles.heroTop}>
         <div className={styles.heroGrid}>
+          
+          {/* Left Column: Titles */}
           <div className={styles.heroLeft}>
             <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>
               <span className={styles.tagDot} />
@@ -258,15 +276,69 @@ export default function Hero() {
                 <span className={styles.techCursor} aria-hidden="true" />
               </span>
             </div>
+          </div>
 
-            <div className={styles.subRow} ref={subRef} id="hero-sub" style={{ opacity: 0, transform: 'translateY(16px)' }}>
+          {/* Right Column: Advanced Slideshow */}
+          <div className={styles.heroRight} ref={slideRef} style={{ opacity: 0, transform: 'translateY(24px)' }}>
+            
+            {/* Slide 1: Description */}
+            <div className={`${styles.slide} ${activeSlide === 0 ? styles.slideActive : ''}`}>
+              <h3 className={styles.slideTitle}>
+                <span className={styles.slideTitleText}>01 // The Mission</span>
+              </h3>
               <p className={styles.sub}>{PERSONAL.sub}</p>
+            </div>
+
+            {/* Slide 2: Skills with Glowing Tech Chips */}
+            <div className={`${styles.slide} ${activeSlide === 1 ? styles.slideActive : ''}`}>
+              <h3 className={styles.slideTitle}>
+                <span className={styles.slideTitleText}>02 // Core Stack</span>
+              </h3>
+              <div className={styles.skillsGrid}>
+                {SKILLS.map((skill, index) => (
+                  <div 
+                    key={skill.name} 
+                    className={styles.skillBadge}
+                    style={{ animationDelay: `${index * 0.05}s` }} /* Staggered entrance */
+                  >
+                    <span className={styles.skillIcon}>{skill.icon}</span>
+                    {skill.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Slide 3: Contacts & Booking */}
+            <div className={`${styles.slide} ${activeSlide === 2 ? styles.slideActive : ''}`}>
+              <h3 className={styles.slideTitle}>
+                <span className={styles.slideTitleText}>03 // Connect</span>
+              </h3>
               <div className={styles.acts}>
                 <MagBtn href="#work" className={styles.btnPrimary}>View my work ↓</MagBtn>
                 <MagBtn href={PERSONAL.github} external className={styles.btnGhost}>GitHub ↗</MagBtn>
+                <MagBtn href="#book" className={styles.btnPrimary}>Book Appointment 📅</MagBtn>
               </div>
             </div>
+
+            {/* Story-style Progress Navigation */}
+            <div className={styles.storyNav}>
+              {[0, 1, 2].map((i) => (
+                <div 
+                  key={i} 
+                  className={styles.storyTrack}
+                  onClick={() => setActiveSlide(i)}
+                >
+                  <div 
+                    className={`${styles.storyFill} ${
+                      activeSlide === i ? styles.storyFillActive : 
+                      activeSlide > i ? styles.storyFillComplete : ''
+                    }`} 
+                  />
+                </div>
+              ))}
+            </div>
           </div>
+
         </div>
       </div>
 
