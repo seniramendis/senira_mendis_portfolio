@@ -1,0 +1,139 @@
+/* ═══════════════════════════════════════════
+   LUXURY BOOKING SECTION (White Bg, Dark Box)
+═══════════════════════════════════════════ */
+.bookingSec {
+  background: var(--off-white);
+  padding: 140px 56px;
+  position: relative;
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* Subtle gold glow behind the calendar */
+.bookingSec::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+  transform: translateY(-50%);
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── LEFT SIDE: COPY ─── */
+.copyWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.secLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.secLabel .line {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--gold-dark);
+}
+
+.h2 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 4vw, 64px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--navy-core);
+  margin-bottom: 32px;
+}
+
+.h2 em {
+  color: var(--gold-primary);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.sub {
+  font-size: 16px;
+  color: var(--navy-light);
+  line-height: 1.8;
+  max-width: 480px;
+  margin-bottom: 48px;
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 20px;
+  border-left: 1px solid var(--gold-primary);
+}
+
+.infoTitle {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--navy-light);
+}
+
+.infoLink {
+  font-size: 15px;
+  color: var(--gold-dark);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.infoLink:hover {
+  color: var(--gold-primary);
+}
+
+/* ─── RIGHT SIDE: CALENDAR EMBED ─── */
+.calWrapper {
+  width: 100%;
+  position: relative;
+}
+
+/* Dark card to contrast against the white background */
+.calGlass {
+  background: var(--navy-dark); /* Deep, almost black navy */
+  border: 1px solid var(--border-med); /* Gold outline */
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 600px;
+  box-shadow: 0 20px 60px rgba(10, 25, 47, 0.15); /* Clean drop shadow */
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1100px) {
+  .container { gap: 40px; }
+}
+
+@media (max-width: 900px) {
+  .bookingSec { padding: 100px 24px; }
+  .container { grid-template-columns: 1fr; gap: 60px; }
+  .calGlass { min-height: 700px; }
+}

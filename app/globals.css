@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&display=swap');
 
 /* ═══════════════════════════════════════════
@@ -11,30 +15,30 @@
 
 :root {
   /* Core Luxury Palette */
-  --navy-core:     #0A192F; /* Deep rich navy */
-  --navy-dark:     #040C18; /* Almost black navy for ultimate contrast */
-  --gold-primary:  #D4AF37; /* Classic Metallic Gold */
-  --gold-light:    #F3E5AB; /* Soft Champagne Gold */
-  --gold-dark:     #AA8C2C; /* Deep Brass/Gold */
+  --navy-core:     #0A192F; 
+  --navy-dark:     #040C18; 
+  --gold-primary:  #D4AF37; 
+  --gold-light:    #F3E5AB; 
+  --gold-dark:     #AA8C2C; 
 
-  /* Backgrounds: Removed cheap greys, replaced with pristine White & Ivory Cream */
+  /* Backgrounds: Pristine White & Ivory Cream */
   --white:         #FFFFFF;
-  --off-white:     #FDFBF7; /* Warm luxury cream (Patek style) */
-  --warm-gray:     #F4EFE6; /* Richer cream */
+  --off-white:     #FDFBF7; 
+  --warm-gray:     #F4EFE6; 
 
-  /* Borders: Tinted with gold instead of flat grey */
+  /* Borders: Tinted with gold */
   --border:        rgba(212, 175, 55, 0.25);
   --border-med:    rgba(212, 175, 55, 0.45);
   --border-strong: rgba(10, 25, 47, 0.2);
 
   /* Typography: Mapped to Navy & Gold */
-  --text-1:        var(--navy-dark);    /* Primary text: Deep Navy instead of black */
-  --text-2:        var(--gold-dark);    /* Secondary text: Dark Gold instead of dark grey */
-  --text-3:        var(--gold-primary); /* Tertiary/Labels: Bright Gold instead of light grey */
+  --text-1:        var(--navy-dark);    
+  --text-2:        var(--gold-dark);    
+  --text-3:        var(--gold-primary); 
   
   --accent:        var(--gold-primary);
   --accent-blue:   var(--navy-core);
-  --accent-light:  rgba(212, 175, 55, 0.08); /* Soft gold wash for hovers */
+  --accent-light:  rgba(212, 175, 55, 0.08);
 
   --serif:         'Fraunces', Georgia, serif;
   --sans:          'Inter', system-ui, sans-serif;
@@ -152,7 +156,7 @@ body::after {
   font-weight: 600;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--gold-dark); /* Replaced grey with dark gold */
+  color: var(--gold-dark);
   white-space: nowrap;
 }
 
@@ -190,7 +194,7 @@ section {
   font-weight: 600;
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--gold-primary); /* Luxury Gold Label */
+  color: var(--gold-primary);
   margin-bottom: 72px;
   display: flex;
   align-items: center;
@@ -210,7 +214,7 @@ section {
 }
 
 /* ═══════════════════════════════════════════
-   MAGNETIC BUTTON (Navy & Gold spec)
+   MAGNETIC BUTTON
 ═══════════════════════════════════════════ */
 .mbtn {
   display: inline-flex;
@@ -226,7 +230,6 @@ section {
   will-change: transform;
 }
 
-/* Solid Navy Button with Gold Text */
 .mbtn-dark { 
   color: var(--gold-light); 
   background: var(--navy-core); 
@@ -238,7 +241,6 @@ section {
   color: var(--gold-primary);
 }
 
-/* Outlined Gold Button with Navy Text */
 .mbtn-light {
   color: var(--navy-core);
   background: transparent;
@@ -284,7 +286,7 @@ section {
   top: -100%;
   left: 0;
   right: 0;
-  background: var(--gold-primary); /* Gold Scroll fill */
+  background: var(--gold-primary);
   height: 100%;
   animation: sf 2s cubic-bezier(.22,1,.36,1) infinite;
 }
@@ -304,9 +306,6 @@ section {
   writing-mode: vertical-rl;
 }
 
-/* ═══════════════════════════════════════════
-   LINE SEP
-═══════════════════════════════════════════ */
 .line-sep {
   display: block;
   width: 100%;
@@ -314,9 +313,6 @@ section {
   background: var(--border);
 }
 
-/* ═══════════════════════════════════════════
-   PULSE ANIMATION
-═══════════════════════════════════════════ */
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%       { opacity: .4; transform: scale(.7); }
