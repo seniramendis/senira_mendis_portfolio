@@ -6,7 +6,11 @@
   --h-border-med: rgba(255,255,255,.24);
   --h-glass: rgba(20,18,16,.46);
 
-  min-height: 100vh;
+  /* UPDATED: Cinematic 16:9 fit for Desktop! */
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 100vh;
+  
   position: relative;
   display: grid;
   grid-template-rows: 1fr auto;
@@ -406,6 +410,11 @@
    RESPONSIVE
 ═══════════════════════════════════════════ */
 @media (max-width: 900px) {
+  .hero {
+    /* REMOVES the cinematic restriction on tablets/mobile so it stays tall! */
+    aspect-ratio: auto;
+    min-height: 100vh;
+  }
   .heroTop { padding: 48px 24px 0; }
   .heroGrid { grid-template-columns: 1fr; gap: 48px; }
   .heroBottom { grid-template-columns: 1fr; border-top: none; margin-top: 48px; }
@@ -421,6 +430,11 @@
 }
 
 @media (max-width: 520px) {
+  .hero {
+    /* Failsafe to ensure it stays tall on small phones */
+    aspect-ratio: auto;
+    min-height: 100vh; 
+  }
   .h1 { font-size: clamp(40px, 13vw, 64px); }
   
   /* Hide the desktop video entirely on mobile */
@@ -434,7 +448,6 @@
   }
 
   .bgVideo {
-    /* Kept the fade-in, but removed the panning animation since the mobile video is already cropped perfectly! */
     animation: videoIn 2.4s ease-out both; 
     object-position: center center; 
   }
