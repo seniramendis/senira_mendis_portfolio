@@ -203,8 +203,9 @@ export default function Hero() {
         loop
         playsInline
         preload="auto"
+        poster="/images/Home_Hero_Page/hero-poster.jpg" 
       >
-        <source src="/images/Home_Hero_Page/hero-bg.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dukv2otyn/video/upload/f_auto,q_auto/v1781517951/hero-bg_anzt23.mp4" type="video/mp4" />
       </video>
 
       {/* Mobile Video (Hidden on desktop) */}
@@ -215,9 +216,9 @@ export default function Hero() {
         loop
         playsInline
         preload="auto"
+        poster="/images/Home_Hero_Page/hero-poster.jpg" 
       >
-        {/* Make sure your vertical video is named exactly this and in the same folder */}
-        <source src="/images/Home_Hero_Page/hero-bg-mobile.mp4" type="video/mp4" />
+        <source src="https://res.cloudinary.com/dukv2otyn/video/upload/f_auto,q_auto/v1781518706/hero-bg-mobile_gxv4wm.mp4" type="video/mp4" />
       </video>
 
       {/* Dark gradient overlay for readability */}
