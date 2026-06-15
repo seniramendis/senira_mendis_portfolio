@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { PERSONAL, STATS } from '@/lib/data';
+import { PERSONAL, STATS, HERO_TECH_WORDS } from '@/lib/data';
 import { useMagnetic } from '@/hooks/useMagnetic';
 import { useCounter } from '@/hooks/useCounter';
 import styles from './Hero.module.css';
@@ -31,6 +31,9 @@ export default function Hero() {
   const canvasRef  = useRef<HTMLCanvasElement>(null);
   const tagRef     = useRef<HTMLDivElement>(null);
   const headRef    = useRef<HTMLHeadingElement>(null);
+  const introRef   = useRef<HTMLDivElement>(null);
+  const techRef    = useRef<HTMLDivElement>(null);
+  const techWordRef = useRef<HTMLSpanElement>(null);
   const subRef     = useRef<HTMLDivElement>(null);
   const bottomRef  = useRef<HTMLDivElement>(null);
   const scrollRef  = useRef<HTMLDivElement>(null);
@@ -104,10 +107,12 @@ export default function Hero() {
   useEffect(() => {
     const tag    = tagRef.current;
     const head   = headRef.current;
+    const intro  = introRef.current;
+    const tech   = techRef.current;
     const sub    = subRef.current;
     const bottom = bottomRef.current;
     const scroll = scrollRef.current;
-    if (!tag || !head || !sub || !bottom || !scroll) return;
+    if (!tag || !head || !intro || !tech || !sub || !bottom || !scroll) return;
 
     const inners = head.querySelectorAll<HTMLSpanElement>('.inner');
 
@@ -125,9 +130,16 @@ export default function Hero() {
         inner.style.transform = 'translateY(0%)';
       }, 100 + i * 120);
     });
-    animate(sub,    { opacity: '1', transform: 'translateY(0)' }, 500);
-    animate(bottom, { opacity: '1', transform: 'translateY(0)' }, 650);
-    animate(scroll, { opacity: '1' }, 1000);
+
+    // After the headline has fully settled, introduce the "Hey, I'm Senira" line
+    animate(intro, { opacity: '1', transform: 'translateY(0)' }, 1500);
+    // Then reveal the tech-stack typewriter row
+    animate(tech,  { opacity: '1', transform: 'translateY(0)' }, 2150);
+
+    // Remaining content follows once the intro beats have had time to be read
+    animate(sub,    { opacity: '1', transform: 'translateY(0)' }, 2900);
+    animate(bottom, { opacity: '1', transform: 'translateY(0)' }, 3050);
+    animate(scroll, { opacity: '1' }, 3350);
 
     // Parallax on scroll
     const onScroll = () => {
@@ -135,6 +147,49 @@ export default function Hero() {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Tech-stack typewriter — cycles through HERO_TECH_WORDS
+  useEffect(() => {
+    const el = techWordRef.current;
+    if (!el) return;
+
+    const TYPE_SPEED   = 70;   // ms per character while typing
+    const DELETE_SPEED = 40;   // ms per character while deleting
+    const HOLD_TIME    = 1500; // ms to pause once a word is fully typed
+    const START_DELAY  = 2500; // sync with techRow reveal (2150ms + settle)
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let deleting  = false;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const tick = () => {
+      const word = HERO_TECH_WORDS[wordIndex];
+
+      if (!deleting) {
+        charIndex++;
+        el.textContent = word.slice(0, charIndex);
+        if (charIndex === word.length) {
+          timeoutId = setTimeout(() => { deleting = true; tick(); }, HOLD_TIME);
+          return;
+        }
+        timeoutId = setTimeout(tick, TYPE_SPEED);
+      } else {
+        charIndex--;
+        el.textContent = word.slice(0, charIndex);
+        if (charIndex === 0) {
+          deleting = false;
+          wordIndex = (wordIndex + 1) % HERO_TECH_WORDS.length;
+          timeoutId = setTimeout(tick, 350);
+          return;
+        }
+        timeoutId = setTimeout(tick, DELETE_SPEED);
+      }
+    };
+
+    const startId = setTimeout(tick, START_DELAY);
+    return () => { clearTimeout(startId); clearTimeout(timeoutId); };
   }, []);
 
   return (
@@ -176,6 +231,19 @@ export default function Hero() {
               <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>that <em>solves real-world</em></span></span>
               <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>problems.</span></span>
             </h1>
+
+            <div className={styles.introLine} ref={introRef} style={{ opacity: 0, transform: 'translateY(14px)' }}>
+              <span className={styles.wave} aria-hidden="true">👋</span>
+              <span>Hey, I&apos;m <span className={styles.introName}>Senira Mendis</span></span>
+            </div>
+
+            <div className={styles.techRow} ref={techRef} style={{ opacity: 0, transform: 'translateY(10px)' }}>
+              <span className={styles.techLabel}>Currently building with</span>
+              <span className={styles.techWordWrap}>
+                <span className={styles.techWord} ref={techWordRef} />
+                <span className={styles.techCursor} aria-hidden="true" />
+              </span>
+            </div>
 
             <div className={styles.subRow} ref={subRef} id="hero-sub" style={{ opacity: 0, transform: 'translateY(16px)' }}>
               <p className={styles.sub}>{PERSONAL.sub}</p>

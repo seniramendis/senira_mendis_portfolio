@@ -9,12 +9,14 @@ import Contact   from '@/components/sections/Contact';
 import Footer    from '@/components/sections/Footer';
 import Cursor    from '@/components/ui/Cursor';
 import ProgressBar from '@/components/ui/ProgressBar';
+import WhatsAppButton from '@/components/ui/WhatsAppButton';
 
 export default function Home() {
   return (
     <>
       <Cursor />
       <ProgressBar />
+      <WhatsAppButton />
       <Nav />
       <main>
         <Hero />

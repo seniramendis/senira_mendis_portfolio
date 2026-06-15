@@ -171,6 +171,97 @@
   color: var(--h-text-3);
 }
 
+/* ═══════════════════════════════════════════
+   INTRO LINE  ·  "Hey, I'm Senira Mendis"
+═══════════════════════════════════════════ */
+.introLine {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--h-text-2);
+}
+
+.introName {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--h-text-1);
+}
+
+.wave {
+  display: inline-block;
+  font-size: 22px;
+  line-height: 1;
+  transform-origin: 70% 70%;
+  animation: wave 2.6s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  10%      { transform: rotate(14deg); }
+  20%      { transform: rotate(-8deg); }
+  30%      { transform: rotate(14deg); }
+  40%      { transform: rotate(-4deg); }
+  50%      { transform: rotate(10deg); }
+  60%      { transform: rotate(0deg); }
+}
+
+/* ═══════════════════════════════════════════
+   TECH STACK TYPEWRITER ROW
+═══════════════════════════════════════════ */
+.techRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.techLabel {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--h-text-3);
+}
+
+.techWordWrap {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 12px;
+  border: .5px solid var(--h-border);
+  border-radius: 100px;
+  background: rgba(255,255,255,.03);
+  backdrop-filter: blur(6px);
+}
+
+.techWord {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: .01em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.techCursor {
+  display: inline-block;
+  width: 1px;
+  height: 13px;
+  margin-left: 2px;
+  background: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
 .subRow {
   display: flex;
   flex-direction: column;
@@ -312,6 +403,8 @@
   .stat { padding: 20px 24px; border-right: none; border-bottom: 1px solid var(--h-border); }
   .stat:last-child { border-bottom: none; }
   .scrollInd { display: none; }
+  .introLine { font-size: 16px; margin-top: 20px; }
+  .techRow { margin-top: 12px; }
   
   /* Centers the video better on tablets */
   .bgVideo {

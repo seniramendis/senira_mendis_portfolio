@@ -9,11 +9,26 @@ export const PERSONAL = {
   headlineItalic: 'solves real-world',
   sub: 'Software Engineering undergraduate at Cardiff Metropolitan University. Full-stack, mobile & backend developer — driven by elegant architecture and Agile delivery.',
   location: 'Mount Lavinia, Colombo',
-  email: 'senira@email.com',
+  email: 'seniramendis41@gmail.com',
   linkedin: 'https://www.linkedin.com/in/senira-mendis/',
   github: 'https://github.com/seniramendis',
+  instagram: 'https://www.instagram.com/senira._mendis/',
+  facebook: 'https://facebook.com/seniramendis/',
+  whatsapp: 'https://wa.me/94753356254',
+  whatsappDisplay: '+94 75 335 6254',
   available: true,
 };
+
+// Rotating "currently building with" words for the hero intro typewriter
+export const HERO_TECH_WORDS = [
+  'Laravel',
+  'React Native',
+  'Java & Kotlin',
+  'PostgreSQL + PostGIS',
+  'Node.js',
+  'Docker',
+  'Firebase & Supabase',
+];
 
 export const STATS = [
   { num: 16, label: 'Public repositories' },

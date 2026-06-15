@@ -41,6 +41,27 @@ export default function Contact() {
                 </div>
                 <span className={styles.arr}>↗</span>
               </a>
+              <a href={PERSONAL.whatsapp} target="_blank" rel="noopener noreferrer" className={styles.link}>
+                <div>
+                  <span className={styles.linkLbl}>Chat on</span>
+                  WhatsApp — {PERSONAL.whatsappDisplay}
+                </div>
+                <span className={styles.arr}>↗</span>
+              </a>
+              <a href={PERSONAL.instagram} target="_blank" rel="noopener noreferrer" className={styles.link}>
+                <div>
+                  <span className={styles.linkLbl}>Follow on</span>
+                  Instagram — @senira._mendis
+                </div>
+                <span className={styles.arr}>↗</span>
+              </a>
+              <a href={PERSONAL.facebook} target="_blank" rel="noopener noreferrer" className={styles.link}>
+                <div>
+                  <span className={styles.linkLbl}>Connect on</span>
+                  Facebook — Senira Mendis
+                </div>
+                <span className={styles.arr}>↗</span>
+              </a>
             </div>
           </Reveal>
         </div>
