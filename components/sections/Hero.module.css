@@ -418,3 +418,25 @@
       linear-gradient(to top, rgba(6,5,4,.5) 0%, rgba(6,5,4,0) 38%);
   }
 }
+/* Social icons — bottom right corner of hero */
+.heroSocials {
+  position: absolute;
+  right: 56px;
+  bottom: 140px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.heroSocials::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.2);
+  margin-top: 16px;
+}
+@media (max-width: 900px) {
+  .heroSocials { display: none; }
+}

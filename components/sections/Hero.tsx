@@ -4,6 +4,7 @@ import { PERSONAL, STATS, HERO_TECH_WORDS } from '@/lib/data';
 import { useMagnetic } from '@/hooks/useMagnetic';
 import { useCounter } from '@/hooks/useCounter';
 import styles from './Hero.module.css';
+import SocialIcons from '@/components/ui/SocialIcons';
 
 function StatCounter({ num, label }: { num: number; label: string }) {
   const { ref, display } = useCounter(num);
@@ -270,6 +271,11 @@ export default function Hero() {
       </div>
       <div className={styles.heroBottom} ref={bottomRef} id="hero-bottom" style={{ opacity: 0, transform: 'translateY(12px)' }}>{STATS.map(s => <StatCounter key={s.label} {...s} />)}</div>
       <div className={styles.scrollInd} ref={scrollRef} id="scroll-ind" style={{ opacity: 0 }}><div className={styles.scrollTrack}><div className={styles.scrollFill} /></div><span className={styles.scrollLbl}>Scroll</span></div>
+
+      {/* Social Icons — bottom right corner */}
+      <div className={styles.heroSocials}>
+        <SocialIcons vertical />
+      </div>
     </section>
   );
 }
