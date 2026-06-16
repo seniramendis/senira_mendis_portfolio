@@ -1,8 +1,12 @@
 import { PROJECTS } from '@/lib/data';
 import Reveal from '@/components/ui/Reveal';
+import Link from 'next/link';
 import styles from './Projects.module.css';
 
 export default function Projects() {
+  // Only display the top 4 projects on the home page
+  const featuredProjects = PROJECTS.slice(0, 4);
+
   return (
     <section id="work">
       <div className="si">
@@ -14,9 +18,9 @@ export default function Projects() {
         </Reveal>
 
         <div className={styles.list}>
-          {PROJECTS.map((p) => (
-            <a key={p.num} href={p.href} target="_blank" rel="noopener noreferrer"
-               className={styles.item}>
+          {featuredProjects.map((p) => (
+            // Changed from <a> to <Link> to use Next.js routing to the dynamic page
+            <Link key={p.num} href={`/projects/${p.num}`} className={styles.item}>
               <span className={styles.num}>{p.num}</span>
               <div>
                 {p.role && <div className={styles.roleTag}>{p.role}</div>}
@@ -29,9 +33,17 @@ export default function Projects() {
                 </div>
               </div>
               <span className={styles.arr}>↗</span>
-            </a>
+            </Link>
           ))}
         </div>
+
+        <Reveal delay={200}>
+          <div style={{ marginTop: '60px', display: 'flex', justifyContent: 'center' }}>
+            <Link href="/projects" className="mbtn mbtn-dark" style={{ padding: '16px 32px', fontSize: '14px' }}>
+              View Full Archive ↗
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
