@@ -101,6 +101,7 @@ export type Project = {
   description: string;
   tags: string[];
   href: string;
+  images?: string[]; // <-- ADD THIS LINE
 };
 
 export const PROJECTS: Project[] = [
@@ -111,15 +112,23 @@ export const PROJECTS: Project[] = [
     description: 'A highly scalable, bilingual numerology platform for the Sri Lankan market. Engineered a custom mathematical engine in JS to process complex destiny nodes and integrated Gemini 1.5 Flash with robust fail-safes to prevent UI crashes during API rate limits.',
     tags: ['React.js', 'Node.js', 'Gemini API', 'Tailwind CSS', 'Vite', 'Vercel'],
     href: 'https://github.com/seniramendis/Daiwaya',
+    // <-- ADD YOUR IMAGES HERE
+    images: [
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649916/Daiwaya_mockup_1_zhaiir.png',
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649913/Daiwaya_mockup_2_spvrft.png'
+    ]
   },
   {
-    num: '02',
-    role: 'Backend Developer · Scrum Master',
-    title: 'AgriLease — Agricultural Machinery Platform',
-    description: 'Sharing economy platform digitising Sri Lanka\'s "Custom Hiring" system. Engineered geospatial radius searches via PostGIS and a high-concurrency booking engine with pessimistic locking to eliminate double-booking during peak seasons.',
-    tags: ['Laravel 10', 'PostgreSQL 15', 'PostGIS', 'Supabase Auth', 'Docker'],
-    href: 'https://github.com/seniramendis/AgriLease-Platform',
-  },
+  num: '02',
+  role: 'Backend Developer · Scrum Master',
+  title: 'AgriLease — Agricultural Machinery Platform',
+  description: "'Sharing economy platform digitising Sri Lanka's Custom Hiring system. Engineered geospatial radius searches via PostGIS and a high-concurrency booking engine with pessimistic locking to eliminate double-booking during peak seasons",
+  tags: ['Laravel 10', 'PostgreSQL 15', 'PostGIS', 'Supabase Auth', 'Docker'],
+  href: 'https://github.com/seniramendis/AgriLease-Platform',
+  images: [
+    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649941/agriLease_mockup_xqapxz.png',
+  ],
+},
   {
     num: '03',
     role: 'Full-Stack Developer',
@@ -160,14 +169,18 @@ export const PROJECTS: Project[] = [
     tags: ['React Native', 'Firebase', 'Android Studio', 'Agile/Scrum'],
     href: '#',
   },
-  {
-    num: '08',
-    role: 'Android Developer',
-    title: 'TechCare — Electronic Repair Mobile App',
-    description: 'Native Android app streamlining device repairs. Features a custom "Live Repair Tracker" utilizing background handlers for real-time progress updates, automated local notifications, and complex SQLite database architecture.',
-    tags: ['Java', 'XML', 'Android Studio', 'SQLite'],
-    href: 'https://github.com/seniramendis/TechCare',
-  },
+ {
+  num: '08',
+  role: 'Android Developer',
+  title: 'TechCare — Electronic Repair Mobile App',
+  description: 'Native Android app streamlining device repairs. Features a custom "Live Repair Tracker" utilizing background handlers for real-time progress updates, automated local notifications, and complex SQLite database architecture.',
+  tags: ['Java', 'XML', 'Android Studio', 'SQLite'],
+  href: 'https://github.com/seniramendis/TechCare',
+  images: [
+    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649967/tech_care_mockup_mjxucm.png',
+    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649981/tech_care_mockup_2_thi0v0.png',
+  ],
+},
   {
     num: '09',
     role: 'Full-Stack Developer',

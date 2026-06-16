@@ -1,4 +1,6 @@
-/* app/projects/projects.module.css */
+/* projects.module.css — Clean layout, original brand tokens */
+
+/* ─── Base ─────────────────────────────────────────────── */
 .container {
   min-height: 100vh;
   background-color: var(--white);
@@ -7,35 +9,13 @@
   flex-direction: column;
 }
 
+/* ─── Archive List Page ─────────────────────────────────── */
 .main {
   flex-grow: 1;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 120px 24px;
+  padding: 120px 24px 80px;
   width: 100%;
-}
-
-.backLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--gold-dark);
-  text-decoration: none;
-  margin-bottom: 48px;
-  transition: color 0.3s;
-}
-
-.backLink:hover {
-  color: var(--gold-primary);
-}
-
-.arrowBack {
-  font-size: 18px;
-  line-height: 1;
 }
 
 .title {
@@ -139,12 +119,46 @@
   transform: translateX(8px);
 }
 
-/* --- DETAILS PAGE STYLES --- */
+.cardRole {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 4px;
+  opacity: 0.75;
+}
+
+/* ─── Back Link ─────────────────────────────────────────── */
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold-dark);
+  text-decoration: none;
+  margin-bottom: 48px;
+  transition: color 0.3s;
+}
+
+.backLink:hover {
+  color: var(--gold-primary);
+}
+
+.arrowBack {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* ─── Detail Page ───────────────────────────────────────── */
 .detailMain {
   flex-grow: 1;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 120px 24px;
+  padding: 120px 40px 80px;
   width: 100%;
   animation: fadeIn 0.7s ease-out;
 }
@@ -154,8 +168,32 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ─── Split Layout ──────────────────────────────────────── */
+.splitLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-bottom: 120px;
+}
+
+@media (min-width: 1024px) {
+  .splitLayout {
+    grid-template-columns: 380px 1fr;
+    gap: 80px;
+  }
+}
+
+/* ─── Left: Text Content ────────────────────────────────── */
+.textContent {
+  position: sticky;
+  top: 120px;
+}
+
 .detailHeader {
-  margin-bottom: 48px;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
 }
 
 .detailTitle {
@@ -164,6 +202,7 @@
   line-height: 1.2;
   margin-bottom: 24px;
   font-family: var(--serif);
+  color: var(--navy-core);
 }
 
 .role {
@@ -179,20 +218,25 @@
 }
 
 .description {
-  font-size: 18px;
+  font-size: 16px;
   color: var(--navy-core);
   opacity: 0.9;
   line-height: 1.8;
-  margin-bottom: 64px;
+  margin-bottom: 40px;
 }
 
 .description p {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
+.description p:last-child {
+  margin-bottom: 0;
+}
+
+/* ─── Tech Section ──────────────────────────────────────── */
 .techSection {
   border-top: 1px solid var(--border);
-  padding-top: 48px;
+  padding-top: 32px;
 }
 
 .techTitle {
@@ -202,14 +246,14 @@
   color: var(--gold-primary);
   text-transform: uppercase;
   display: block;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .techTags {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
 }
 
 .techTag {
@@ -222,22 +266,45 @@
   border-radius: 99px;
 }
 
-@media (min-width: 1024px) {
-  .title { font-size: 5rem; }
-  .detailTitle { font-size: 4rem; }
-}
-/* Card role subtitle */
-.cardRole {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--gold-dark);
-  margin-bottom: 4px;
-  opacity: 0.75;
+/* ─── Right: Image Content ──────────────────────────────── */
+.imageContent {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
 }
 
-/* Prev / Next project navigation */
+.imageWrapper {
+  animation: floatUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.imageWrapper:nth-child(1) { animation-delay: 0.05s; }
+.imageWrapper:nth-child(2) { animation-delay: 0.2s; }
+.imageWrapper:nth-child(3) { animation-delay: 0.35s; }
+.imageWrapper:nth-child(4) { animation-delay: 0.5s; }
+
+.projectImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.imageWrapper:hover .projectImage {
+  transform: translateY(-6px);
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Prev / Next Nav ───────────────────────────────────── */
 .projectNav {
   display: flex;
   justify-content: space-between;
@@ -259,7 +326,7 @@
 }
 
 .projectNavLink:hover {
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .projectNavRight {
@@ -281,4 +348,15 @@
   color: var(--navy-core);
   font-family: var(--serif);
   line-height: 1.3;
+}
+
+/* ─── Responsive ────────────────────────────────────────── */
+@media (min-width: 1024px) {
+  .title { font-size: 5rem; }
+  .detailTitle { font-size: 3rem; }
+}
+
+@media (max-width: 768px) {
+  .detailMain { padding: 80px 20px 60px; }
+  .textContent { position: static; }
 }

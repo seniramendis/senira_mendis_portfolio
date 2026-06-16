@@ -23,46 +23,71 @@ export default function ProjectDetail({ params }: { params: { id: string } }) {
 
       <main className={styles.detailMain}>
         <Link href="/projects" className={styles.backLink}>
-          <span className={styles.arrowBack}>&larr;</span> Back to Archive
+          <span className={styles.arrowBack}>&larr;</span> All Projects
         </Link>
 
-        <div className={styles.detailHeader}>
-          <span className={styles.cardNum}>Project {project.num}</span>
-          <h1 className={styles.detailTitle}>{project.title}</h1>
-          {project.role && (
-            <p className={styles.role}>
-              Role: <span>{project.role}</span>
-            </p>
-          )}
-        </div>
+        <div className={styles.splitLayout}>
 
-        <div className={styles.description}>
-          {project.description.split('\n').map((paragraph, idx) => (
-            <p key={idx}>{paragraph}</p>
-          ))}
-        </div>
+          {/* LEFT: STICKY TEXT */}
+          <div className={styles.textContent}>
+            <div className={styles.detailHeader}>
+              <span className={styles.cardNum}>Project {project.num}</span>
+              <h1 className={styles.detailTitle}>{project.title}</h1>
+              {project.role && (
+                <p className={styles.role}>
+                  Role: <span>{project.role}</span>
+                </p>
+              )}
+            </div>
 
-        <div className={styles.techSection}>
-          <h3 className={styles.techTitle}>Technologies & Tools</h3>
-          <div className={styles.techTags}>
-            {project.tags.map(tag => (
-              <span key={tag} className={styles.techTag}>{tag}</span>
-            ))}
+            <div className={styles.description}>
+              {project.description.split('\n').map((paragraph, idx) => (
+                <p key={idx}>{paragraph}</p>
+              ))}
+            </div>
+
+            <div className={styles.techSection}>
+              <span className={styles.techTitle}>Stack</span>
+              <div className={styles.techTags}>
+                {project.tags.map(tag => (
+                  <span key={tag} className={styles.techTag}>{tag}</span>
+                ))}
+              </div>
+
+              {project.href && project.href !== '#' && (
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mbtn mbtn-dark inline-block px-8 py-3"
+                >
+                  View Project ↗
+                </a>
+              )}
+            </div>
           </div>
 
-          {project.href && project.href !== '#' && (
-            <a
-              href={project.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mbtn mbtn-dark"
-            >
-              View Live / Source &#8599;
-            </a>
+          {/* RIGHT: IMAGES */}
+          {project.images && project.images.length > 0 && (
+            <div className={styles.imageContent}>
+              {project.images.map((imgUrl, index) => (
+                <div
+                  key={index}
+                  className={styles.imageWrapper}
+                >
+                  <img
+                    src={imgUrl}
+                    alt={`${project.title} — screenshot ${index + 1}`}
+                    className={styles.projectImage}
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
           )}
         </div>
 
-        {/* Prev / Next navigation */}
+        {/* PREV / NEXT */}
         <div className={styles.projectNav}>
           {prevProject ? (
             <Link href={`/projects/${prevProject.num}`} className={styles.projectNavLink}>
