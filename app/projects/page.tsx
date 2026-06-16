@@ -12,7 +12,7 @@ export default function ProjectsArchive() {
 
       <main className={styles.main}>
         <Link href="/" className={styles.backLink}>
-            <span className={styles.arrowBack}>&larr;</span> Back to Home
+          <span className={styles.arrowBack}>&larr;</span> Back to Home
         </Link>
 
         <h1 className={styles.title}>
@@ -22,13 +22,18 @@ export default function ProjectsArchive() {
         <div className={styles.grid}>
           {PROJECTS.map((project) => (
             <Link key={project.num} href={`/projects/${project.num}`} className={styles.card}>
-              <span className={styles.cardNum}>{project.num}</span>
+              <span className={styles.cardNum}>Project {project.num}</span>
               <h3 className={styles.cardTitle}>{project.title}</h3>
+              {project.role && (
+                <p className={styles.cardRole}>{project.role}</p>
+              )}
               <div className={styles.tags}>
-                 {project.tags.slice(0, 3).map(tag => (
-                    <span key={tag} className={styles.tag}>{tag}</span>
-                 ))}
-                 {project.tags.length > 3 && <span className={styles.moreTags}>+{project.tags.length - 3}</span>}
+                {project.tags.slice(0, 3).map(tag => (
+                  <span key={tag} className={styles.tag}>{tag}</span>
+                ))}
+                {project.tags.length > 3 && (
+                  <span className={styles.moreTags}>+{project.tags.length - 3}</span>
+                )}
               </div>
               <div className={styles.detailsLink}>
                 View Details <span className={styles.arrow}>&rarr;</span>
