@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import Cursor from '../components/ui/Cursor';// <-- Import the Cursor component
 
 export const metadata: Metadata = {
   title: 'Senira Mendis — Software Engineer',
@@ -15,7 +16,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Cursor /> {/* <-- Render it here */}
+        {children}
+      </body>
     </html>
   );
 }

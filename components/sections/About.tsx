@@ -1,8 +1,8 @@
 'use client';
-import { PERSONAL, ABOUT_STATS, EDUCATION } from '@/lib/data';
+import { ABOUT_STATS, EDUCATION } from '@/lib/data';
 import { useCounter } from '@/hooks/useCounter';
-import { useMagnetic } from '@/hooks/useMagnetic';
 import Reveal from '@/components/ui/Reveal';
+import SocialIcons from '@/components/ui/SocialIcons';
 import styles from './About.module.css';
 
 function StatNum({ num, suffix, label, delay = 0 }: { num: number; suffix: string; label: string; delay?: number }) {
@@ -14,16 +14,6 @@ function StatNum({ num, suffix, label, delay = 0 }: { num: number; suffix: strin
         <div className={styles.sLbl}>{label}</div>
       </div>
     </Reveal>
-  );
-}
-
-function MagLink({ href, children }: { href: string; children: React.ReactNode }) {
-  const ref = useMagnetic();
-  return (
-    <a ref={ref} href={href} target="_blank" rel="noopener noreferrer"
-       className="mbtn mbtn-light" style={{ fontSize: '12px', padding: '10px 20px' }} data-mag>
-      {children}
-    </a>
   );
 }
 
@@ -76,9 +66,9 @@ export default function About() {
                   </div>
                 ))}
               </div>
-              <div style={{ marginTop: '40px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <MagLink href={PERSONAL.linkedin}>LinkedIn ↗</MagLink>
-                <MagLink href={PERSONAL.github}>GitHub ↗</MagLink>
+              <div style={{ marginTop: '40px' }}>
+                <p className="text-sm font-semibold text-gray-900">Connect & Explore</p>
+                <SocialIcons />
               </div>
             </div>
           </Reveal>

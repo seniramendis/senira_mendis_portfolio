@@ -1,5 +1,5 @@
-import { PERSONAL } from '@/lib/data';
 import Reveal from '@/components/ui/Reveal';
+import SocialIcons from '@/components/ui/SocialIcons';
 import styles from './Contact.module.css';
 
 export default function Contact() {
@@ -19,49 +19,11 @@ export default function Contact() {
             </p>
           </Reveal>
           <Reveal delay={200}>
-            <div className={styles.links}>
-              <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer" className={styles.link}>
-                <div>
-                  <span className={styles.linkLbl}>Connect on</span>
-                  LinkedIn — Senira Mendis
-                </div>
-                <span className={styles.arr}>↗</span>
-              </a>
-              <a href={PERSONAL.github} target="_blank" rel="noopener noreferrer" className={styles.link}>
-                <div>
-                  <span className={styles.linkLbl}>Explore code on</span>
-                  GitHub — seniramendis
-                </div>
-                <span className={styles.arr}>↗</span>
-              </a>
-              <a href={`mailto:${PERSONAL.email}`} className={styles.link}>
-                <div>
-                  <span className={styles.linkLbl}>Send a message</span>
-                  Open to remote &amp; Colombo-based roles
-                </div>
-                <span className={styles.arr}>↗</span>
-              </a>
-              <a href={PERSONAL.whatsapp} target="_blank" rel="noopener noreferrer" className={styles.link}>
-                <div>
-                  <span className={styles.linkLbl}>Chat on</span>
-                  WhatsApp — {PERSONAL.whatsappDisplay}
-                </div>
-                <span className={styles.arr}>↗</span>
-              </a>
-              <a href={PERSONAL.instagram} target="_blank" rel="noopener noreferrer" className={styles.link}>
-                <div>
-                  <span className={styles.linkLbl}>Follow on</span>
-                  Instagram — @senira._mendis
-                </div>
-                <span className={styles.arr}>↗</span>
-              </a>
-              <a href={PERSONAL.facebook} target="_blank" rel="noopener noreferrer" className={styles.link}>
-                <div>
-                  <span className={styles.linkLbl}>Connect on</span>
-                  Facebook — Senira Mendis
-                </div>
-                <span className={styles.arr}>↗</span>
-              </a>
+            <div className="mt-8">
+              <p className="text-xs font-semibold tracking-widest uppercase text-gray-500 mb-2">
+                Direct Contact
+              </p>
+              <SocialIcons />
             </div>
           </Reveal>
         </div>
