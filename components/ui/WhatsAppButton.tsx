@@ -4,7 +4,7 @@ import styles from './WhatsAppButton.module.css';
 export default function WhatsAppButton() {
   return (
     <a 
-      href="https://wa.me/94770000000" /* <-- Put your actual number here */
+      href="https://wa.me/+94753356254" /* <-- Put your actual number here */
       target="_blank" 
       rel="noopener noreferrer"
       className={styles.whatsappBtn}
