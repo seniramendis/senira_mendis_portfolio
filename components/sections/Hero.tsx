@@ -4,6 +4,17 @@ import { PERSONAL, HERO_TECH_WORDS } from '@/lib/data';
 import { useMagnetic } from '@/hooks/useMagnetic';
 import styles from './Hero.module.css';
 
+const TOOLS = [
+  { name: 'React',    icon: '⚛️', pos: styles.tool1 },
+  { name: 'Next.js',  icon: '▲',  pos: styles.tool2 },
+  { name: 'Node.js',  icon: '🟢', pos: styles.tool3 },
+  { name: 'PHP',      icon: '🐘', pos: styles.tool4 },
+  { name: 'MySQL',    icon: '🐬', pos: styles.tool5 },
+  { name: 'Java',     icon: '☕', pos: styles.tool6 },
+  { name: 'Kotlin',   icon: '📱', pos: styles.tool7 },
+  { name: 'Docker',   icon: '🐳', pos: styles.tool8 },
+];
+
 function MagBtn({ href, children, external, className }: {
   href: string; children: React.ReactNode; external?: boolean; className: string;
 }) {
@@ -24,6 +35,7 @@ export default function Hero() {
   const techRef   = useRef<HTMLDivElement>(null);
   const techWordRef = useRef<HTMLSpanElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const stickerRef = useRef<HTMLDivElement>(null);
 
   // Entrance animations — simple staggered fade/rise, Apple-style restraint
   useEffect(() => {
@@ -33,7 +45,8 @@ export default function Hero() {
     const acts = actsRef.current;
     const tech = techRef.current;
     const scroll = scrollRef.current;
-    if (!tag || !head || !sub || !acts || !tech || !scroll) return;
+    const sticker = stickerRef.current;
+    if (!tag || !head || !sub || !acts || !tech || !scroll || !sticker) return;
 
     const animate = (el: HTMLElement, delay: number) => {
       setTimeout(() => {
@@ -48,6 +61,7 @@ export default function Hero() {
     animate(sub, 500);
     animate(acts, 700);
     animate(tech, 900);
+    animate(sticker, 400);
     animate(scroll, 1300);
   }, []);
 
@@ -96,27 +110,44 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} style={{ borderBottom: 'none', padding: 0, paddingTop: 'var(--nav-h)' }}>
-      <div className={styles.heroCenter}>
-        <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>
-          {PERSONAL.tagline}
+      <div className={styles.heroGrid}>
+        <div className={styles.heroCenter}>
+          <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>
+            {PERSONAL.tagline}
+          </div>
+
+          <h1 className={styles.h1} ref={headRef} style={{ opacity: 0, transform: 'translateY(18px)' }}>
+            Senira Mendis.
+          </h1>
+
+          <p className={styles.sub} ref={subRef} style={{ opacity: 0, transform: 'translateY(16px)' }}>
+            {PERSONAL.sub}
+          </p>
+
+          <div className={styles.acts} ref={actsRef} style={{ opacity: 0, transform: 'translateY(14px)' }}>
+            <MagBtn href="#work" className={`${styles.btnPrimary} mbtn mbtn-dark`}>View my work</MagBtn>
+            <MagBtn href="#contact" className={`${styles.btnGhost} mbtn mbtn-light`}>Get in touch &rsaquo;</MagBtn>
+          </div>
+
+          <div className={styles.techRow} ref={techRef} style={{ opacity: 0, transform: 'translateY(10px)' }}>
+            <span className={styles.techLabel}>Currently building with</span>
+            <span className={styles.techWordWrap}><span className={styles.techWord} ref={techWordRef} /><span className={styles.techCursor} aria-hidden="true" /></span>
+          </div>
         </div>
 
-        <h1 className={styles.h1} ref={headRef} style={{ opacity: 0, transform: 'translateY(18px)' }}>
-          Senira Mendis.
-        </h1>
-
-        <p className={styles.sub} ref={subRef} style={{ opacity: 0, transform: 'translateY(16px)' }}>
-          {PERSONAL.sub}
-        </p>
-
-        <div className={styles.acts} ref={actsRef} style={{ opacity: 0, transform: 'translateY(14px)' }}>
-          <MagBtn href="#work" className={`${styles.btnPrimary} mbtn mbtn-dark`}>View my work</MagBtn>
-          <MagBtn href="#contact" className={`${styles.btnGhost} mbtn mbtn-light`}>Get in touch &rsaquo;</MagBtn>
-        </div>
-
-        <div className={styles.techRow} ref={techRef} style={{ opacity: 0, transform: 'translateY(10px)' }}>
-          <span className={styles.techLabel}>Currently building with</span>
-          <span className={styles.techWordWrap}><span className={styles.techWord} ref={techWordRef} /><span className={styles.techCursor} aria-hidden="true" /></span>
+        <div className={styles.heroSticker} ref={stickerRef} style={{ opacity: 0, transform: 'translateY(24px)' }}>
+          <div className={styles.stickerStage}>
+            {TOOLS.map(t => (
+              <span key={t.name} className={`${styles.toolBadge} ${t.pos}`}>
+                <span className={styles.toolIcon}>{t.icon}</span> {t.name}
+              </span>
+            ))}
+            <img
+              src="https://res.cloudinary.com/dukv2otyn/image/upload/v1787525935/Senira_Mendis_Sticker_pzv1cv.png"
+              alt="Senira Mendis"
+              className={styles.stickerImg}
+            />
+          </div>
         </div>
       </div>
 

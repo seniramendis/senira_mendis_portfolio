@@ -11,19 +11,107 @@
 }
 
 /* ═══════════════════════════════════════════
-   CENTERED CONTENT — Apple hero pattern
+   TWO-COLUMN GRID — text left, sticker right
 ═══════════════════════════════════════════ */
-.heroCenter {
+.heroGrid {
   position: relative;
   z-index: 3;
-  max-width: 760px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 140px 24px 96px;
-  text-align: center;
+  padding: 100px 24px 64px;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 40px;
+  min-height: calc(100vh - var(--nav-h));
+}
+
+.heroCenter {
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  padding: 0;
+  max-width: 560px;
 }
+
+.heroSticker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stickerStage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stickerImg {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,.16));
+  transition: filter .4s ease, transform .5s cubic-bezier(.22,1,.36,1);
+}
+
+.heroSticker:hover .stickerImg {
+  filter: drop-shadow(0 42px 80px rgba(0,0,0,.22));
+  transform: scale(1.02);
+}
+
+/* ═══════════════════════════════════════════
+   TOOL BADGES — orbit reveal on hover
+═══════════════════════════════════════════ */
+.toolBadge {
+  position: absolute;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: rgba(255,255,255,.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--gray-line);
+  box-shadow: 0 10px 30px rgba(0,0,0,.1);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-1);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(0, 0) scale(.4);
+  pointer-events: none;
+  transition: opacity .45s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1);
+}
+
+.toolIcon { font-size: 15px; line-height: 1; }
+
+.heroSticker:hover .toolBadge {
+  opacity: 1;
+}
+
+.tool1 { top: 4%;   left: -6%;  transition-delay: .02s; }
+.tool2 { top: 14%;  right: -10%; transition-delay: .09s; }
+.tool3 { top: 44%;  left: -14%; transition-delay: .05s; }
+.tool4 { top: 46%;  right: -16%; transition-delay: .13s; }
+.tool5 { bottom: 22%; left: -8%; transition-delay: .16s; }
+.tool6 { bottom: 20%; right: -8%; transition-delay: .07s; }
+.tool7 { bottom: -2%; left: 12%; transition-delay: .11s; }
+.tool8 { bottom: -2%; right: 10%; transition-delay: .19s; }
+
+.heroSticker:hover .tool1 { transform: translate(-18px, -10px) scale(1); }
+.heroSticker:hover .tool2 { transform: translate(18px, -6px) scale(1); }
+.heroSticker:hover .tool3 { transform: translate(-30px, 0) scale(1); }
+.heroSticker:hover .tool4 { transform: translate(30px, 0) scale(1); }
+.heroSticker:hover .tool5 { transform: translate(-24px, 10px) scale(1); }
+.heroSticker:hover .tool6 { transform: translate(24px, 10px) scale(1); }
+.heroSticker:hover .tool7 { transform: translate(-10px, 14px) scale(1); }
+.heroSticker:hover .tool8 { transform: translate(10px, 14px) scale(1); }
 
 .heroTag {
   font-size: 14px;
@@ -35,7 +123,7 @@
 
 .h1 {
   font-family: var(--sans);
-  font-size: clamp(44px, 7vw, 96px);
+  font-size: clamp(40px, 5.6vw, 76px);
   font-weight: 600;
   line-height: 1.05;
   letter-spacing: -.03em;
@@ -44,12 +132,12 @@
 
 .sub {
   margin-top: 20px;
-  font-size: clamp(17px, 2vw, 21px);
+  font-size: clamp(17px, 1.6vw, 20px);
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: -.01em;
   color: var(--gray-mid);
-  max-width: 620px;
+  max-width: 520px;
 }
 
 .acts {
@@ -58,7 +146,7 @@
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .btnPrimary { font-size: 17px; padding: 12px 24px; }
@@ -71,7 +159,7 @@
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .techLabel {
@@ -125,7 +213,18 @@
    RESPONSIVE
 ═══════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .heroCenter { padding: 100px 20px 72px; }
+  .heroGrid {
+    grid-template-columns: 1fr;
+    padding: 96px 20px 56px;
+    gap: 40px;
+    min-height: auto;
+  }
+  .heroCenter { align-items: center; text-align: center; max-width: 100%; }
+  .acts { justify-content: center; }
+  .techRow { justify-content: center; }
+  .heroSticker { order: -1; }
+  .stickerImg { max-width: 320px; }
+  .toolBadge { display: none; }
   .scrollInd { display: none; }
 }
 @media (max-width: 520px) {
