@@ -5,14 +5,22 @@ import { useMagnetic } from '@/hooks/useMagnetic';
 import styles from './Hero.module.css';
 
 const TOOLS = [
-  { name: 'React',    icon: '⚛️', pos: styles.tool1 },
-  { name: 'Next.js',  icon: '▲',  pos: styles.tool2 },
-  { name: 'Node.js',  icon: '🟢', pos: styles.tool3 },
-  { name: 'PHP',      icon: '🐘', pos: styles.tool4 },
-  { name: 'MySQL',    icon: '🐬', pos: styles.tool5 },
-  { name: 'Java',     icon: '☕', pos: styles.tool6 },
-  { name: 'Kotlin',   icon: '📱', pos: styles.tool7 },
-  { name: 'Docker',   icon: '🐳', pos: styles.tool8 },
+  { name: 'React',      slug: 'react',      pos: styles.tool1 },
+  { name: 'Next.js',    slug: 'nextjs',     pos: styles.tool2 },
+  { name: 'Node.js',    slug: 'nodejs',     pos: styles.tool3 },
+  { name: 'PHP',        slug: 'php',        pos: styles.tool4 },
+  { name: 'MySQL',      slug: 'mysql',      pos: styles.tool5 },
+  { name: 'Java',       slug: 'java',       pos: styles.tool6 },
+  { name: 'Kotlin',     slug: 'kotlin',     pos: styles.tool7 },
+  { name: 'Docker',     slug: 'docker',     pos: styles.tool8 },
+  { name: 'Laravel',    slug: 'laravel',    pos: styles.tool9 },
+  { name: 'JavaScript', slug: 'js',         pos: styles.tool10 },
+  { name: 'C#',         slug: 'cs',         pos: styles.tool11 },
+  { name: 'PostgreSQL', slug: 'postgres',   pos: styles.tool12 },
+  { name: 'MongoDB',    slug: 'mongodb',    pos: styles.tool13 },
+  { name: 'Firebase',   slug: 'firebase',   pos: styles.tool14 },
+  { name: 'Git',        slug: 'git',        pos: styles.tool15 },
+  { name: 'Figma',      slug: 'figma',      pos: styles.tool16 },
 ];
 
 function MagBtn({ href, children, external, className }: {
@@ -139,7 +147,12 @@ export default function Hero() {
           <div className={styles.stickerStage}>
             {TOOLS.map(t => (
               <span key={t.name} className={`${styles.toolBadge} ${t.pos}`}>
-                <span className={styles.toolIcon}>{t.icon}</span> {t.name}
+                <img
+                  src={`https://skillicons.dev/icons?i=${t.slug}`}
+                  alt={t.name}
+                  className={styles.toolIcon}
+                  loading="lazy"
+                />
               </span>
             ))}
             <img
