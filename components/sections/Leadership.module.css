@@ -8,36 +8,35 @@
 
 .card {
   background: var(--white);
-  border: .5px solid var(--border);
-  border-radius: 14px;
+  border: 1px solid var(--gray-line);
+  border-radius: 18px;
   padding: 40px;
-  transition: border-color .3s, transform .4s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+  transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .3s;
 }
 
 .card:hover {
-  border-color: var(--border-strong);
   transform: translateY(-5px);
-  box-shadow: 0 24px 64px rgba(13,13,13,.06);
+  box-shadow: 0 24px 64px rgba(0,0,0,.08);
 }
 
 .icon {
-  font-size: 22px;
+  font-size: 26px;
   margin-bottom: 22px;
   display: block;
 }
 
 .title {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 19px;
+  font-weight: 600;
   color: var(--text-1);
   letter-spacing: -.015em;
   margin-bottom: 10px;
 }
 
 .body {
-  font-size: 13px;
-  color: var(--text-2);
-  line-height: 1.72;
+  font-size: 15px;
+  color: var(--gray-mid);
+  line-height: 1.55;
 }
 
 .badge {

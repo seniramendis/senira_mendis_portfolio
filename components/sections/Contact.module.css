@@ -1,36 +1,37 @@
 .section {
-  background: var(--text-1);
-  padding: 160px 56px;
+  background: #000;
+  padding: 140px 22px;
 }
 
 .inner {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 100px;
+  gap: 80px;
   align-items: center;
 }
 
 .heading {
-  font-family: var(--serif);
-  font-size: clamp(44px, 7vw, 88px);
-  font-weight: 200;
-  line-height: 1.02;
-  letter-spacing: -.04em;
+  font-family: var(--sans);
+  font-size: clamp(38px, 5.6vw, 68px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -.02em;
   color: var(--white);
 }
 
 .heading em {
-  font-style: italic;
-  color: rgba(255,255,255,.28);
+  font-style: normal;
+  color: rgba(255,255,255,.4);
 }
 
 .sub {
-  font-size: 15px;
-  color: rgba(255,255,255,.38);
-  line-height: 1.78;
-  margin-bottom: 44px;
+  font-size: 17px;
+  color: rgba(255,255,255,.62);
+  line-height: 1.55;
+  margin-bottom: 40px;
+  letter-spacing: -.01em;
 }
 
 .links {

@@ -19,7 +19,7 @@ function StatNum({ num, suffix, label, delay = 0 }: { num: number; suffix: strin
 
 export default function About() {
   return (
-    <section id="about">
+    <section id="about" className={styles.section}>
       <div className="si">
         <Reveal><div className="sec-label">About</div></Reveal>
 

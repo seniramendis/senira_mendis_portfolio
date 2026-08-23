@@ -4,7 +4,7 @@
 .container {
   min-height: 100vh;
   background-color: var(--white);
-  color: var(--navy-core);
+  color: var(--text-1);
   display: flex;
   flex-direction: column;
 }
@@ -20,14 +20,14 @@
 
 .title {
   font-size: 3.5rem;
-  font-weight: 300;
+  font-weight: 600;
   margin-bottom: 64px;
   font-family: var(--serif);
 }
 
 .title em {
-  color: var(--gold-primary);
-  font-style: italic;
+  color: var(--gray-mid);
+  font-style: normal;
 }
 
 .grid {
@@ -47,14 +47,14 @@
 
 .card:hover {
   transform: translateY(-8px);
-  border-color: var(--gold-primary);
+  border-color: var(--blue);
 }
 
 .cardNum {
   font-size: 10px;
   font-weight: bold;
   letter-spacing: 0.1em;
-  color: var(--gold-primary);
+  color: var(--blue);
   text-transform: uppercase;
   display: block;
   margin-bottom: 16px;
@@ -63,13 +63,13 @@
 .cardTitle {
   font-size: 20px;
   font-weight: 500;
-  color: var(--navy-core);
+  color: var(--text-1);
   margin-bottom: 12px;
   transition: color 0.3s ease;
 }
 
 .card:hover .cardTitle {
-  color: var(--gold-dark);
+  color: var(--blue);
 }
 
 .tags {
@@ -84,8 +84,8 @@
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.05em;
-  border: 1px solid var(--gold-primary);
-  color: var(--navy-core);
+  border: 1px solid var(--blue);
+  color: var(--text-1);
   opacity: 0.8;
   padding: 4px 12px;
   border-radius: 99px;
@@ -93,7 +93,7 @@
 
 .moreTags {
   font-size: 10px;
-  color: var(--gold-dark);
+  color: var(--blue);
   font-weight: 600;
   margin-top: 4px;
 }
@@ -105,7 +105,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--gold-dark);
+  color: var(--blue);
 }
 
 .arrow {
@@ -124,7 +124,7 @@
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--blue);
   margin-bottom: 4px;
   opacity: 0.75;
 }
@@ -138,14 +138,14 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--gold-dark);
+  color: var(--blue);
   text-decoration: none;
   margin-bottom: 48px;
   transition: color 0.3s;
 }
 
 .backLink:hover {
-  color: var(--gold-primary);
+  color: var(--blue);
 }
 
 .arrowBack {
@@ -198,11 +198,11 @@
 
 .detailTitle {
   font-size: 2.5rem;
-  font-weight: 300;
+  font-weight: 600;
   line-height: 1.2;
   margin-bottom: 24px;
   font-family: var(--serif);
-  color: var(--navy-core);
+  color: var(--text-1);
 }
 
 .role {
@@ -214,12 +214,12 @@
 }
 
 .role span {
-  color: var(--navy-core);
+  color: var(--text-1);
 }
 
 .description {
   font-size: 16px;
-  color: var(--navy-core);
+  color: var(--text-1);
   opacity: 0.9;
   line-height: 1.8;
   margin-bottom: 40px;
@@ -243,7 +243,7 @@
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 0.1em;
-  color: var(--gold-primary);
+  color: var(--blue);
   text-transform: uppercase;
   display: block;
   margin-bottom: 20px;
@@ -259,9 +259,9 @@
 .techTag {
   font-size: 14px;
   font-weight: 500;
-  border: 1px solid var(--gold-primary);
+  border: 1px solid var(--blue);
   background-color: var(--off-white);
-  color: var(--navy-core);
+  color: var(--text-1);
   padding: 8px 24px;
   border-radius: 99px;
 }
@@ -339,13 +339,13 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold-primary);
+  color: var(--blue);
 }
 
 .projectNavTitle {
   font-size: 14px;
   font-weight: 400;
-  color: var(--navy-core);
+  color: var(--text-1);
   font-family: var(--serif);
   line-height: 1.3;
 }

@@ -2,10 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300;1,9..144,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* ═══════════════════════════════════════════
-   RESET + LUXURY TOKENS (Rolex / Patek Vibe)
+   RESET + APPLE-STYLE DESIGN TOKENS
 ═══════════════════════════════════════════ */
 *, *::before, *::after {
   margin: 0;
@@ -14,91 +14,55 @@
 }
 
 :root {
-  /* Core Luxury Palette */
-  --navy-core:     #0A192F; 
-  --navy-dark:     #040C18; 
-  --gold-primary:  #D4AF37; 
-  --gold-light:    #F3E5AB; 
-  --gold-dark:     #AA8C2C; 
-
-  /* Backgrounds: Pristine White & Ivory Cream */
+  /* Apple core palette */
+  --black:         #000000;
+  --near-black:    #1d1d1f;
   --white:         #FFFFFF;
-  --off-white:     #FDFBF7; 
-  --warm-gray:     #F4EFE6; 
+  --off-white:     #F5F5F7;   /* Apple's signature light-gray section bg */
+  --gray-mid:      #86868b;   /* Apple's secondary/subhead gray */
+  --gray-line:     #d2d2d7;   /* Apple's hairline divider gray */
 
-  /* Borders: Tinted with gold */
-  --border:        rgba(212, 175, 55, 0.25);
-  --border-med:    rgba(212, 175, 55, 0.45);
-  --border-strong: rgba(10, 25, 47, 0.2);
+  --blue:          #0071e3;   /* Apple's link/button blue */
+  --blue-hover:    #0077ED;
 
-  /* Typography: Mapped to Navy & Gold */
-  --text-1:        var(--navy-dark);    
-  --text-2:        var(--gold-dark);    
-  --text-3:        var(--gold-primary); 
-  
-  --accent:        var(--gold-primary);
-  --accent-blue:   var(--navy-core);
-  --accent-light:  rgba(212, 175, 55, 0.08);
+  /* Backwards-compatible aliases used across existing components */
+  --border:        var(--gray-line);
+  --border-med:    var(--gray-line);
+  --border-strong: var(--gray-line);
 
-  --serif:         'Fraunces', Georgia, serif;
-  --sans:          'Inter', system-ui, sans-serif;
-  --nav-h:         64px;
+  --text-1:        var(--near-black);
+  --text-2:        var(--gray-mid);
+  --text-3:        var(--blue);
+
+  --accent:        var(--blue);
+  --accent-blue:   var(--blue);
+  --accent-light:  rgba(0, 113, 227, 0.08);
+
+  --sans:          -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --serif:         var(--sans);
+
+  --nav-h:         44px;
 }
 
 html {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 body {
   font-family: var(--sans);
   background: var(--white);
   color: var(--text-1);
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 17px;
+  line-height: 1.47059;
+  font-weight: 400;
+  letter-spacing: -.022em;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  cursor: none;
+  cursor: auto;
 }
 
-/* ═══════════════════════════════════════════
-   LUXURY CURSOR (Navy & Gold)
-═══════════════════════════════════════════ */
-#cur-dot {
-  position: fixed;
-  width: 5px;
-  height: 5px;
-  background: var(--navy-core);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width .15s, height .15s, background .15s;
-  will-change: left, top;
-}
-
-#cur-ring {
-  position: fixed;
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(10, 25, 47, 0.3);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%,-50%);
-  will-change: left, top;
-  transition: width .3s cubic-bezier(.22,1,.36,1),
-              height .3s cubic-bezier(.22,1,.36,1),
-              border-color .2s;
-}
-
-body.ch #cur-dot  { width: 9px; height: 9px; background: var(--accent); }
-body.ch #cur-ring { width: 50px; height: 50px; border-color: var(--gold-primary); }
-body.cc #cur-dot  { transform: translate(-50%,-50%) scale(.5); }
-
-@media (max-width: 900px) {
-  #cur-dot, #cur-ring { display: none; }
-  body { cursor: auto; }
-}
+/* Apple.com uses a plain system cursor — disable the custom dot/ring */
+#cur-dot, #cur-ring { display: none !important; }
 
 /* ═══════════════════════════════════════════
    PROGRESS BAR
@@ -108,41 +72,25 @@ body.cc #cur-dot  { transform: translate(-50%,-50%) scale(.5); }
   top: 0;
   left: 0;
   height: 2px;
-  background: var(--gold-primary);
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  background: var(--blue);
   z-index: 9997;
   width: 0%;
   transition: width .1s linear;
 }
 
 /* ═══════════════════════════════════════════
-   NOISE OVERLAY
-═══════════════════════════════════════════ */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
-  opacity: .45;
-}
-
-/* ═══════════════════════════════════════════
-   MARQUEE
+   TECH MARQUEE — Apple-style thin strip
 ═══════════════════════════════════════════ */
 .mq-wrap {
   overflow: hidden;
-  border-top: .5px solid var(--border);
-  border-bottom: .5px solid var(--border);
   background: var(--off-white);
-  padding: 14px 0;
+  padding: 20px 0;
 }
 
 .mq-track {
   display: flex;
   width: max-content;
-  animation: mq 28s linear infinite;
+  animation: mq 32s linear infinite;
 }
 
 .mq-track:hover { animation-play-state: paused; }
@@ -151,21 +99,20 @@ body::after {
   display: flex;
   align-items: center;
   gap: 30px;
-  padding: 0 40px;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--gold-dark);
+  padding: 0 36px;
+  font-size: 12px;
+  font-weight: 590;
+  letter-spacing: .01em;
+  color: var(--gray-mid);
   white-space: nowrap;
 }
 
 .mq-item b {
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
-  background: var(--gold-primary);
-  opacity: .8;
+  background: var(--gray-mid);
+  opacity: .6;
   display: inline-block;
   font-weight: 400;
 }
@@ -176,79 +123,73 @@ body::after {
 }
 
 /* ═══════════════════════════════════════════
-   SECTION SHELL
+   SECTION SHELL — full-bleed Apple product sections
 ═══════════════════════════════════════════ */
 section {
-  padding: 140px 56px;
-  border-bottom: .5px solid var(--border);
+  padding: 120px 22px;
+  border-bottom: none;
   position: relative;
 }
 
 .si {
-  max-width: 1200px;
+  max-width: 980px;
   margin: 0 auto;
 }
 
 .sec-label {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: .16em;
+  letter-spacing: .02em;
   text-transform: uppercase;
-  color: var(--gold-primary);
-  margin-bottom: 72px;
+  color: var(--gray-mid);
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  justify-content: center;
+  gap: 10px;
 }
 
-.sec-label::before {
-  content: '';
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: var(--gold-primary);
-}
+.sec-label::before { content: none; }
 
 @media (max-width: 900px) {
-  section { padding: 80px 24px; }
+  section { padding: 72px 20px; }
 }
 
 /* ═══════════════════════════════════════════
-   MAGNETIC BUTTON
+   BUTTONS — Apple pill CTAs
 ═══════════════════════════════════════════ */
 .mbtn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 13px 28px;
-  border-radius: 100px;
+  gap: 6px;
+  font-size: 17px;
+  font-weight: 400;
+  padding: 12px 22px;
+  border-radius: 980px;
   text-decoration: none;
-  transition: all .3s ease;
-  cursor: none;
-  will-change: transform;
+  transition: all .2s ease;
+  letter-spacing: -.01em;
 }
 
-.mbtn-dark { 
-  color: var(--gold-light); 
-  background: var(--navy-core); 
-  border: 1px solid var(--gold-dark);
+.mbtn-dark {
+  color: var(--white);
+  background: var(--blue);
+  border: 1px solid var(--blue);
 }
-.mbtn-dark:hover { 
-  box-shadow: 0 8px 30px rgba(10, 25, 47, 0.3), 0 0 15px rgba(212, 175, 55, 0.2); 
-  background: var(--navy-dark); 
-  color: var(--gold-primary);
+.mbtn-dark:hover {
+  background: var(--blue-hover);
+  border-color: var(--blue-hover);
 }
 
 .mbtn-light {
-  color: var(--navy-core);
+  color: var(--blue);
   background: transparent;
-  border: 1px solid var(--gold-primary);
+  border: 1px solid transparent;
+  padding-left: 4px;
+  padding-right: 4px;
 }
-.mbtn-light:hover { 
-  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.15); 
-  background: var(--accent-light); 
+.mbtn-light:hover {
+  text-decoration: underline;
 }
 
 /* ═══════════════════════════════════════════
@@ -264,8 +205,9 @@ section {
 ═══════════════════════════════════════════ */
 .scroll-ind {
   position: absolute;
-  right: 56px;
+  left: 50%;
   bottom: 44px;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -275,8 +217,8 @@ section {
 
 .scroll-track {
   width: 1px;
-  height: 56px;
-  background: var(--border-med);
+  height: 40px;
+  background: rgba(255,255,255,.3);
   position: relative;
   overflow: hidden;
 }
@@ -286,7 +228,7 @@ section {
   top: -100%;
   left: 0;
   right: 0;
-  background: var(--gold-primary);
+  background: #fff;
   height: 100%;
   animation: sf 2s cubic-bezier(.22,1,.36,1) infinite;
 }
@@ -298,19 +240,18 @@ section {
 }
 
 .scroll-lbl {
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: .12em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .04em;
   text-transform: uppercase;
-  color: var(--gold-dark);
-  writing-mode: vertical-rl;
+  color: rgba(255,255,255,.7);
 }
 
 .line-sep {
   display: block;
   width: 100%;
   height: 1px;
-  background: var(--border);
+  background: var(--gray-line);
 }
 
 @keyframes pulse {

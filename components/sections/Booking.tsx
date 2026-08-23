@@ -10,7 +10,7 @@ export default function Booking() {
       cal("ui", { 
         theme: "dark", /* Set back to dark */
         styles: { 
-          branding: { brandColor: "#D4AF37" } 
+          branding: { brandColor: "#0071e3" } 
         }, 
         hideEventTypeDetails: false, 
         layout: "month_view" 

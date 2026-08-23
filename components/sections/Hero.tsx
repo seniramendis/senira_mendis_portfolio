@@ -1,10 +1,9 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { PERSONAL, STATS, HERO_TECH_WORDS } from '@/lib/data';
 import { useMagnetic } from '@/hooks/useMagnetic';
 import { useCounter } from '@/hooks/useCounter';
 import styles from './Hero.module.css';
-import SocialIcons from '@/components/ui/SocialIcons';
 
 function StatCounter({ num, label }: { num: number; label: string }) {
   const { ref, display } = useCounter(num);
@@ -29,115 +28,41 @@ function MagBtn({ href, children, external, className }: {
 }
 
 export default function Hero() {
-  const [activeSlide, setActiveSlide] = useState(0);
-
-  const canvasRef  = useRef<HTMLCanvasElement>(null);
-  const tagRef     = useRef<HTMLDivElement>(null);
-  const headRef    = useRef<HTMLHeadingElement>(null);
-  const introRef   = useRef<HTMLDivElement>(null);
-  const techRef    = useRef<HTMLDivElement>(null);
+  const tagRef    = useRef<HTMLDivElement>(null);
+  const headRef   = useRef<HTMLHeadingElement>(null);
+  const subRef    = useRef<HTMLParagraphElement>(null);
+  const actsRef   = useRef<HTMLDivElement>(null);
+  const techRef   = useRef<HTMLDivElement>(null);
   const techWordRef = useRef<HTMLSpanElement>(null);
-  const slideRef   = useRef<HTMLDivElement>(null);
-  const bottomRef  = useRef<HTMLDivElement>(null);
-  const scrollRef  = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const SKILLS = [
-    { name: 'React', icon: '⚛️' },
-    { name: 'Next.js', icon: '▲' },
-    { name: 'Node.js', icon: '🟢' },
-    { name: 'PHP', icon: '🐘' },
-    { name: 'MySQL', icon: '🐬' },
-    { name: 'Java', icon: '☕' },
-    { name: 'Kotlin', icon: '📱' },
-  ];
-
-  // Auto-play Slideshow (5 seconds per slide)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % 3);
-    }, 5000); 
-    return () => clearInterval(interval);
-  }, []);
-
-  // Canvas grain field
-  useEffect(() => {
-    const c = canvasRef.current;
-    if (!c) return;
-    const ctx = c.getContext('2d')!;
-    let W: number, H: number;
-    const pts: any[] = [];
-    let raf: number;
-
-    class Particle {
-      x: number = 0; y: number = 0; r: number = 0; vx: number = 0; vy: number = 0; a: number = 0;
-      constructor() { this.reset(); }
-      reset() {
-        this.x  = Math.random() * W;
-        this.y  = Math.random() * H;
-        this.r  = Math.random() * 1.4 + 0.4;
-        this.vx = (Math.random() - 0.5) * 0.28;
-        this.vy = (Math.random() - 0.5) * 0.28;
-        this.a  = Math.random() * 0.18 + 0.04;
-      }
-      step() {
-        this.x += this.vx; this.y += this.vy;
-        if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${this.a})`;
-        ctx.fill();
-      }
-    }
-
-    const resize = () => { W = c.width = c.offsetWidth; H = c.height = c.offsetHeight; };
-    resize();
-    window.addEventListener('resize', resize);
-    for (let i = 0; i < 70; i++) pts.push(new Particle());
-
-    const loop = () => {
-      ctx.clearRect(0, 0, W, H);
-      pts.forEach(p => { p.step(); p.draw(); });
-      raf = requestAnimationFrame(loop);
-    };
-    loop();
-
-    return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', resize); };
-  }, []);
-
-  // Entrance animations
+  // Entrance animations — simple staggered fade/rise, Apple-style restraint
   useEffect(() => {
     const tag = tagRef.current;
     const head = headRef.current;
-    const intro = introRef.current;
+    const sub = subRef.current;
+    const acts = actsRef.current;
     const tech = techRef.current;
-    const slideBox = slideRef.current;
     const bottom = bottomRef.current;
     const scroll = scrollRef.current;
-    if (!tag || !head || !intro || !tech || !slideBox || !bottom || !scroll) return;
+    if (!tag || !head || !sub || !acts || !tech || !bottom || !scroll) return;
 
-    const inners = head.querySelectorAll<HTMLSpanElement>('.inner');
-
-    const animate = (el: HTMLElement, props: Partial<CSSStyleDeclaration>, delay: number) => {
+    const animate = (el: HTMLElement, delay: number) => {
       setTimeout(() => {
         el.style.transition = 'opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1)';
-        Object.assign(el.style, props);
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
       }, delay);
     };
 
-    animate(tag, { opacity: '1', transform: 'translateY(0)' }, 50);
-    inners.forEach((inner, i) => {
-      setTimeout(() => {
-        inner.style.transition = `transform 1.1s cubic-bezier(.22,1,.36,1)`;
-        inner.style.transform = 'translateY(0%)';
-      }, 100 + i * 120);
-    });
-    animate(intro, { opacity: '1', transform: 'translateY(0)' }, 1500);
-    animate(tech,  { opacity: '1', transform: 'translateY(0)' }, 2150);
-    animate(slideBox, { opacity: '1', transform: 'translateY(0)' }, 2600);
-    animate(bottom, { opacity: '1', transform: 'translateY(0)' }, 3050);
-    animate(scroll, { opacity: '1' }, 3350);
+    animate(tag, 100);
+    animate(head, 250);
+    animate(sub, 500);
+    animate(acts, 700);
+    animate(tech, 900);
+    animate(bottom, 1200);
+    animate(scroll, 1500);
   }, []);
 
   // Tech-stack typewriter
@@ -148,7 +73,7 @@ export default function Hero() {
     const TYPE_SPEED   = 70;
     const DELETE_SPEED = 40;
     const HOLD_TIME    = 1500;
-    const START_DELAY  = 2500;
+    const START_DELAY  = 1800;
 
     let wordIndex = 0;
     let charIndex = 0;
@@ -193,88 +118,38 @@ export default function Hero() {
       </video>
 
       <div className={styles.overlay} />
-      <canvas id="grain" ref={canvasRef} className={styles.grain} />
 
-      <div className={styles.heroTop}>
-        <div className={styles.heroGrid}>
-          
-          <div className={styles.heroLeft}>
-            <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}><span className={styles.tagDot} />{PERSONAL.tagline}</div>
-            <h1 className={styles.h1} id="hero-h1" ref={headRef}>
-              <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>Building software</span></span>
-              <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>that <em>solves real-world</em></span></span>
-              <span className={styles.line}><span className="inner" style={{ display: 'block', transform: 'translateY(110%)' }}>problems.</span></span>
-            </h1>
-            <div className={styles.introLine} ref={introRef} style={{ opacity: 0, transform: 'translateY(14px)' }}><span className={styles.wave} aria-hidden="true">👋</span><span>Hey, I&apos;m <span className={styles.introName}>Senira Mendis</span></span></div>
-            <div className={styles.techRow} ref={techRef} style={{ opacity: 0, transform: 'translateY(10px)' }}>
-              <span className={styles.techLabel}>Currently building with</span>
-              <span className={styles.techWordWrap}><span className={styles.techWord} ref={techWordRef} /><span className={styles.techCursor} aria-hidden="true" /></span>
-            </div>
-          </div>
+      <div className={styles.heroCenter}>
+        <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>
+          {PERSONAL.tagline}
+        </div>
 
-          <div className={styles.heroRight} ref={slideRef} style={{ opacity: 0, transform: 'translateY(24px)' }}>
-            
-            <div className={`${styles.slide} ${activeSlide === 0 ? styles.slideActive : ''}`}>
-              <h3 className={styles.slideTitle}>
-                <span className={styles.slideTitleText}>01 // The Mission</span>
-              </h3>
-              <p className={styles.sub}>{PERSONAL.sub}</p>
-            </div>
+        <h1 className={styles.h1} ref={headRef} style={{ opacity: 0, transform: 'translateY(18px)' }}>
+          Senira Mendis.
+        </h1>
 
-            <div className={`${styles.slide} ${activeSlide === 1 ? styles.slideActive : ''}`}>
-              <h3 className={styles.slideTitle}>
-                <span className={styles.slideTitleText}>02 // Core Stack</span>
-              </h3>
-              <div className={styles.skillsGrid}>
-                {SKILLS.map((skill, index) => (
-                  <div 
-                    key={skill.name} 
-                    className={styles.skillBadge}
-                    style={{ animationDelay: `${0.15 + (index * 0.05)}s` }} 
-                  >
-                    <span className={styles.skillIcon}>{skill.icon}</span> {skill.name}
-                  </div>
-                ))}
-              </div>
-            </div>
+        <p className={styles.sub} ref={subRef} style={{ opacity: 0, transform: 'translateY(16px)' }}>
+          {PERSONAL.sub}
+        </p>
 
-            <div className={`${styles.slide} ${activeSlide === 2 ? styles.slideActive : ''}`}>
-              <h3 className={styles.slideTitle}>
-                <span className={styles.slideTitleText}>03 // Connect</span>
-              </h3>
-              <div className={styles.acts}>
-                <MagBtn href="#work" className={styles.btnPrimary}>View my work ↓</MagBtn>
-                <MagBtn href={PERSONAL.github} external className={styles.btnGhost}>GitHub ↗</MagBtn>
-                <MagBtn href="#book" className={styles.btnPrimary}>Book Appointment 📅</MagBtn>
-              </div>
-            </div>
+        <div className={styles.acts} ref={actsRef} style={{ opacity: 0, transform: 'translateY(14px)' }}>
+          <MagBtn href="#work" className={`${styles.btnPrimary} mbtn mbtn-dark`}>View my work</MagBtn>
+          <MagBtn href="#contact" className={`${styles.btnGhost} mbtn mbtn-light`}>Get in touch &rsaquo;</MagBtn>
+        </div>
 
-            <div className={styles.storyNav}>
-              {[0, 1, 2].map((i) => (
-                <div 
-                  key={i} 
-                  className={styles.storyTrack}
-                  onClick={() => setActiveSlide(i)}
-                >
-                  <div 
-                    className={`${styles.storyFill} ${
-                      activeSlide === i ? styles.storyFillActive : 
-                      activeSlide > i ? styles.storyFillComplete : ''
-                    }`} 
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
+        <div className={styles.techRow} ref={techRef} style={{ opacity: 0, transform: 'translateY(10px)' }}>
+          <span className={styles.techLabel}>Currently building with</span>
+          <span className={styles.techWordWrap}><span className={styles.techWord} ref={techWordRef} /><span className={styles.techCursor} aria-hidden="true" /></span>
         </div>
       </div>
-      <div className={styles.heroBottom} ref={bottomRef} id="hero-bottom" style={{ opacity: 0, transform: 'translateY(12px)' }}>{STATS.map(s => <StatCounter key={s.label} {...s} />)}</div>
-      <div className={styles.scrollInd} ref={scrollRef} id="scroll-ind" style={{ opacity: 0 }}><div className={styles.scrollTrack}><div className={styles.scrollFill} /></div><span className={styles.scrollLbl}>Scroll</span></div>
 
-      {/* Social Icons — bottom right corner */}
-      <div className={styles.heroSocials}>
-        <SocialIcons vertical />
+      <div className={styles.heroBottom} ref={bottomRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>
+        {STATS.map(s => <StatCounter key={s.label} {...s} />)}
+      </div>
+
+      <div className={styles.scrollInd} ref={scrollRef} style={{ opacity: 0 }}>
+        <div className={styles.scrollTrack}><div className={styles.scrollFill} /></div>
+        <span className={styles.scrollLbl}>Scroll</span>
       </div>
     </section>
   );

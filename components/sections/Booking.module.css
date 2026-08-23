@@ -1,34 +1,20 @@
 /* ═══════════════════════════════════════════
-   LUXURY BOOKING SECTION (White Bg, Dark Box)
+   DARK CTA BAND — Apple's "Pro" / subscribe-section pattern
 ═══════════════════════════════════════════ */
 .bookingSec {
-  background: var(--off-white);
-  padding: 140px 56px;
+  background: #000;
+  color: #fff;
+  padding: 120px 22px;
   position: relative;
-  border-top: 1px solid var(--border);
   overflow: hidden;
 }
 
-/* Subtle gold glow behind the calendar */
-.bookingSec::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
-  transform: translateY(-50%);
-  pointer-events: none;
-  border-radius: 50%;
-}
-
 .container {
-  max-width: 1300px;
+  max-width: 1100px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
-  gap: 80px;
+  gap: 72px;
   align-items: center;
   position: relative;
   z-index: 2;
@@ -41,74 +27,75 @@
 }
 
 .secLabel {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: .16em;
+  letter-spacing: .02em;
   text-transform: uppercase;
-  color: var(--gold-dark);
-  margin-bottom: 40px;
+  color: rgba(255,255,255,.55);
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .secLabel .line {
   display: block;
-  width: 32px;
+  width: 24px;
   height: 1px;
-  background: var(--gold-dark);
+  background: rgba(255,255,255,.4);
 }
 
 .h2 {
-  font-family: var(--serif);
-  font-size: clamp(40px, 4vw, 64px);
-  font-weight: 300;
+  font-family: var(--sans);
+  font-size: clamp(34px, 3.6vw, 52px);
+  font-weight: 600;
+  letter-spacing: -.02em;
   line-height: 1.1;
-  color: var(--navy-core);
-  margin-bottom: 32px;
+  color: #fff;
+  margin-bottom: 24px;
 }
 
 .h2 em {
-  color: var(--gold-primary);
-  font-style: italic;
-  font-weight: 400;
+  color: var(--blue);
+  font-style: normal;
+  font-weight: 600;
 }
 
 .sub {
-  font-size: 16px;
-  color: var(--navy-light);
-  line-height: 1.8;
+  font-size: 17px;
+  color: rgba(255,255,255,.72);
+  line-height: 1.55;
   max-width: 480px;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
+  letter-spacing: -.01em;
 }
 
 .contactInfo {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding-left: 20px;
-  border-left: 1px solid var(--gold-primary);
+  padding-left: 18px;
+  border-left: 2px solid var(--blue);
 }
 
 .infoTitle {
-  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: .04em;
   text-transform: uppercase;
-  color: var(--navy-light);
+  color: rgba(255,255,255,.5);
 }
 
 .infoLink {
-  font-size: 15px;
-  color: var(--gold-dark);
+  font-size: 16px;
+  color: #fff;
   text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s;
+  font-weight: 500;
+  transition: color 0.2s;
 }
 
 .infoLink:hover {
-  color: var(--gold-primary);
+  color: var(--blue);
 }
 
 /* ─── RIGHT SIDE: CALENDAR EMBED ─── */
@@ -117,14 +104,13 @@
   position: relative;
 }
 
-/* Dark card to contrast against the white background */
 .calGlass {
-  background: var(--navy-dark); /* Deep, almost black navy */
-  border: 1px solid var(--border-med); /* Gold outline */
-  border-radius: 16px;
+  background: #0b0b0d;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 20px;
   overflow: hidden;
   min-height: 600px;
-  box-shadow: 0 20px 60px rgba(10, 25, 47, 0.15); /* Clean drop shadow */
+  box-shadow: 0 30px 80px rgba(0,0,0,.5);
 }
 
 /* ─── RESPONSIVE ─── */
@@ -133,7 +119,7 @@
 }
 
 @media (max-width: 900px) {
-  .bookingSec { padding: 100px 24px; }
-  .container { grid-template-columns: 1fr; gap: 60px; }
+  .bookingSec { padding: 80px 20px; }
+  .container { grid-template-columns: 1fr; gap: 56px; }
   .calGlass { min-height: 700px; }
 }
