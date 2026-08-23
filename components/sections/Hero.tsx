@@ -1,19 +1,8 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { PERSONAL, STATS, HERO_TECH_WORDS } from '@/lib/data';
+import { PERSONAL, HERO_TECH_WORDS } from '@/lib/data';
 import { useMagnetic } from '@/hooks/useMagnetic';
-import { useCounter } from '@/hooks/useCounter';
 import styles from './Hero.module.css';
-
-function StatCounter({ num, label }: { num: number; label: string }) {
-  const { ref, display } = useCounter(num);
-  return (
-    <div className={styles.stat}>
-      <span className={styles.statNum} ref={ref}>{display}</span>
-      <span className={styles.statLbl}>{label}</span>
-    </div>
-  );
-}
 
 function MagBtn({ href, children, external, className }: {
   href: string; children: React.ReactNode; external?: boolean; className: string;
@@ -34,7 +23,6 @@ export default function Hero() {
   const actsRef   = useRef<HTMLDivElement>(null);
   const techRef   = useRef<HTMLDivElement>(null);
   const techWordRef = useRef<HTMLSpanElement>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Entrance animations — simple staggered fade/rise, Apple-style restraint
@@ -44,9 +32,8 @@ export default function Hero() {
     const sub = subRef.current;
     const acts = actsRef.current;
     const tech = techRef.current;
-    const bottom = bottomRef.current;
     const scroll = scrollRef.current;
-    if (!tag || !head || !sub || !acts || !tech || !bottom || !scroll) return;
+    if (!tag || !head || !sub || !acts || !tech || !scroll) return;
 
     const animate = (el: HTMLElement, delay: number) => {
       setTimeout(() => {
@@ -61,8 +48,7 @@ export default function Hero() {
     animate(sub, 500);
     animate(acts, 700);
     animate(tech, 900);
-    animate(bottom, 1200);
-    animate(scroll, 1500);
+    animate(scroll, 1300);
   }, []);
 
   // Tech-stack typewriter
@@ -110,15 +96,6 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} style={{ borderBottom: 'none', padding: 0, paddingTop: 'var(--nav-h)' }}>
-      <video className={`${styles.bgVideo} ${styles.desktopVideo}`} autoPlay muted loop playsInline preload="auto" poster="/images/Home_Hero_Page/hero-poster.jpg">
-        <source src="https://res.cloudinary.com/dukv2otyn/video/upload/f_auto,q_auto/v1781517951/hero-bg_anzt23.mp4" type="video/mp4" />
-      </video>
-      <video className={`${styles.bgVideo} ${styles.mobileVideo}`} autoPlay muted loop playsInline preload="auto" poster="/images/Home_Hero_Page/hero-poster.jpg">
-        <source src="https://res.cloudinary.com/dukv2otyn/video/upload/f_auto,q_auto/v1781518706/hero-bg-mobile_gxv4wm.mp4" type="video/mp4" />
-      </video>
-
-      <div className={styles.overlay} />
-
       <div className={styles.heroCenter}>
         <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>
           {PERSONAL.tagline}
@@ -141,10 +118,6 @@ export default function Hero() {
           <span className={styles.techLabel}>Currently building with</span>
           <span className={styles.techWordWrap}><span className={styles.techWord} ref={techWordRef} /><span className={styles.techCursor} aria-hidden="true" /></span>
         </div>
-      </div>
-
-      <div className={styles.heroBottom} ref={bottomRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>
-        {STATS.map(s => <StatCounter key={s.label} {...s} />)}
       </div>
 
       <div className={styles.scrollInd} ref={scrollRef} style={{ opacity: 0 }}>
