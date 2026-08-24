@@ -14,20 +14,38 @@
   flex-grow: 1;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 120px 24px 80px;
+  padding: 120px 24px 24px;
   width: 100%;
+}
+
+.heroKicker {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--blue);
+  margin-bottom: 20px;
 }
 
 .title {
   font-size: 3.5rem;
   font-weight: 600;
-  margin-bottom: 64px;
+  margin-bottom: 24px;
   font-family: var(--serif);
+  letter-spacing: -0.02em;
 }
 
 .title em {
   color: var(--gray-mid);
   font-style: normal;
+}
+
+.heroSub {
+  max-width: 640px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--gray-mid);
+  margin-bottom: 16px;
 }
 
 .grid {

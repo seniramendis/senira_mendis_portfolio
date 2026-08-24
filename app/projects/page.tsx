@@ -3,6 +3,8 @@ import { PROJECTS } from '@/lib/data';
 import Link from 'next/link';
 import Nav from '@/components/sections/Nav';
 import Footer from '@/components/sections/Footer';
+import Reveal from '@/components/ui/Reveal';
+import ProjectsShowcase from '@/components/sections/ProjectsShowcase';
 import styles from './projects.module.css';
 
 export default function ProjectsArchive() {
@@ -15,33 +17,26 @@ export default function ProjectsArchive() {
           <span className={styles.arrowBack}>&larr;</span> Back to Home
         </Link>
 
-        <h1 className={styles.title}>
-          All <em>Projects.</em>
-        </h1>
+        <Reveal>
+          <span className={styles.heroKicker}>Work &middot; {PROJECTS.length} projects</span>
+        </Reveal>
 
-        <div className={styles.grid}>
-          {PROJECTS.map((project) => (
-            <Link key={project.num} href={`/projects/${project.num}`} className={styles.card}>
-              <span className={styles.cardNum}>Project {project.num}</span>
-              <h3 className={styles.cardTitle}>{project.title}</h3>
-              {project.role && (
-                <p className={styles.cardRole}>{project.role}</p>
-              )}
-              <div className={styles.tags}>
-                {project.tags.slice(0, 3).map(tag => (
-                  <span key={tag} className={styles.tag}>{tag}</span>
-                ))}
-                {project.tags.length > 3 && (
-                  <span className={styles.moreTags}>+{project.tags.length - 3}</span>
-                )}
-              </div>
-              <div className={styles.detailsLink}>
-                View Details <span className={styles.arrow}>&rarr;</span>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <Reveal delay={80}>
+          <h1 className={styles.title}>
+            Ideas, <em>engineered.</em>
+          </h1>
+        </Reveal>
+
+        <Reveal delay={160}>
+          <p className={styles.heroSub}>
+            A collection of full-stack, mobile and backend builds — from production
+            platforms shipped for agencies to solo experiments in geospatial systems
+            and AI. Scroll through the highlights, or browse the full archive below.
+          </p>
+        </Reveal>
       </main>
+
+      <ProjectsShowcase projects={PROJECTS} />
 
       <Footer />
     </div>
