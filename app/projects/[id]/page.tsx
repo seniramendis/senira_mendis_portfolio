@@ -144,15 +144,61 @@ export default function ProjectDetail({ params }: { params: { id: string } }) {
         <div className={styles.projectNav}>
           {prevProject ? (
             <Link href={`/projects/${prevProject.num}`} className={styles.projectNavLink}>
-              <span className={styles.projectNavLabel}>&larr; Previous</span>
-              <span className={styles.projectNavTitle}>{prevProject.title}</span>
+              <div className={styles.projectNavThumb}>
+                {prevProject.images && prevProject.images.length > 0 ? (
+                  <img
+                    src={prevProject.images[0]}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    className={styles.projectNavThumbImg}
+                  />
+                ) : (
+                  <div
+                    className={styles.projectNavThumbCover}
+                    style={{ background: gradientFor(currentIndex - 1) }}
+                  >
+                    <span>{prevProject.num}</span>
+                  </div>
+                )}
+              </div>
+              <div className={styles.projectNavText}>
+                <span className={styles.projectNavLabel}>&larr; Previous &middot; {prevProject.num}</span>
+                <span className={styles.projectNavTitle}>{prevProject.title}</span>
+                {prevProject.role && (
+                  <span className={styles.projectNavRole}>{prevProject.role}</span>
+                )}
+              </div>
             </Link>
           ) : <span />}
 
           {nextProject ? (
             <Link href={`/projects/${nextProject.num}`} className={`${styles.projectNavLink} ${styles.projectNavRight}`}>
-              <span className={styles.projectNavLabel}>Next &rarr;</span>
-              <span className={styles.projectNavTitle}>{nextProject.title}</span>
+              <div className={styles.projectNavText}>
+                <span className={styles.projectNavLabel}>Next &middot; {nextProject.num} &rarr;</span>
+                <span className={styles.projectNavTitle}>{nextProject.title}</span>
+                {nextProject.role && (
+                  <span className={styles.projectNavRole}>{nextProject.role}</span>
+                )}
+              </div>
+              <div className={styles.projectNavThumb}>
+                {nextProject.images && nextProject.images.length > 0 ? (
+                  <img
+                    src={nextProject.images[0]}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    className={styles.projectNavThumbImg}
+                  />
+                ) : (
+                  <div
+                    className={styles.projectNavThumbCover}
+                    style={{ background: gradientFor(currentIndex + 1) }}
+                  >
+                    <span>{nextProject.num}</span>
+                  </div>
+                )}
+              </div>
             </Link>
           ) : <span />}
         </div>
