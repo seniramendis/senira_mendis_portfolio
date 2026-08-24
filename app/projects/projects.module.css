@@ -270,10 +270,13 @@
 .imageContent {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 56px;
 }
 
 .imageWrapper {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
   animation: floatUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -286,11 +289,12 @@
   width: 100%;
   height: auto;
   display: block;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 .imageWrapper:hover .projectImage {
-  transform: translateY(-6px);
+  transform: scale(1.035);
 }
 
 @keyframes floatUp {

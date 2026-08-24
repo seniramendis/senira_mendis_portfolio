@@ -102,6 +102,10 @@ export const PROJECTS: Project[] = [
     description: 'Cross-platform desktop application automating localized data extraction and processing for the Dopmin agency. Architected a decoupled Electron main/renderer process with IPC state sync, an algorithmic query-expansion module for search permutation scaling, a concurrent scraping engine for dynamic web elements, and encrypted local state persistence.',
     tags: ['JavaScript (ES6+)', 'Node.js', 'Electron', 'Svelte', 'Vite', 'HTML/CSS'],
     href: '#',
+    images: [
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571941/web_scraper_jzagm8.png',
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571942/web_scraper_1_cuozvq.png',
+    ],
   },
   {
     num: '02',
@@ -110,6 +114,10 @@ export const PROJECTS: Project[] = [
     description: 'Production-grade corporate web platform for Dopmin, an IT solutions agency, built as both a digital storefront and a technical proof-of-concept with a premium "digital luxury" UI/UX. Engineered with the Next.js App Router for optimized SSR/SSG, a strictly typed TypeScript codebase, and a modular PostCSS component system, deployed via a continuous Vercel pipeline. Led the project as Scrum Master, coordinating frontend, backend, and QA across sprints.',
     tags: ['Next.js', 'React.js', 'TypeScript', 'Vercel', 'PostCSS', 'ESLint', 'Node.js'],
     href: 'https://dopmin.vercel.app/',
+    images: [
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571915/dopmin_w191aj.png',
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571912/dopmin_1_pwvw2z.png',
+    ],
   },
   {
     num: '03',
@@ -127,7 +135,7 @@ export const PROJECTS: Project[] = [
   tags: ['Laravel 10', 'PostgreSQL 15', 'PostGIS', 'Supabase Auth', 'Docker'],
   href: 'https://github.com/seniramendis/AgriLease-Platform',
   images: [
-    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649941/agriLease_mockup_xqapxz.png',
+    'https://res.cloudinary.com/dukv2otyn/image/upload/v1787560571/agri_lease_ieludf.png',
   ],
 },
   {
@@ -137,10 +145,9 @@ export const PROJECTS: Project[] = [
     description: 'A highly scalable, bilingual numerology platform for the Sri Lankan market. Engineered a custom mathematical engine in JS to process complex destiny nodes and integrated Gemini 1.5 Flash with robust fail-safes to prevent UI crashes during API rate limits.',
     tags: ['React.js', 'Node.js', 'Gemini API', 'Tailwind CSS', 'Vite', 'Vercel'],
     href: 'https://github.com/seniramendis/Daiwaya',
-    // <-- ADD YOUR IMAGES HERE
     images: [
-      'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649916/Daiwaya_mockup_1_zhaiir.png',
-      'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649913/Daiwaya_mockup_2_spvrft.png'
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571634/daiwaya_bywpkx.png',
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571632/daiwaya1_yfbcit.png'
     ]
   },
   {
@@ -151,8 +158,8 @@ export const PROJECTS: Project[] = [
   tags: ['ASP.NET Core MVC', 'C#', 'Entity Framework', 'Bootstrap 5'],
   href: 'https://github.com/seniramendis/KMCSolution',
   images: [
-    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781660259/KMC_Solution_1_cqkuvi.png',
-    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781660256/KMC_Solution_2_urtykg.png',
+    'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571683/kmc_solutions_1_owf4bl.png',
+    'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571683/kmc_solution_azhste.png',
   ],
 },
  {
@@ -163,8 +170,8 @@ export const PROJECTS: Project[] = [
   tags: ['Java', 'XML', 'Android Studio', 'SQLite'],
   href: 'https://github.com/seniramendis/TechCare',
   images: [
-    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649967/tech_care_mockup_mjxucm.png',
-    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649981/tech_care_mockup_2_thi0v0.png',
+    'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571844/techcare_zb2gcm.png',
+    'https://res.cloudinary.com/dukv2otyn/image/upload/v1787572039/Techcare11_oqkaiv.png',
   ],
 },
   {
