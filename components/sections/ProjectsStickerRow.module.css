@@ -1,9 +1,5 @@
 /* ─────────────────────────────────────────────
-   Full-bleed horizontal row of "sticker" project
-   cards — die-cut white mat, drop shadow, gentle
-   rotation, browser-chrome screenshot, caption
-   sitting underneath each card (Apple trade-in
-   tray aesthetic).
+   Project cards — image only, no box, no bg.
 ───────────────────────────────────────────── */
 
 .wrap {
@@ -39,50 +35,49 @@
   scroll-snap-align: center;
 }
 
-/* the die-cut white "sticker" mat */
+/* no background, no padding, no border, no box */
 .sticker {
   --r: 0deg;
   width: 100%;
-  background: var(--white);
-  border-radius: 28px;
-  padding: 9px;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, .05),
-    0 18px 40px -12px rgba(0, 0, 0, .22);
+  background: transparent;
   transform: rotate(var(--r));
-  transition: transform .5s cubic-bezier(.22, 1, .36, 1),
-              box-shadow .5s cubic-bezier(.22, 1, .36, 1);
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1);
   will-change: transform;
 }
 
 .item:hover .sticker,
 .item:focus-visible .sticker {
   transform: rotate(0deg) translateY(-12px) scale(1.045);
+}
+
+/* image — shadow only, absolutely no background box */
+.frameImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 16px;
+  background: transparent;
+  background-color: transparent;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, .05),
+    0 18px 40px -12px rgba(0, 0, 0, .22);
+  transition: box-shadow .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.item:hover .frameImg,
+.item:focus-visible .frameImg {
   box-shadow:
     0 1px 2px rgba(0, 0, 0, .06),
     0 30px 55px -14px rgba(0, 0, 0, .3);
 }
 
-/* screenshot window — clean, no chrome/bezel */
-.frame {
-  position: relative;
-  border-radius: 19px;
-  overflow: hidden;
-  background: #f0f0f2;
-  aspect-ratio: 4 / 3.1;
-}
-
-.frameImg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-}
-
+/* placeholder — same clean treatment */
 .framePlaceholder {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4 / 3.1;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,9 +86,20 @@
   font-size: 34px;
   color: rgba(255, 255, 255, .85);
   letter-spacing: -.02em;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, .05),
+    0 18px 40px -12px rgba(0, 0, 0, .22);
+  transition: box-shadow .5s cubic-bezier(.22, 1, .36, 1);
 }
 
-/* caption sits *below* the sticker, not rotated */
+.item:hover .framePlaceholder,
+.item:focus-visible .framePlaceholder {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, .06),
+    0 30px 55px -14px rgba(0, 0, 0, .3);
+}
+
+/* caption */
 .caption {
   margin-top: 22px;
   text-align: center;

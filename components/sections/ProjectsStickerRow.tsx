@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Project } from '@/lib/data';
 import styles from './ProjectsStickerRow.module.css';
@@ -16,8 +17,6 @@ const GRADIENTS = [
   'linear-gradient(140deg,#43e97b 0%,#2ecc9c 100%)',
 ];
 
-// Hand-picked little tilts so the tray doesn't feel mechanical —
-// mirrors the alternating "spilled stickers" look of the reference.
 const TILTS = [-4, 3, -3, 5, -2, 4, -5, 2, -3, 3];
 
 function statusFor(project: Project) {
@@ -31,9 +30,41 @@ function statusFor(project: Project) {
 }
 
 export default function ProjectsStickerRow({ projects }: { projects: Project[] }) {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const row = rowRef.current;
+    if (!row) return;
+
+    const interval = setInterval(() => {
+      if (!isPaused && row) {
+        const maxScroll = row.scrollWidth - row.clientWidth;
+        if (maxScroll <= 0) return;
+
+        const firstItem = row.children[0] as HTMLElement | null;
+        const gap = parseInt(getComputedStyle(row).gap) || 28;
+        const step = firstItem ? firstItem.offsetWidth + gap : 320;
+
+        if (row.scrollLeft >= maxScroll - 5) {
+          row.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          row.scrollBy({ left: step, behavior: 'smooth' });
+        }
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
   return (
     <div className={styles.wrap}>
-      <div className={styles.row}>
+      <div
+        className={styles.row}
+        ref={rowRef}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
         {projects.map((project, i) => {
           const status = statusFor(project);
           const isInternal = !project.href || project.href === '#' || project.href.includes('github.com');
@@ -47,23 +78,21 @@ export default function ProjectsStickerRow({ projects }: { projects: Project[] }
                 className={styles.sticker}
                 style={{ ['--r' as any]: `${TILTS[i % TILTS.length]}deg` }}
               >
-                <div className={styles.frame}>
-                  {project.images && project.images[0] ? (
-                    <img
-                      src={project.images[0]}
-                      alt={project.title}
-                      className={styles.frameImg}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div
-                      className={styles.framePlaceholder}
-                      style={{ background: GRADIENTS[i % GRADIENTS.length] }}
-                    >
-                      {project.num}
-                    </div>
-                  )}
-                </div>
+                {project.images && project.images[0] ? (
+                  <img
+                    src={project.images[0]}
+                    alt={project.title}
+                    className={styles.frameImg}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div
+                    className={styles.framePlaceholder}
+                    style={{ background: GRADIENTS[i % GRADIENTS.length] }}
+                  >
+                    {project.num}
+                  </div>
+                )}
               </div>
 
               <div className={styles.caption}>
