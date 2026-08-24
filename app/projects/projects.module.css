@@ -235,6 +235,16 @@
   color: var(--text-1);
 }
 
+.overviewTitle {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--blue);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 20px;
+}
+
 .description {
   font-size: 16px;
   color: var(--text-1);
@@ -251,37 +261,49 @@
   margin-bottom: 0;
 }
 
-/* ─── Tech Section ──────────────────────────────────────── */
+/* ─── Tech Section — plain text + real brand logos, no chips ────── */
 .techSection {
   border-top: 1px solid var(--border);
   padding-top: 32px;
+  margin-bottom: 40px;
 }
 
 .techTitle {
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 600;
   letter-spacing: 0.1em;
   color: var(--blue);
   text-transform: uppercase;
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
-.techTags {
+.techGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 40px;
+  row-gap: 20px;
+  column-gap: 36px;
 }
 
-.techTag {
-  font-size: 14px;
-  font-weight: 500;
-  border: 1px solid var(--blue);
-  background-color: var(--off-white);
+.techItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.techIcon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.techLabel {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
   color: var(--text-1);
-  padding: 8px 24px;
-  border-radius: 99px;
+  white-space: nowrap;
 }
 
 /* ─── Right: Image Content ──────────────────────────────── */
@@ -313,6 +335,33 @@
 
 .imageWrapper:hover .projectImage {
   transform: scale(1.035);
+}
+
+/* ─── Cover placeholder (projects with no screenshots yet) ──────── */
+.coverPlaceholder {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.imageWrapper:hover .coverPlaceholder {
+  transform: scale(1.035);
+}
+
+.coverPlaceholder span {
+  font-family: var(--sans);
+  font-size: 15vw;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.35);
+  line-height: 1;
+}
+
+@media (min-width: 1024px) {
+  .coverPlaceholder span { font-size: 7vw; }
 }
 
 @keyframes floatUp {
