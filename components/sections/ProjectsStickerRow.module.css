@@ -1,0 +1,152 @@
+/* ─────────────────────────────────────────────
+   Full-bleed horizontal row of "sticker" project
+   cards — die-cut white mat, drop shadow, gentle
+   rotation, browser-chrome screenshot, caption
+   sitting underneath each card (Apple trade-in
+   tray aesthetic).
+───────────────────────────────────────────── */
+
+.wrap {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(28px, 4vw, 56px);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px clamp(24px, 8vw, 96px) 56px;
+  scrollbar-width: none;
+}
+
+.row::-webkit-scrollbar { display: none; }
+
+.item {
+  flex: 0 0 auto;
+  width: clamp(200px, 22vw, 268px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  scroll-snap-align: center;
+}
+
+/* the die-cut white "sticker" mat */
+.sticker {
+  --r: 0deg;
+  width: 100%;
+  background: var(--white);
+  border-radius: 28px;
+  padding: 9px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, .05),
+    0 18px 40px -12px rgba(0, 0, 0, .22);
+  transform: rotate(var(--r));
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1),
+              box-shadow .5s cubic-bezier(.22, 1, .36, 1);
+  will-change: transform;
+}
+
+.item:hover .sticker,
+.item:focus-visible .sticker {
+  transform: rotate(0deg) translateY(-12px) scale(1.045);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, .06),
+    0 30px 55px -14px rgba(0, 0, 0, .3);
+}
+
+/* screenshot window — clean, no chrome/bezel */
+.frame {
+  position: relative;
+  border-radius: 19px;
+  overflow: hidden;
+  background: #f0f0f2;
+  aspect-ratio: 4 / 3.1;
+}
+
+.frameImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.framePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 34px;
+  color: rgba(255, 255, 255, .85);
+  letter-spacing: -.02em;
+}
+
+/* caption sits *below* the sticker, not rotated */
+.caption {
+  margin-top: 22px;
+  text-align: center;
+  max-width: 240px;
+}
+
+.capNum {
+  display: block;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--gray-mid);
+  margin-bottom: 6px;
+}
+
+.capTitle {
+  font-family: var(--sans);
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -.015em;
+  color: var(--text-1);
+  line-height: 1.3;
+  transition: color .2s;
+}
+
+.item:hover .capTitle { color: var(--blue); }
+
+.capStatus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--gray-mid);
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #30d158;
+  box-shadow: 0 0 0 3px rgba(48, 209, 88, .18);
+  flex: none;
+}
+
+.statusDot.isArchived { background: var(--gray-mid); box-shadow: 0 0 0 3px rgba(134,134,139,.18); }
+
+@media (max-width: 640px) {
+  .item { width: 68vw; }
+  .row { gap: 22px; padding: 8px 20px 48px; }
+  .caption { margin-top: 18px; }
+}

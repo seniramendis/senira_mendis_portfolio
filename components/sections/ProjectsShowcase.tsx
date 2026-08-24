@@ -82,7 +82,7 @@ function scrollToChild(el: HTMLDivElement, index: number) {
    hero card at a time with a big interactive
    caption block above it (Apple Services style)
 ───────────────────────────────────────────── */
-function FeaturedCarousel({ projects }: { projects: Project[] }) {
+export function FeaturedCarousel({ projects }: { projects: Project[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const active = useActiveIndex(trackRef, projects.length);
   const current = projects[active] ?? projects[0];
@@ -294,8 +294,6 @@ function CompactCarousel({ projects }: { projects: Project[] }) {
 }
 
 export default function ProjectsShowcase({ projects }: { projects: Project[] }) {
-  const featured = projects.filter((p) => p.images && p.images.length > 0);
-
   return (
     <div className={styles.showcase}>
       <div className={styles.sectionHead}>
@@ -304,7 +302,7 @@ export default function ProjectsShowcase({ projects }: { projects: Project[] }) 
           A closer look at <em>what I&rsquo;ve built.</em>
         </h2>
       </div>
-      <FeaturedCarousel projects={featured.length ? featured : projects} />
+      <FeaturedCarousel projects={projects} />
 
       <div className={styles.sectionHead}>
         <span className={styles.sectionKicker}>The full archive</span>
