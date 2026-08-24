@@ -32,13 +32,13 @@ export const HERO_TECH_WORDS = [
 
 export const STATS = [
   { num: 16, label: 'Public repositories' },
-  { num: 6,  label: 'Featured projects' },
+  { num: 10,  label: 'Featured projects' },
   { num: 5,  label: 'Languages mastered' },
 ];
 
 export const ABOUT_STATS = [
   { num: 16,  suffix: '',  label: 'Public repositories' },
-  { num: 6,   suffix: '',  label: 'Featured projects' },
+  { num: 10,   suffix: '',  label: 'Featured projects' },
   { num: 4,   suffix: '',  label: 'Agile sprints delivered' },
   { num: 146, suffix: 'K', label: 'Rs. fundraised' },
 ];
@@ -97,6 +97,41 @@ export type Project = {
 export const PROJECTS: Project[] = [
   {
     num: '01',
+    role: 'Full-Stack Developer',
+    title: 'Dopmin Web Scraper — Automated B2B Lead Generation Tool',
+    description: 'Cross-platform desktop application automating localized data extraction and processing for the Dopmin agency. Architected a decoupled Electron main/renderer process with IPC state sync, an algorithmic query-expansion module for search permutation scaling, a concurrent scraping engine for dynamic web elements, and encrypted local state persistence.',
+    tags: ['JavaScript (ES6+)', 'Node.js', 'Electron', 'Svelte', 'Vite', 'HTML/CSS'],
+    href: '#',
+  },
+  {
+    num: '02',
+    role: 'Full-Stack Developer · Scrum Master',
+    title: 'Dopmin — Corporate Web Platform',
+    description: 'Production-grade corporate web platform for Dopmin, an IT solutions agency, built as both a digital storefront and a technical proof-of-concept with a premium "digital luxury" UI/UX. Engineered with the Next.js App Router for optimized SSR/SSG, a strictly typed TypeScript codebase, and a modular PostCSS component system, deployed via a continuous Vercel pipeline. Led the project as Scrum Master, coordinating frontend, backend, and QA across sprints.',
+    tags: ['Next.js', 'React.js', 'TypeScript', 'Vercel', 'PostCSS', 'ESLint', 'Node.js'],
+    href: 'https://dopmin.vercel.app/',
+  },
+  {
+    num: '03',
+    role: 'Product Owner',
+    title: 'BrainPath — Educational Roadmap Mobile App',
+    description: 'Cross-platform mobile app digitizing the national curriculum into an interactive node-based roadmap. Facilitated agile sprints for complex features including interactive roadmap logic and Firebase integration.',
+    tags: ['React Native', 'Firebase', 'Android Studio', 'Agile/Scrum'],
+    href: '#',
+  },
+  {
+  num: '04',
+  role: 'Backend Developer · Scrum Master',
+  title: 'AgriLease — Agricultural Machinery Platform',
+  description: "'Sharing economy platform digitising Sri Lanka's Custom Hiring system. Engineered geospatial radius searches via PostGIS and a high-concurrency booking engine with pessimistic locking to eliminate double-booking during peak seasons",
+  tags: ['Laravel 10', 'PostgreSQL 15', 'PostGIS', 'Supabase Auth', 'Docker'],
+  href: 'https://github.com/seniramendis/AgriLease-Platform',
+  images: [
+    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649941/agriLease_mockup_xqapxz.png',
+  ],
+},
+  {
+    num: '05',
     role: 'Software Engineer / Full-Stack Developer',
     title: 'Daiwaya.lk — AI-Powered Matrix of Destiny Platform',
     description: 'A highly scalable, bilingual numerology platform for the Sri Lankan market. Engineered a custom mathematical engine in JS to process complex destiny nodes and integrated Gemini 1.5 Flash with robust fail-safes to prevent UI crashes during API rate limits.',
@@ -109,37 +144,7 @@ export const PROJECTS: Project[] = [
     ]
   },
   {
-  num: '02',
-  role: 'Backend Developer · Scrum Master',
-  title: 'AgriLease — Agricultural Machinery Platform',
-  description: "'Sharing economy platform digitising Sri Lanka's Custom Hiring system. Engineered geospatial radius searches via PostGIS and a high-concurrency booking engine with pessimistic locking to eliminate double-booking during peak seasons",
-  tags: ['Laravel 10', 'PostgreSQL 15', 'PostGIS', 'Supabase Auth', 'Docker'],
-  href: 'https://github.com/seniramendis/AgriLease-Platform',
-  images: [
-    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781649941/agriLease_mockup_xqapxz.png',
-  ],
-},
-  {
-  num: '03',
-  role: 'Full-Stack Developer',
-  title: 'GlobeTrek Elite — Full-Stack Travel Management',
-  description: 'Premium travel booking application tailored for the luxury market. Features a robust role-based access control system for automated booking workflows, secure inquiry management, and a dynamic admin revenue dashboard.',
-  tags: ['PHP', 'MySQL', 'Bootstrap 5', 'JavaScript'],
-  href: 'https://github.com/seniramendis/globetrek',
-  images: [
-    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781660526/GlobeTrek_jlidhl.png',
-  ],
-},
-  {
-    num: '04',
-    role: 'Android Developer',
-    title: 'LuxeVista Resort — Hotel Management System',
-    description: 'Comprehensive Android application to streamline hotel operations. Architected using the MVVM pattern with a multi-table Room database, reactive UI updates via LiveData, and complex navigation flows.',
-    tags: ['Java', 'Android SDK', 'Room', 'Navigation Component', 'View Binding'],
-    href: 'https://github.com/seniramendis/LuxeVista-Resort',
-  },
-  {
-  num: '05',
+  num: '06',
   role: 'Full-Stack Developer',
   title: 'KMC Solution — Digital Cultural Heritage Platform',
   description: 'A centralized hub bridging ancient Kandyan traditions with digital ticketing. Built a dynamic organizer command center with real-time KPI tracking and secure "Digital Cultural Passports" for event attendees.',
@@ -151,26 +156,7 @@ export const PROJECTS: Project[] = [
   ],
 },
  {
-  num: '06',
-  role: 'Full-Stack Developer',
-  title: 'FitZone — Gym Management System',
-  description: 'A centralized hub bridging ancient Kandyan traditions with digital ticketing. Built a dynamic organizer command center with real-time KPI tracking and secure "Digital Cultural Passports" for event attendees.',
-  tags: ['PHP', 'MySQL', 'JavaScript', 'Bootstrap 5'],
-  href: 'https://github.com/seniramendis/FitZone',
-  images: [
-    'https://res.cloudinary.com/dukv2otyn/image/upload/v1781661260/fitzone_dest8h.png',
-  ],
-},
-  {
-    num: '07',
-    role: 'Product Owner',
-    title: 'BrainPath — Educational Roadmap Mobile App',
-    description: 'Cross-platform mobile app digitizing the national curriculum into an interactive node-based roadmap. Facilitated agile sprints for complex features including interactive roadmap logic and Firebase integration.',
-    tags: ['React Native', 'Firebase', 'Android Studio', 'Agile/Scrum'],
-    href: '#',
-  },
- {
-  num: '08',
+  num: '07',
   role: 'Android Developer',
   title: 'TechCare — Electronic Repair Mobile App',
   description: 'Native Android app streamlining device repairs. Features a custom "Live Repair Tracker" utilizing background handlers for real-time progress updates, automated local notifications, and complex SQLite database architecture.',
@@ -182,7 +168,7 @@ export const PROJECTS: Project[] = [
   ],
 },
   {
-    num: '09',
+    num: '08',
     role: 'Full-Stack Developer',
     title: 'Medicare Plus — Healthcare Web Application',
     description: 'Secure healthcare platform featuring an automated 24/7 online scheduling system, telemedicine direct messaging via AJAX, and an e-prescription module with role-based access control.',
@@ -190,7 +176,7 @@ export const PROJECTS: Project[] = [
     href: 'https://github.com/seniramendis/Medicare-Plus',
   },
   {
-    num: '10',
+    num: '09',
     role: 'Java Developer',
     title: "The Wizard's Code — Java Game",
     description: 'An interactive 2D game exploring a magical world where code transforms reality. Developed as a team project, combining creative game mechanics with core Java programming concepts.',
@@ -198,7 +184,7 @@ export const PROJECTS: Project[] = [
     href: '#',
   },
   {
-    num: '11',
+    num: '10',
     role: 'Full-Stack Developer',
     title: 'Little Haven — Bookstore Management',
     description: 'A management system digitizing bookstore workflows, including inventory tracking, sales processing, and customer record management. Built with a focus on clean CRUD operations and robust data modelling.',
