@@ -34,8 +34,8 @@ export default function About() {
           <div>
             <Reveal>
               <p className={styles.body}>
-                I&apos;m Senira Mendis, a Computer Software Engineering student at ICBT Campus / Cardiff Metropolitan University,
-                based in Mount Lavinia, Colombo. My work spans full-stack web applications, native Android development,
+                I&apos;m Senira Mendis, a full-stack developer based in Mount Lavinia, Colombo.
+                My work spans full-stack web applications, native Android development,
                 and complex backend systems.
               </p>
             </Reveal>

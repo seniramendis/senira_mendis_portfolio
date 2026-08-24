@@ -45,16 +45,6 @@ export const ABOUT_STATS = [
 
 export const EDUCATION = [
   {
-    school: 'Cardiff Metropolitan University',
-    degree: 'HND · Computer Software Engineering',
-    year: '2023–now',
-  },
-  {
-    school: 'ICBT Campus, Colombo',
-    degree: 'Affiliated institution',
-    year: 'Sri Lanka',
-  },
-  {
     school: 'Available now',
     degree: 'Software · Web · Android · Backend roles',
     year: 'LK / Remote',
