@@ -1,21 +1,8 @@
 'use client';
-import { ABOUT_STATS, EDUCATION } from '@/lib/data';
-import { useCounter } from '@/hooks/useCounter';
 import Reveal from '@/components/ui/Reveal';
 import SocialIcons from '@/components/ui/SocialIcons';
+import GithubContributions from '@/components/ui/GithubContributions';
 import styles from './About.module.css';
-
-function StatNum({ num, suffix, label, delay = 0 }: { num: number; suffix: string; label: string; delay?: number }) {
-  const { ref, display } = useCounter(num, suffix);
-  return (
-    <Reveal delay={delay}>
-      <div className={styles.statItem}>
-        <div className={styles.sNum} ref={ref}>{display}</div>
-        <div className={styles.sLbl}>{label}</div>
-      </div>
-    </Reveal>
-  );
-}
 
 export default function About() {
   return (
@@ -46,25 +33,23 @@ export default function About() {
               </p>
             </Reveal>
 
-            <div className={styles.statGrid}>
-              {ABOUT_STATS.map((s, i) => (
-                <StatNum key={s.label} num={s.num} suffix={s.suffix} label={s.label} delay={i * 70} />
-              ))}
-            </div>
+            <Reveal delay={140}>
+              <div style={{ marginTop: '40px' }}>
+                <GithubContributions />
+              </div>
+            </Reveal>
           </div>
 
           <Reveal delay={100}>
             <div>
               <div className={styles.eduList}>
-                {EDUCATION.map(e => (
-                  <div key={e.school} className={styles.eduRow}>
-                    <div>
-                      <div className={styles.eduSchool}>{e.school}</div>
-                      <div className={styles.eduDeg}>{e.degree}</div>
-                    </div>
-                    <div className={styles.eduYr}>{e.year}</div>
+                <div className={styles.eduRow}>
+                  <div>
+                    <div className={styles.eduSchool}>Available now</div>
+                    <div className={styles.eduDeg}>Software · Web · Android · Backend roles</div>
                   </div>
-                ))}
+                  <div className={styles.eduYr}>LK / Remote</div>
+                </div>
               </div>
               <div style={{ marginTop: '40px' }}>
                 <p className="text-sm font-semibold text-gray-900">Connect & Explore</p>
