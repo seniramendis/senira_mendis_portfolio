@@ -53,6 +53,8 @@ export default function Nav() {
           <li><Link href="/#about" onClick={close}>About</Link></li>
           <li><Link href="/#skills" onClick={close}>Skills</Link></li>
 
+          <li><Link href="/#services" onClick={close}>Services</Link></li>
+
           {/* The new dedicated projects page link */}
           <li><Link href="/projects" onClick={close}>Work</Link></li>
 
@@ -94,13 +96,16 @@ export default function Nav() {
             <Link href="/#skills" onClick={close}><span>Skills</span><i /></Link>
           </li>
           <li style={{ transitionDelay: open ? '140ms' : '0ms' }}>
-            <Link href="/projects" onClick={close}><span>Work</span><i /></Link>
+            <Link href="/#services" onClick={close}><span>Services</span><i /></Link>
           </li>
           <li style={{ transitionDelay: open ? '180ms' : '0ms' }}>
+            <Link href="/projects" onClick={close}><span>Work</span><i /></Link>
+          </li>
+          <li style={{ transitionDelay: open ? '220ms' : '0ms' }}>
             <Link href="/#book" onClick={close}><span>Book a call</span><i /></Link>
           </li>
         </ul>
-        <div className={styles.mobileCta} style={{ transitionDelay: open ? '220ms' : '0ms' }}>
+        <div className={styles.mobileCta} style={{ transitionDelay: open ? '260ms' : '0ms' }}>
           <Link href="/#contact" onClick={close} className={styles.mobileCtaBtn}>
             Get in touch
           </Link>

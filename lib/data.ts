@@ -214,17 +214,62 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-export const LEADERSHIP = [
+export type Service = {
+  id: string;
+  kicker: string;
+  headline: string;
+  headlineEm: string;
+  body: string;
+  tags: string[];
+  icon: 'code' | 'web' | 'data' | 'scrape' | 'ai';
+  featured?: boolean;
+};
+
+export const SERVICES: Service[] = [
   {
-    icon: '🏥',
-    title: 'Vice Treasurer — Charity Donation Drive',
-    body: 'Organised fundraising for the Cancer Hospital, Maharagama. Supervised full budget and resource allocation for medical supplies.',
-    badge: 'Rs. 146,000+ managed',
+    id: 'custom-software',
+    kicker: 'Custom Software Development',
+    headline: 'Software that fits your business.',
+    headlineEm: 'Not the other way around.',
+    body: 'From internal tools to full-scale products — architected and built around exactly how your business runs. No templates, no bloat, no compromises. Just software engineered to do one thing perfectly: your thing.',
+    tags: ['Web Applications', 'Internal Tools', 'System Architecture', 'API Development'],
+    icon: 'code',
+    featured: true,
   },
   {
-    icon: '🎬',
-    title: 'Vice Treasurer — ICBT Movie Screening',
-    body: 'Managed ticket sales, fund operations, logistics, promotions, and complete event coordination for the ICBT campus event.',
-    badge: null,
+    id: 'web-development',
+    kicker: 'Web Development',
+    headline: 'Websites that feel',
+    headlineEm: 'considered.',
+    body: 'Fast, responsive, and animated with intent — every scroll, hover, and transition designed to feel premium, not off-the-shelf.',
+    tags: ['Next.js', 'Landing Pages', 'E-commerce', 'Motion & UI'],
+    icon: 'web',
+  },
+  {
+    id: 'data-analysis',
+    kicker: 'Data Analysis',
+    headline: 'Numbers, turned into',
+    headlineEm: 'decisions.',
+    body: 'Clean, model, and visualise your data so the patterns are obvious and the next move is easy to call.',
+    tags: ['Dashboards', 'Reporting', 'Python', 'SQL'],
+    icon: 'data',
+  },
+  {
+    id: 'web-scraping',
+    kicker: 'Web Scraping & Automation',
+    headline: 'Your data, collected',
+    headlineEm: 'automatically.',
+    body: 'Custom crawlers and pipelines that gather, clean, and deliver exactly the data you need — on schedule, at scale, hands-off.',
+    tags: ['Lead Generation', 'Monitoring', 'ETL Pipelines', 'Scheduled Automation'],
+    icon: 'scrape',
+  },
+  {
+    id: 'ai-agents',
+    kicker: 'AI Agents',
+    headline: 'Automation with',
+    headlineEm: 'a mind of its own.',
+    body: 'Intelligent agents that handle support, research, and repetitive workflows — so your team spends time on what actually needs a human.',
+    tags: ['Chatbots', 'Workflow Automation', 'LLM Integrations', 'Custom Agents'],
+    icon: 'ai',
   },
 ];
