@@ -12,9 +12,9 @@ const MONTH_NAMES = [
 
 // Layout constants — tuned so the grid always fills its card edge-to-edge
 // with square cells and never needs a horizontal scrollbar.
-const GAP = 3;
+const GAP = 4;
 const MIN_CELL = 8;
-const MAX_CELL = 13;
+const MAX_CELL = 18;
 const DAY_COL_WIDTH = 24;
 
 type Day = { date: string; level: number; count: number };

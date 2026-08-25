@@ -18,7 +18,7 @@ export default function About() {
         </Reveal>
 
         <div className={styles.cols}>
-          <div>
+          <div className={styles.bioCol}>
             <Reveal>
               <p className={styles.body}>
                 I&apos;m Senira Mendis, a full-stack developer based in Mount Lavinia, Colombo.
@@ -33,14 +33,9 @@ export default function About() {
               </p>
             </Reveal>
 
-            <Reveal delay={140}>
-              <div style={{ marginTop: '40px' }}>
-                <GithubContributions />
-              </div>
-            </Reveal>
           </div>
 
-          <Reveal delay={100}>
+          <Reveal delay={100} className={styles.infoCol}>
             <div>
               <div className={styles.eduList}>
                 <div className={styles.eduRow}>
@@ -56,6 +51,10 @@ export default function About() {
                 <SocialIcons />
               </div>
             </div>
+          </Reveal>
+
+          <Reveal delay={140} className={styles.githubWide}>
+            <GithubContributions />
           </Reveal>
         </div>
       </div>

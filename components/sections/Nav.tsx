@@ -41,12 +41,14 @@ export default function Nav() {
   }, []);
 
   const close = () => setOpen(false);
+  const toggle = () => setOpen((v) => !v);
 
   return (
     <nav className={styles.nav} id="main-nav">
       <div className={styles.inner}>
         <Link href="/" className={styles.logo} onClick={close}>Senira Mendis</Link>
-        <ul className={styles.links} data-open={open}>
+
+        <ul className={styles.links}>
           {/* Added the slash so these links work universally across all pages */}
           <li><Link href="/#about" onClick={close}>About</Link></li>
           <li><Link href="/#skills" onClick={close}>Skills</Link></li>
@@ -60,15 +62,49 @@ export default function Nav() {
             <MagBtn href="/#contact" onClick={close}>Get in touch</MagBtn>
           </li>
         </ul>
+
         <button
+          type="button"
           className={styles.hamburger}
-          aria-label="Menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
+          aria-controls="mobile-menu"
           data-open={open}
-          onClick={() => setOpen((v) => !v)}
+          onClick={toggle}
         >
           <span /><span /><span />
         </button>
+      </div>
+
+      {/* Backdrop — tapping it closes the menu, Apple-menu style */}
+      <div
+        className={styles.backdrop}
+        data-open={open}
+        onClick={close}
+        aria-hidden="true"
+      />
+
+      {/* Dropdown panel */}
+      <div className={styles.mobilePanel} id="mobile-menu" data-open={open}>
+        <ul className={styles.mobileList}>
+          <li style={{ transitionDelay: open ? '60ms' : '0ms' }}>
+            <Link href="/#about" onClick={close}><span>About</span><i /></Link>
+          </li>
+          <li style={{ transitionDelay: open ? '100ms' : '0ms' }}>
+            <Link href="/#skills" onClick={close}><span>Skills</span><i /></Link>
+          </li>
+          <li style={{ transitionDelay: open ? '140ms' : '0ms' }}>
+            <Link href="/projects" onClick={close}><span>Work</span><i /></Link>
+          </li>
+          <li style={{ transitionDelay: open ? '180ms' : '0ms' }}>
+            <Link href="/#book" onClick={close}><span>Book a call</span><i /></Link>
+          </li>
+        </ul>
+        <div className={styles.mobileCta} style={{ transitionDelay: open ? '220ms' : '0ms' }}>
+          <Link href="/#contact" onClick={close} className={styles.mobileCtaBtn}>
+            Get in touch
+          </Link>
+        </div>
       </div>
     </nav>
   );

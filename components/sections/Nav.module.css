@@ -92,43 +92,143 @@
   transform: translateY(-6px) rotate(-45deg);
 }
 
+/* ── Mobile: hamburger + Apple-style dropdown panel ──────────────── */
+
+.backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 498;
+  background: rgba(0, 0, 0, .28);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .3s ease, visibility 0s linear .3s;
+  display: none;
+}
+
+.backdrop[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity .3s ease, visibility 0s linear 0s;
+}
+
+.mobilePanel {
+  display: none;
+}
+
 @media (max-width: 900px) {
-  .links {
+  /* The desktop inline nav list is fully replaced by the dropdown panel. */
+  .links { display: none; }
+
+  .hamburger { display: flex; }
+
+  .backdrop { display: block; }
+
+  .mobilePanel {
+    display: block;
     position: fixed;
     top: var(--nav-h);
     left: 0;
     right: 0;
-    bottom: 0;
     z-index: 499;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 28px;
+    max-height: calc(100vh - var(--nav-h));
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
-    /* Solid — never relies on backdrop-filter support to stay opaque,
-       so content behind it can never show through mid-animation. */
-    background: var(--white);
-    transform: translateY(-8px);
+
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .12);
+
+    transform: translateY(-12px);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity .25s ease, transform .25s ease, visibility 0s linear .25s;
+    transition: opacity .28s ease, transform .28s ease, visibility 0s linear .28s;
   }
 
-  .links[data-open="true"] {
+  .mobilePanel[data-open="true"] {
+    transform: translateY(0);
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
     pointer-events: auto;
-    transition: opacity .25s ease, transform .25s ease, visibility 0s linear 0s;
+    transition: opacity .28s ease, transform .28s ease, visibility 0s linear 0s;
   }
 
-  .links a {
-    font-size: 20px;
+  .mobileList {
+    list-style: none;
+    padding: 6px 22px 0;
   }
 
-  .hamburger { display: flex; }
+  .mobileList li {
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity .35s ease, transform .35s ease;
+  }
+
+  .mobilePanel[data-open="true"] .mobileList li {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobileList a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 2px;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text-1);
+    text-decoration: none;
+    letter-spacing: -.01em;
+  }
+
+  .mobileList a:active {
+    opacity: .5;
+  }
+
+  .mobileList a i {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid var(--gray-mid);
+    border-bottom: 1.5px solid var(--gray-mid);
+    transform: rotate(-45deg);
+    flex: 0 0 auto;
+  }
+
+  .mobileCta {
+    padding: 18px 22px 24px;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity .35s ease, transform .35s ease;
+  }
+
+  .mobilePanel[data-open="true"] .mobileCta {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobileCtaBtn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 13px 0;
+    border-radius: 980px;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: -.01em;
+    transition: background .2s ease;
+  }
+
+  .mobileCtaBtn:active {
+    background: var(--blue-hover);
+  }
 }

@@ -96,6 +96,23 @@
   padding-top: 3px;
 }
 
+.bioCol {}
+.infoCol {}
+
+/* On desktop the GitHub graph breaks out of its column and spans the
+   full width of the two-column grid — below both columns — so it gets
+   noticeably longer without touching the mobile layout. */
+.githubWide {
+  grid-column: 1 / -1;
+  margin-top: 40px;
+}
+
 @media (max-width: 900px) {
   .cols { grid-template-columns: 1fr; gap: 48px; }
+
+  /* Restore the original mobile stacking order: bio text, then the
+     GitHub graph, then availability/connect — unchanged from before. */
+  .bioCol { order: 1; }
+  .githubWide { order: 2; margin-top: 0; }
+  .infoCol { order: 3; }
 }
