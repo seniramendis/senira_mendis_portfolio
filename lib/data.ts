@@ -126,6 +126,9 @@ export const PROJECTS: Project[] = [
     description: 'Cross-platform mobile app digitizing the national curriculum into an interactive node-based roadmap. Facilitated agile sprints for complex features including interactive roadmap logic and Firebase integration.',
     tags: ['React Native', 'Firebase', 'Android Studio', 'Agile/Scrum'],
     href: '#',
+    images: [
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657169/Brain_Path_vdex8k.png',
+    ],
   },
   {
   num: '04',
@@ -181,6 +184,11 @@ export const PROJECTS: Project[] = [
     description: 'Secure healthcare platform featuring an automated 24/7 online scheduling system, telemedicine direct messaging via AJAX, and an e-prescription module with role-based access control.',
     tags: ['PHP', 'MySQL', 'JavaScript', 'AJAX', 'CSS Grid'],
     href: 'https://github.com/seniramendis/Medicare-Plus',
+    images: [
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657204/Medicare_ufze84.png',
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657197/Medicare1_fxwwjx.png',
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657200/medicare2_ralxkg.png',
+    ],
   },
   {
     num: '09',
@@ -189,6 +197,9 @@ export const PROJECTS: Project[] = [
     description: 'An interactive 2D game exploring a magical world where code transforms reality. Developed as a team project, combining creative game mechanics with core Java programming concepts.',
     tags: ['Java', 'Game Development', 'OOP'],
     href: '#',
+    images: [
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657335/java_Game_tsd8lw.png',
+    ],
   },
   {
     num: '10',
@@ -197,6 +208,10 @@ export const PROJECTS: Project[] = [
     description: 'A management system digitizing bookstore workflows, including inventory tracking, sales processing, and customer record management. Built with a focus on clean CRUD operations and robust data modelling.',
     tags: ['Java', 'MySQL', 'OOP'],
     href: 'https://github.com/seniramendis/Little-Haven-Bookstore-Management-System',
+    images: [
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657013/Little_Heaven_almhdw.png',
+      'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657017/Little_Heaven1_huzrea.png',
+    ],
   },
 ];
 
