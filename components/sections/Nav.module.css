@@ -105,19 +105,25 @@
     align-items: center;
     justify-content: center;
     gap: 28px;
-    background: rgba(255, 255, 255, .98);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    /* Solid — never relies on backdrop-filter support to stay opaque,
+       so content behind it can never show through mid-animation. */
+    background: var(--white);
     transform: translateY(-8px);
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity .25s ease, transform .25s ease;
+    transition: opacity .25s ease, transform .25s ease, visibility 0s linear .25s;
   }
 
   .links[data-open="true"] {
     opacity: 1;
+    visibility: visible;
     transform: translateY(0);
     pointer-events: auto;
+    transition: opacity .25s ease, transform .25s ease, visibility 0s linear 0s;
   }
 
   .links a {
