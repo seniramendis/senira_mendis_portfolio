@@ -4,6 +4,18 @@ import styles from './IdeaToProduct.module.css';
 export default function IdeaToProduct() {
   return (
     <section id="idea-to-product" className={styles.section}>
+      <svg
+        className={styles.blob}
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0,0 L60,0 C68,8 50,16 58,26 C66,36 48,44 56,54 C64,64 46,72 55,82 C60,88 52,94 58,100 L0,100 Z"
+          fill="#fff"
+        />
+      </svg>
+
       <div className={styles.wrap}>
         <Reveal className={styles.visualCol}>
           <img
