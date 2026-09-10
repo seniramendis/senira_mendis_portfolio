@@ -17,21 +17,17 @@ export default function IdeaToProduct() {
     const blob = blobRef.current;
     if (!section || !curtain || !blob) return;
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (reduceMotion) {
-      gsap.set(curtain, { xPercent: 105 });
-      gsap.set(blob, { scaleX: 1 });
-      return;
-    }
-
     gsap.registerPlugin(ScrollTrigger);
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // Desktop only — the wipe is disabled below 1000px (same breakpoint
+    // where the layout switches to the stacked mobile/tablet view).
+    mm.add('(min-width: 1000.1px) and (prefers-reduced-motion: no-preference)', () => {
       gsap.set(curtain, { xPercent: 0 });
       gsap.set(blob, { scaleX: 1.18, transformOrigin: '0% 50%' });
 
-      gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top 85%',
@@ -41,9 +37,17 @@ export default function IdeaToProduct() {
       })
         .to(curtain, { xPercent: 105, ease: 'power2.inOut', duration: 1 }, 0)
         .to(blob, { scaleX: 1, ease: 'power2.out', duration: 1 }, 0);
-    }, section);
 
-    return () => ctx.revert();
+      return () => tl.kill();
+    });
+
+    // Mobile/tablet, or reduced-motion — just show everything, no animation.
+    mm.add('(max-width: 1000px), (prefers-reduced-motion: reduce)', () => {
+      gsap.set(curtain, { xPercent: 105 });
+      gsap.set(blob, { scaleX: 1 });
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
