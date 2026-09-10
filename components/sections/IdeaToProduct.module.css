@@ -13,6 +13,28 @@
   width: 100%;
   height: 100%;
   z-index: 0;
+  will-change: transform;
+}
+
+/* ── Scroll-reveal curtain: slides off to unveil the section ── */
+.curtain {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: 5;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.curtain::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -2px;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #2997ff, rgba(41, 151, 255, 0));
+  box-shadow: 0 0 28px 6px rgba(41, 151, 255, .55);
 }
 
 .wrap {

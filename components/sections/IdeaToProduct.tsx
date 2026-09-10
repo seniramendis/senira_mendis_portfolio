@@ -1,11 +1,56 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Reveal from '@/components/ui/Reveal';
 import styles from './IdeaToProduct.module.css';
 
 export default function IdeaToProduct() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const curtainRef = useRef<HTMLDivElement>(null);
+  const blobRef = useRef<SVGSVGElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const curtain = curtainRef.current;
+    const blob = blobRef.current;
+    if (!section || !curtain || !blob) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion) {
+      gsap.set(curtain, { xPercent: 105 });
+      gsap.set(blob, { scaleX: 1 });
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      gsap.set(curtain, { xPercent: 0 });
+      gsap.set(blob, { scaleX: 1.18, transformOrigin: '0% 50%' });
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          end: 'top 25%',
+          scrub: 0.6,
+        },
+      })
+        .to(curtain, { xPercent: 105, ease: 'power2.inOut', duration: 1 }, 0)
+        .to(blob, { scaleX: 1, ease: 'power2.out', duration: 1 }, 0);
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="idea-to-product" className={styles.section}>
+    <section id="idea-to-product" className={styles.section} ref={sectionRef}>
       <svg
         className={styles.blob}
+        ref={blobRef}
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         aria-hidden="true"
@@ -40,6 +85,8 @@ export default function IdeaToProduct() {
           </Reveal>
         </div>
       </div>
+
+      <div className={styles.curtain} ref={curtainRef} aria-hidden="true" />
     </section>
   );
 }
