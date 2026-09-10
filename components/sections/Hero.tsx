@@ -2,7 +2,18 @@
 import { useEffect, useRef } from 'react';
 import { PERSONAL, HERO_TECH_WORDS } from '@/lib/data';
 import { useMagnetic } from '@/hooks/useMagnetic';
+import { ThreeDMarquee } from '@/components/ui/ThreeDMarquee';
+import { PROJECTS } from '@/lib/data';
 import styles from './Hero.module.css';
+
+// Only these three local shots, plus every project screenshot already
+// hosted on Cloudinary — no personal/profile photos.
+const HERO_MARQUEE_IMAGES = [
+  '/images/Home_Hero_Page/hero-poster.jpg',
+  '/images/Home_Hero_Page/IMG-20251002-WA0020.jpg',
+  '/images/Home_Hero_Page/IMG-20251004-WA0013.jpg',
+  ...PROJECTS.flatMap((p) => p.images ?? []),
+];
 
 const TOOLS = [
   { name: 'React',      slug: 'react',      pos: styles.tool1 },
@@ -118,6 +129,11 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} style={{ borderBottom: 'none', padding: 0, paddingTop: 'var(--nav-h)' }}>
+      <div className={styles.heroBg}>
+        <ThreeDMarquee images={HERO_MARQUEE_IMAGES} />
+      </div>
+      <div className={styles.heroBgOverlay} />
+
       <div className={styles.heroGrid}>
         <div className={styles.heroCenter}>
           <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>

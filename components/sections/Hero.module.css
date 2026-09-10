@@ -11,6 +11,27 @@
 }
 
 /* ═══════════════════════════════════════════
+   BACKGROUND — black & white 3D photo marquee
+═══════════════════════════════════════════ */
+.heroBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.heroBgOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.86) 0%,
+    rgba(255, 255, 255, 0.93) 45%,
+    var(--white) 92%
+  );
+}
+
+/* ═══════════════════════════════════════════
    TWO-COLUMN GRID — text left, sticker right
 ═══════════════════════════════════════════ */
 .heroGrid {
