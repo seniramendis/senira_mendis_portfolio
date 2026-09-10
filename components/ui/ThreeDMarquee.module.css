@@ -8,9 +8,11 @@
 
 .grid {
   position: absolute;
-  inset: -20% -10%;
+  inset: -25% -10%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* column count is set responsively via inline style in ThreeDMarquee.tsx,
+     which stays in sync with how many column elements React actually
+     renders at each breakpoint — see the comment there for why. */
   gap: 16px;
   transform: rotateX(50deg) rotateZ(-24deg) scale(1.25);
   transform-style: preserve-3d;
@@ -57,8 +59,23 @@
 
 @media (max-width: 900px) {
   .grid {
-    grid-template-columns: repeat(3, 1fr);
+    inset: -32% -10%;
     transform: rotateX(54deg) rotateZ(-18deg) scale(1.4);
+  }
+}
+
+/* Phones — portrait viewports are much taller relative to their width than
+   the desktop/tablet cases above, so the rotated grid needs a lot more
+   vertical bleed (inset) plus a gentler rotation to avoid exposing blank
+   corners while still fitting comfortably inside the hero. */
+@media (max-width: 560px) {
+  .grid {
+    inset: -55% -5%;
+    gap: 12px;
+    transform: rotateX(46deg) rotateZ(-10deg) scale(1.7);
+  }
+  .tile {
+    border-radius: 8px;
   }
 }
 
