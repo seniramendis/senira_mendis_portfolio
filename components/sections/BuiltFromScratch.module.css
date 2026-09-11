@@ -1,0 +1,75 @@
+/* ═══════════════════════════════════════════
+   BUILT FROM SCRATCH — Apple.com product-page style:
+   full-bleed image up top, big bold caption + short
+   description centered underneath on a black panel.
+═══════════════════════════════════════════ */
+
+.section {
+  padding: 0;
+  background: var(--off-white);
+  overflow: hidden;
+}
+
+/* ── Top: full-bleed visual, framed like Apple's product shots ── */
+.visualWrap {
+  width: 100%;
+  background: var(--off-white);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.visual {
+  display: block;
+  width: 100%;
+  max-width: 1400px;
+  height: auto;
+}
+
+/* ── Bottom: black caption panel ── */
+.caption {
+  background: var(--black);
+  padding: 64px 22px 88px;
+  text-align: center;
+}
+
+.kicker {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: var(--gray-mid);
+  margin-bottom: 14px;
+}
+
+.heading {
+  font-family: var(--sans);
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 700;
+  line-height: 1.07;
+  letter-spacing: -.02em;
+  color: var(--white);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sub {
+  margin: 22px auto 0;
+  max-width: 620px;
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, .62);
+}
+
+.ctaRow {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+  .caption { padding: 48px 20px 64px; }
+  .sub { margin-top: 16px; }
+}

@@ -6,6 +6,7 @@ import Skills from '@/components/sections/Skills';
 import Projects from '@/components/sections/Projects';
 import IdeaToProduct from '@/components/sections/IdeaToProduct';
 import Services from '@/components/sections/Services';
+import BuiltFromScratch from '@/components/sections/BuiltFromScratch';
 import Booking from '@/components/sections/Booking'; 
 import Contact from '@/components/sections/Contact';
 import Footer from '@/components/sections/Footer';
@@ -22,6 +23,7 @@ export default function Home() {
       <Projects />
       <IdeaToProduct />
       <Services />
+      <BuiltFromScratch />
       <Booking /> 
       <Contact />
       <Footer />
