@@ -6,15 +6,13 @@ import ContactForm from '@/components/sections/ContactForm';
 import SocialIcons from '@/components/ui/SocialIcons';
 import Reveal from '@/components/ui/Reveal';
 import { PERSONAL } from '@/lib/data';
-import { buildMetadata } from '@/lib/seo';
 import styles from './contact.module.css';
 
-export const metadata: Metadata = buildMetadata({
-  title: 'Contact',
+export const metadata: Metadata = {
+  title: 'Contact — Senira Mendis',
   description:
     'Get in touch with Senira Mendis for software development, web, mobile or backend engineering work, or full-time opportunities.',
-  path: '/contact',
-});
+};
 
 export default function ContactPage() {
   return (
