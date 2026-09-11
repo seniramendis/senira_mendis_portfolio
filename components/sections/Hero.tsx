@@ -150,7 +150,7 @@ export default function Hero() {
 
           <div className={styles.acts} ref={actsRef} style={{ opacity: 0, transform: 'translateY(14px)' }}>
             <MagBtn href="#work" className={`${styles.btnPrimary} mbtn mbtn-dark`}>View my work</MagBtn>
-            <MagBtn href="#contact" className={`${styles.btnGhost} mbtn mbtn-light`}>Get in touch &rsaquo;</MagBtn>
+            <MagBtn href="/contact" className={`${styles.btnGhost} mbtn mbtn-light`}>Get in touch &rsaquo;</MagBtn>
           </div>
 
           <div className={styles.techRow} ref={techRef} style={{ opacity: 0, transform: 'translateY(10px)' }}>

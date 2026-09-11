@@ -1,0 +1,203 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--white);
+  color: var(--text-1);
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex-grow: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 24px 100px;
+  width: 100%;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--blue);
+  text-decoration: none;
+  margin-bottom: 48px;
+  transition: color 0.3s;
+}
+
+.arrowBack {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.heroKicker {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--blue);
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 3.2rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  font-family: var(--serif);
+  letter-spacing: -0.02em;
+  max-width: 820px;
+}
+
+.title em {
+  color: var(--gray-mid);
+  font-style: normal;
+}
+
+.heroSub {
+  max-width: 640px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--gray-mid);
+  margin-bottom: 24px;
+}
+
+.splitLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-top: 64px;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .splitLayout {
+    grid-template-columns: 1.3fr 1fr;
+    gap: 56px;
+  }
+}
+
+.formCol,
+.infoCol {
+  min-width: 0;
+}
+
+.formCard {
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.infoCard {
+  background: var(--near-black);
+  color: var(--white);
+  border-radius: 20px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: sticky;
+  top: 120px;
+}
+
+.infoLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 22px 0 12px;
+}
+
+.infoLabel:first-child {
+  margin-top: 0;
+}
+
+.infoLink {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  color: var(--white);
+  transition: opacity 0.2s;
+}
+
+a.infoLink:hover {
+  opacity: 0.7;
+}
+
+.infoLinkLabel {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.infoLinkValue {
+  font-size: 15px;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 20px;
+}
+
+.availabilityDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3ecf6d;
+  box-shadow: 0 0 0 3px rgba(62, 207, 109, 0.2);
+  flex-shrink: 0;
+}
+
+.socialsWrap {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 22px;
+  padding-top: 4px;
+}
+
+.bookLink {
+  display: inline-block;
+  margin-top: 26px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 3px;
+  width: fit-content;
+  transition: border-color 0.2s;
+}
+
+.bookLink:hover {
+  border-color: var(--white);
+}
+
+@media (min-width: 1024px) {
+  .title { font-size: 3.8rem; }
+}
+
+@media (max-width: 900px) {
+  .infoCard { position: static; }
+}
+
+@media (max-width: 640px) {
+  .main { padding: 100px 20px 70px; }
+  .formCard { padding: 28px 22px; }
+  .infoCard { padding: 28px 24px; }
+}

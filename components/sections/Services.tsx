@@ -81,7 +81,7 @@ export default function Services() {
 
         <Reveal delay={120}>
           <div className={styles.ctaRow}>
-            <a href="/#contact" className="mbtn mbtn-dark">Start a project</a>
+            <a href="/contact" className="mbtn mbtn-dark">Start a project</a>
             <a href="/#book" className="mbtn mbtn-light">Book a call →</a>
           </div>
         </Reveal>

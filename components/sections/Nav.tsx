@@ -61,7 +61,7 @@ export default function Nav() {
           <li><Link href="/#book" onClick={close}>Book a call</Link></li>
 
           <li>
-            <MagBtn href="/#contact" onClick={close}>Get in touch</MagBtn>
+            <MagBtn href="/contact" onClick={close}>Get in touch</MagBtn>
           </li>
         </ul>
 
@@ -106,7 +106,7 @@ export default function Nav() {
           </li>
         </ul>
         <div className={styles.mobileCta} style={{ transitionDelay: open ? '260ms' : '0ms' }}>
-          <Link href="/#contact" onClick={close} className={styles.mobileCtaBtn}>
+          <Link href="/contact" onClick={close} className={styles.mobileCtaBtn}>
             Get in touch
           </Link>
         </div>
