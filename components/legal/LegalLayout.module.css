@@ -1,0 +1,169 @@
+/* ═══════════════════════════════════════════
+   LEGAL PAGES — Apple.com legal/support-page style:
+   quiet centered hero, narrow readable prose column,
+   sticky-feeling in-page table of contents.
+═══════════════════════════════════════════ */
+
+.page {
+  background: var(--white);
+}
+
+.hero {
+  padding: 150px 22px 44px;
+  text-align: center;
+  border-bottom: 1px solid var(--gray-line);
+  background: var(--off-white);
+}
+
+.kicker {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+  margin-bottom: 16px;
+}
+
+.title {
+  font-family: var(--sans);
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--text-1);
+}
+
+.updated {
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--gray-mid);
+}
+
+.layout {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 64px 22px 140px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* ── In-page nav ── */
+.toc {
+  position: sticky;
+  top: 100px;
+}
+
+.tocLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+  margin-bottom: 14px;
+}
+
+.toc ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toc a {
+  font-size: 13px;
+  color: var(--gray-mid);
+  text-decoration: none;
+  line-height: 1.4;
+  display: block;
+}
+
+.toc a:hover {
+  color: var(--blue);
+}
+
+/* ── Prose ── */
+.body {
+  max-width: 680px;
+  min-width: 0;
+}
+
+.body h2 {
+  font-size: clamp(21px, 2.6vw, 25px);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: var(--text-1);
+  margin: 48px 0 16px;
+  scroll-margin-top: 100px;
+}
+
+.body h2:first-child {
+  margin-top: 0;
+}
+
+.body p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-1);
+  margin-bottom: 16px;
+}
+
+.body ul {
+  margin: 0 0 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.body li {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-1);
+}
+
+.body strong {
+  font-weight: 600;
+}
+
+.body a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.body a:hover {
+  text-decoration: underline;
+}
+
+.note {
+  margin-top: 40px;
+  padding: 20px 22px;
+  background: var(--off-white);
+  border: 1px solid var(--gray-line);
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--gray-mid);
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 48px 20px 100px;
+  }
+  .toc {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+  }
+  .toc ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .tocLabel { width: 100%; }
+}
+
+@media (max-width: 560px) {
+  .hero { padding: 120px 20px 36px; }
+}

@@ -1,39 +1,117 @@
+/* ═══════════════════════════════════════════
+   FOOTER — Apple.com style: hairline top border,
+   multi-column link groups, then a quiet legal bar.
+═══════════════════════════════════════════ */
+
 .footer {
-  padding: 22px 22px;
   background: var(--off-white);
   border-top: 1px solid var(--gray-line);
+  padding: 48px 22px 0;
+}
+
+.inner {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* ── Column grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  padding-bottom: 40px;
+}
+
+.col {
+  min-width: 0;
+}
+
+.colTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 14px;
+}
+
+.colList {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.colList a,
+.colList span {
+  font-size: 12px;
+  color: var(--gray-mid);
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.colList a:hover {
+  color: var(--text-1);
+  text-decoration: underline;
+}
+
+/* ── Divider ── */
+.hr {
+  border: none;
+  border-top: 1px solid var(--gray-line);
+}
+
+/* ── Legal bar ── */
+.legalBar {
+  padding: 16px 0 28px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 20px;
 }
 
 .copy {
   font-size: 12px;
   color: var(--gray-mid);
-  letter-spacing: 0;
 }
 
-.name {
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--gray-mid);
+.legalLinks {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
 }
 
-.contactLink {
-  font-family: var(--sans);
+.legalLinks a {
   font-size: 12px;
-  font-weight: 500;
   color: var(--gray-mid);
   text-decoration: none;
-  transition: color 0.2s;
+  padding: 0 12px;
+  border-left: 1px solid var(--gray-line);
 }
 
-.contactLink:hover {
-  color: var(--blue);
+.legalLinks a:first-child {
+  border-left: none;
+  padding-left: 0;
 }
 
+.legalLinks a:hover {
+  color: var(--text-1);
+  text-decoration: underline;
+}
+
+/* ── Responsive ── */
 @media (max-width: 900px) {
-  .footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .footer { padding: 40px 20px 0; }
+  .grid { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
+  .legalBar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .legalLinks { gap: 0; }
 }
