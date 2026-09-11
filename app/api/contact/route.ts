@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 // Where the message should land. Falls back to the portfolio owner's email
 // if CONTACT_TO_EMAIL isn't set in the environment.
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'seniramendis41@gmail.com';
+
+// The "from" address Resend sends as. Must be on a domain you've verified
+// in Resend, OR left as their shared test address to start out.
+// See .env.local.example for details.
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Portfolio <onboarding@resend.dev>';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -63,41 +68,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: 'Message is too long.' }, { status: 400 });
     }
 
-    const hasSmtpConfig = !!(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
-    const hasGmailConfig = !!(process.env.EMAIL_USER && process.env.EMAIL_PASS);
-
-    if (!hasSmtpConfig && !hasGmailConfig) {
-      // No mail credentials configured on the server yet.
-      console.error(
-        'Contact form: no SMTP_HOST/SMTP_USER/SMTP_PASS or EMAIL_USER/EMAIL_PASS set. See .env.local.example.'
-      );
+    if (!process.env.RESEND_API_KEY) {
+      console.error('Contact form: RESEND_API_KEY is not set. See .env.local.example.');
       return NextResponse.json(
         {
           ok: false,
           error:
-            'The contact form is not fully configured yet (missing email credentials on the server). Please email directly instead.',
+            'The contact form is not fully configured yet (missing Resend API key on the server). Please email directly instead.',
         },
         { status: 500 }
       );
     }
 
-    const transporter = hasSmtpConfig
-      ? nodemailer.createTransport({
-          host: process.env.SMTP_HOST,
-          port: Number(process.env.SMTP_PORT) || 587,
-          secure: Number(process.env.SMTP_PORT) === 465,
-          auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-        })
-      : nodemailer.createTransport({
-          service: 'gmail',
-          auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
-        });
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const safe = (s: string) =>
       s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-    await transporter.sendMail({
-      from: `"${name} (via portfolio site)" <${(process.env.SMTP_USER || process.env.EMAIL_USER)!}>`,
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
       to: TO_EMAIL,
       replyTo: email,
       subject: subject ? `[Portfolio] ${subject}` : `[Portfolio] New message from ${name}`,
@@ -112,6 +101,14 @@ export async function POST(req: NextRequest) {
         </div>
       `,
     });
+
+    if (error) {
+      console.error('Resend error:', error);
+      return NextResponse.json(
+        { ok: false, error: 'Something went wrong sending your message. Please try again or email directly.' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
