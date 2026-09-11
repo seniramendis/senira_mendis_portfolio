@@ -1,14 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// Hardcoded on purpose: Resend's free tier / shared test sender
-// (onboarding@resend.dev) can ONLY deliver to the email address that owns
-// the Resend account. Pulling these from env vars adds no value here and
-// is an easy place to introduce a typo/whitespace bug in Vercel's dashboard.
-// Once a custom domain is verified in Resend, both of these can go back to
-// being real "from" addresses / dynamic recipients.
-const TO_EMAIL = 'seniramendis41@gmail.com';
-const FROM_EMAIL = 'onboarding@resend.dev';
+export const runtime = 'nodejs';
+
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL?.trim() || 'seniramendis41@gmail.com';
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL?.trim() || 'onboarding@resend.dev';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -85,7 +81,7 @@ export async function POST(req: NextRequest) {
     const safe = (s: string) =>
       s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-    const { error } = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: FROM_EMAIL,
       to: TO_EMAIL,
       replyTo: email,
@@ -109,6 +105,8 @@ export async function POST(req: NextRequest) {
         { status: 500 }
       );
     }
+
+    console.info('Contact form email accepted by Resend:', data?.id);
 
     return NextResponse.json({ ok: true });
   } catch (err) {

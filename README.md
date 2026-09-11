@@ -141,6 +141,19 @@ All design variables are in `app/globals.css`:
 
 ## 🌐 Deploy
 
+Before deploying, add these environment variables in Vercel under **Settings → Environment Variables**.
+Enable them for **Production** (and Preview if needed), then redeploy after saving:
+
+```env
+RESEND_API_KEY=re_...
+CONTACT_TO_EMAIL=your-inbox@example.com
+RESEND_FROM_EMAIL=Portfolio <onboarding@resend.dev>
+```
+
+With Resend's shared `onboarding@resend.dev` sender, the recipient must be the email
+address that owns the Resend account. For delivery to other addresses, verify a domain
+in Resend and set `RESEND_FROM_EMAIL` to an address on that domain.
+
 ### Vercel (recommended — zero config)
 ```bash
 npx vercel
