@@ -1,11 +1,12 @@
-'use client';
-import { useState } from 'react';
+import type { Metadata } from 'next';
+import Script from 'next/script';
 import { PROJECTS } from '@/lib/data';
-import { getTechIconUrl } from '@/lib/techIcons';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Nav from '@/components/sections/Nav';
 import Footer from '@/components/sections/Footer';
+import ProjectTechItem from '@/components/sections/ProjectTechItem';
+import { buildMetadata, breadcrumbJsonLd } from '@/lib/seo';
 import styles from '../projects.module.css';
 
 /* Same cover gradients used on the archive page, so projects without
@@ -27,31 +28,29 @@ function gradientFor(index: number) {
   return GRADIENTS[index % GRADIENTS.length];
 }
 
-/* Single tech-stack row item: real brand logo (Simple Icons API) + plain
-   text label — no border, no chip, no background. If the icon 404s we
-   just quietly fall back to text-only rather than showing a broken image. */
-function TechItem({ tag }: { tag: string }) {
-  const iconUrl = getTechIconUrl(tag);
-  const [failed, setFailed] = useState(false);
-
-  return (
-    <div className={styles.techItem}>
-      {iconUrl && !failed && (
-        <img
-          src={iconUrl}
-          alt=""
-          aria-hidden="true"
-          className={styles.techIcon}
-          loading="lazy"
-          onError={() => setFailed(true)}
-        />
-      )}
-      <span className={styles.techLabel}>{tag}</span>
-    </div>
-  );
+interface PageProps {
+  params: { id: string };
 }
 
-export default function ProjectDetail({ params }: { params: { id: string } }) {
+// Pre-render every project's page at build time — better for SEO and speed
+// than generating them on demand.
+export function generateStaticParams() {
+  return PROJECTS.map((project) => ({ id: project.num }));
+}
+
+export function generateMetadata({ params }: PageProps): Metadata {
+  const project = PROJECTS.find((p) => p.num === params.id);
+  if (!project) return {};
+
+  return buildMetadata({
+    title: project.title,
+    description: project.description.slice(0, 155).trim() + (project.description.length > 155 ? '…' : ''),
+    path: `/projects/${project.num}`,
+    image: project.images?.[0],
+  });
+}
+
+export default function ProjectDetail({ params }: PageProps) {
   const project = PROJECTS.find((p) => p.num === params.id);
 
   if (!project) {
@@ -65,6 +64,20 @@ export default function ProjectDetail({ params }: { params: { id: string } }) {
 
   return (
     <div className={styles.container}>
+      <Script
+        id="ld-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: 'Home', path: '/' },
+              { name: 'Work', path: '/projects' },
+              { name: project.title, path: `/projects/${project.num}` },
+            ])
+          ),
+        }}
+      />
+
       <Nav />
 
       <main className={styles.detailMain}>
@@ -90,7 +103,7 @@ export default function ProjectDetail({ params }: { params: { id: string } }) {
               <span className={styles.techTitle}>Built with</span>
               <div className={styles.techGrid}>
                 {project.tags.map((tag) => (
-                  <TechItem key={tag} tag={tag} />
+                  <ProjectTechItem key={tag} tag={tag} />
                 ))}
               </div>
             </div>

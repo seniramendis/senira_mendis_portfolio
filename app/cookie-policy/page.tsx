@@ -2,12 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import LegalLayout from '@/components/legal/LegalLayout';
 import { PERSONAL } from '@/lib/data';
+import { buildMetadata } from '@/lib/seo';
 import styles from '@/components/legal/LegalLayout.module.css';
 
-export const metadata: Metadata = {
-  title: 'Cookie Policy — Senira Mendis',
+export const metadata: Metadata = buildMetadata({
+  title: 'Cookie Policy',
   description: 'How cookies and similar technologies are used on this portfolio website.',
-};
+  path: '/cookie-policy',
+});
 
 const TOC = [
   { id: 'what-are-cookies', label: 'What Are Cookies?' },

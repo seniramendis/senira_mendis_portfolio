@@ -2,12 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import LegalLayout from '@/components/legal/LegalLayout';
 import { PERSONAL } from '@/lib/data';
+import { buildMetadata } from '@/lib/seo';
 import styles from '@/components/legal/LegalLayout.module.css';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy — Senira Mendis',
+export const metadata: Metadata = buildMetadata({
+  title: 'Privacy Policy',
   description: 'How Senira Mendis collects, uses and protects information on this portfolio website.',
-};
+  path: '/privacy-policy',
+});
 
 const TOC = [
   { id: 'overview', label: 'Overview' },

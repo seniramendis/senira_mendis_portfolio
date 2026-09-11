@@ -1,11 +1,18 @@
-'use client';
+import type { Metadata } from 'next';
 import { PROJECTS } from '@/lib/data';
 import Link from 'next/link';
 import Nav from '@/components/sections/Nav';
 import Footer from '@/components/sections/Footer';
 import Reveal from '@/components/ui/Reveal';
 import ProjectsShowcase from '@/components/sections/ProjectsShowcase';
+import { buildMetadata } from '@/lib/seo';
 import styles from './projects.module.css';
+
+export const metadata: Metadata = buildMetadata({
+  title: 'Projects',
+  description: `A collection of ${PROJECTS.length} full-stack, mobile and backend builds — from production platforms shipped for agencies to solo experiments in geospatial systems and AI.`,
+  path: '/projects',
+});
 
 export default function ProjectsArchive() {
   return (
