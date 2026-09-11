@@ -102,3 +102,29 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
     })),
   };
 }
+
+interface ProjectJsonLdInput {
+  title: string;
+  description: string;
+  path: string;
+  tags: string[];
+  image?: string;
+}
+
+/** schema.org CreativeWork JSON-LD for an individual project case-study page. */
+export function projectJsonLd({ title, description, path, tags, image }: ProjectJsonLdInput) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: title,
+    description,
+    url: `${SITE_URL}${path}`,
+    image: image ? [image] : undefined,
+    keywords: tags.join(', '),
+    creator: {
+      '@type': 'Person',
+      name: PERSONAL.name,
+      url: SITE_URL,
+    },
+  };
+}
