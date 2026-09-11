@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// Where the message should land. Falls back to the portfolio owner's email
-// if CONTACT_TO_EMAIL isn't set in the environment.
-const TO_EMAIL = process.env.CONTACT_TO_EMAIL || 'seniramendis41@gmail.com';
-
-// The "from" address Resend sends as. Must be on a domain you've verified
-// in Resend, OR left as their shared test address to start out.
-// See .env.local.example for details.
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Portfolio <onboarding@resend.dev>';
+// Hardcoded on purpose: Resend's free tier / shared test sender
+// (onboarding@resend.dev) can ONLY deliver to the email address that owns
+// the Resend account. Pulling these from env vars adds no value here and
+// is an easy place to introduce a typo/whitespace bug in Vercel's dashboard.
+// Once a custom domain is verified in Resend, both of these can go back to
+// being real "from" addresses / dynamic recipients.
+const TO_EMAIL = 'seniramendis41@gmail.com';
+const FROM_EMAIL = 'onboarding@resend.dev';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (!process.env.RESEND_API_KEY) {
-      console.error('Contact form: RESEND_API_KEY is not set. See .env.local.example.');
+      console.error('Contact form: RESEND_API_KEY is not set in the environment.');
       return NextResponse.json(
         {
           ok: false,
