@@ -74,7 +74,7 @@ export default function ContactForm() {
         <div className={styles.successIcon}>&#10003;</div>
         <h3 className={styles.successTitle}>Message sent.</h3>
         <p className={styles.successBody}>
-          Thanks for reaching out — I\u2019ll get back to you as soon as I can, usually within a day or two.
+          Thanks for reaching out — I&apos;ll get back to you as soon as I can, usually within a day or two.
         </p>
         <button type="button" className={styles.secondaryBtn} onClick={() => setStatus('idle')}>
           Send another message
