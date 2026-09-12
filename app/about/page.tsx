@@ -149,7 +149,7 @@ export default function AboutPage() {
         <div className={styles.bentoInner}>
           <Reveal className={styles.bentoHead}>
             <span className={styles.eyebrow}>What I do</span>
-            <h2 className={styles.bentoTitle}>Three disciplines, one goal.</h2>
+            <h2 className={styles.bentoTitle}>Every discipline, one business outcome.</h2>
             <Link href="/#services" className={styles.bentoLink}>
               See all services <span aria-hidden="true">&rsaquo;</span>
             </Link>

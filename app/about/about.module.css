@@ -13,7 +13,7 @@
 }
 
 .backBar {
-  max-width: 980px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 28px 22px 0;
   position: relative;
@@ -23,26 +23,21 @@
 .backLink {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
+  gap: 12px;
+  font-size: 12px;
   font-weight: 600;
-  color: var(--near-black);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--blue);
   text-decoration: none;
-  background: var(--white);
-  border: 1px solid var(--gray-line);
-  padding: 8px 16px 8px 12px;
-  border-radius: 980px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: color 0.3s;
 }
 
 .backLink:hover {
-  background: var(--off-white);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
-  text-decoration: none;
+  color: var(--blue);
 }
 
-.arrowBack { font-size: 15px; line-height: 1; color: var(--blue); }
+.arrowBack { font-size: 18px; line-height: 1; }
 
 /* ── HERO ───────────────────────────────── */
 .hero {
@@ -75,7 +70,7 @@
 }
 
 @media (min-width: 960px) {
-  .heroText { text-align: left; }
+  .heroText { text-align: left; align-self: flex-start; margin-top: 6px; }
 }
 
 .kicker {
@@ -106,7 +101,7 @@
   color: var(--gray-mid);
   max-width: 520px;
   width: 100%;
-  margin: 0 auto;
+  margin: 14px auto 0;
   overflow-wrap: break-word;
   word-break: break-word;
 }
