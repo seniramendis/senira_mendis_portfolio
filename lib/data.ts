@@ -39,10 +39,14 @@ export const COMPANY = {
 export const ABOUT_BIO = {
   kicker: 'About',
   title: 'Technology entrepreneur, software & data engineer.',
+  // Short, scannable line for the hero — kept distinct from the story
+  // paragraphs below so the same copy never appears twice on the page.
+  lede:
+    'Senira builds software that turns complex problems into simple, reliable products — and leads Dopmin Technologies while doing it.',
   paragraphs: [
-    "Senira Mendis is a technology entrepreneur, software and data engineer, and the founder of Dopmin Technologies, an IT services venture specializing in web applications, mobile platforms, and customized POS systems. Based in Sri Lanka and born on 11 December 2004, Senira balances a strong foundation in modern software architecture with an analytical approach to data engineering, transforming complex market challenges into scalable, high-performing digital solutions.",
-    'Driven by an entrepreneurial spirit, Senira founded Dopmin Technologies to deliver high-impact technology solutions that streamline operations, improve user experiences, and accelerate growth for modern businesses. His professional background spans the entire software development lifecycle — from early-stage conceptualization and database design to deploying fully integrated web and mobile ecosystems. By pairing robust software engineering principles with data-driven insights, he ensures that the platforms he builds are both operationally efficient and optimized for strategic business intelligence.',
-    'In addition to leading Dopmin Technologies, Senira has spearheaded the design and delivery of diverse software applications, managing complex projects that integrate advanced data architectures, localized pricing structures, and streamlined operational workflows. Committed to long-term professional excellence, he continues to couple his hands-on industry ventures with ongoing advanced engineering credentials to stay at the forefront of the technology landscape.',
+    'Senira Mendis is a technology entrepreneur and software engineer based in Sri Lanka, and the founder of Dopmin Technologies — an IT services venture building web applications, mobile platforms, and customized POS systems. He pairs a strong foundation in modern software architecture with a data-driven approach to solving real business problems.',
+    'Driven by an entrepreneurial spirit, Senira founded Dopmin Technologies to deliver technology that streamlines operations, improves user experiences, and accelerates growth for modern businesses. His work spans the full development lifecycle — from early-stage concept and database design to deploying complete, production-ready web and mobile ecosystems.',
+    'Beyond Dopmin, Senira has led the design and delivery of software that integrates complex data architectures and real operational workflows. He continues to pair hands-on industry work with ongoing engineering study to stay ahead of a fast-moving field.',
   ],
 };
 

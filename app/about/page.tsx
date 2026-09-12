@@ -94,7 +94,7 @@ export default function AboutPage() {
               <h1 className={styles.title}>{ABOUT_BIO.title}</h1>
             </Reveal>
             <Reveal delay={160}>
-              <p className={styles.lede}>{ABOUT_BIO.paragraphs[0]}</p>
+              <p className={styles.lede}>{ABOUT_BIO.lede}</p>
             </Reveal>
           </div>
 
