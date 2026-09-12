@@ -112,9 +112,8 @@
   position: relative;
   width: 100%;
   max-width: 440px;
-  aspect-ratio: 11 / 12; /* fluid version of the old 440x480 box, scales with width */
+  height: 480px;
   margin-top: 70px; /* room for the head that pokes above the box */
-  overflow-x: hidden; /* clip the sides only — the head is still allowed to poke above */
 }
 
 .portraitBg {
@@ -216,15 +215,11 @@
 }
 
 @media (max-width: 640px) {
-  .portraitCard { max-width: 300px; margin-top: 60px; }
+  .portraitCard { height: 420px; max-width: 360px; margin-top: 60px; }
   .portraitBg { border-radius: 24px; }
   .chipsRow { bottom: 22px; gap: 6px; }
   .chip { font-size: 12px; padding: 7px 12px; }
   .chipIcon { width: 30px; height: 30px; }
-}
-
-@media (max-width: 380px) {
-  .portraitCard { max-width: 250px; margin-top: 50px; }
 }
 
 /* ── PRODUCT / MOCKUP SHOWCASE ──────────── */
