@@ -119,7 +119,23 @@ export default function AboutPage() {
           </div>
           <div className={styles.specItem}>
             <span className={styles.specLabel}>Founder of</span>
-            <span className={styles.specValue}>{COMPANY.name}</span>
+            <Link
+              href="https://dopmin.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.specLogoLink}
+              aria-label={COMPANY.name}
+            >
+              <span className={styles.specLogoBox}>
+                <Image
+                  src="https://res.cloudinary.com/dukv2otyn/image/upload/v1781826436/dopmin_new-removebg-preview_dxqaup.png"
+                  alt={COMPANY.name}
+                  fill
+                  sizes="160px"
+                  className={styles.specLogoImg}
+                />
+              </span>
+            </Link>
           </div>
           <div className={styles.specItem}>
             <span className={styles.specLabel}>Status</span>

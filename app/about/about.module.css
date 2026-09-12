@@ -396,6 +396,33 @@
   color: var(--near-black);
 }
 
+.specLogoLink {
+  display: inline-flex;
+  align-self: center;
+  align-items: center;
+  transition: opacity 0.2s ease;
+}
+
+.specLogoLink:hover {
+  opacity: 0.75;
+}
+
+.specLogoBox {
+  position: relative;
+  display: block;
+  height: 42px;
+  width: 190px;
+}
+
+@media (min-width: 700px) {
+  .specLogoBox { height: 48px; width: 210px; }
+}
+
+.specLogoImg {
+  object-fit: contain;
+  object-position: center;
+}
+
 /* ── EYEBROW (shared section label) ─────── */
 .eyebrow {
   display: inline-flex;
