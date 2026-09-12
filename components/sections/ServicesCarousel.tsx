@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { SERVICES } from '@/lib/data';
-import { ICONS } from './serviceIcons';
 import styles from './ServicesCarousel.module.css';
 
 const AUTOPLAY_MS = 5000;
@@ -71,11 +71,16 @@ export default function ServicesCarousel() {
           style={{ transform: `translateX(-${index * 100}%)` }}
         >
           {SERVICES.map((s) => {
-            const Icon = ICONS[s.icon];
             return (
               <article className={styles.slide} key={s.id}>
                 <div className={styles.iconWrap}>
-                  <Icon />
+                  <Image
+                    src={s.image}
+                    alt={s.kicker}
+                    width={400}
+                    height={300}
+                    className={styles.iconImg}
+                  />
                 </div>
                 <div className={styles.kicker}>{s.kicker}</div>
                 <h3 className={styles.headline}>

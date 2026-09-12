@@ -1,0 +1,138 @@
+.wrap {
+  position: relative;
+}
+
+/* ── scroll arrows, top-right, Apple product-row style ── */
+.arrows {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.arrowBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--gray-line);
+  background: var(--white);
+  color: var(--near-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.arrowBtn:hover:not(:disabled) { background: var(--off-white); }
+
+.arrowBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ── horizontally scrolling track ── */
+.track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.track::-webkit-scrollbar { display: none; }
+
+.card {
+  flex: 0 0 350px;
+  scroll-snap-align: start;
+  background: var(--white);
+  border-radius: 22px;
+  border: 1px solid var(--gray-line);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .card { flex-basis: 380px; }
+}
+
+.cardTop {
+  padding: 30px 28px 22px;
+}
+
+.cardKicker {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  margin-bottom: 12px;
+}
+
+.cardHeadline {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--near-black);
+  margin-bottom: 12px;
+}
+
+.cardHeadline em {
+  font-style: normal;
+  color: var(--gray-mid);
+}
+
+.cardDesc {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--gray-mid);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0 28px 24px;
+  margin-top: -6px;
+}
+
+.tags li {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .01em;
+  color: var(--text-1);
+  background: var(--off-white);
+  border: 1px solid var(--gray-line);
+  padding: 6px 13px;
+  border-radius: 100px;
+}
+
+.cardArt {
+  position: relative;
+  margin: 4px 14px 14px;
+  border-radius: 16px;
+  height: 230px;
+  overflow: hidden;
+  background: var(--off-white);
+}
+
+.cardImg {
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 480px) {
+  .card { flex-basis: 84vw; }
+}

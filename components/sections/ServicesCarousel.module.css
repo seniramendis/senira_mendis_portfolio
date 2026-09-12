@@ -29,7 +29,8 @@
   margin: 0 auto 20px;
 }
 
-.iconWrap :global(svg) {
+.iconWrap :global(svg),
+.iconWrap .iconImg {
   display: block;
   width: 100%;
   height: auto;
