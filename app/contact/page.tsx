@@ -6,13 +6,21 @@ import ContactForm from '@/components/sections/ContactForm';
 import SocialIcons from '@/components/ui/SocialIcons';
 import Reveal from '@/components/ui/Reveal';
 import { PERSONAL } from '@/lib/data';
+import { buildMetadata } from '@/lib/seo';
 import styles from './contact.module.css';
 
-export const metadata: Metadata = {
-  title: 'Contact — Senira Mendis',
+export const metadata: Metadata = buildMetadata({
+  title: 'Contact — Hire a Software Engineer in Sri Lanka | Senira Mendis',
   description:
-    'Get in touch with Senira Mendis for software development, web, mobile or backend engineering work, or full-time opportunities.',
-};
+    'Get in touch with Senira Mendis — a software engineer in Sri Lanka open to remote and full-time roles — for web, mobile (Android), backend or full-stack development work.',
+  path: '/contact',
+  keywords: [
+    'Hire Software Engineer Sri Lanka',
+    'Contact Software Developer Colombo',
+    'Hire Remote Developer Sri Lanka',
+    'Freelance Web Developer Contact',
+  ],
+});
 
 export default function ContactPage() {
   return (

@@ -8,6 +8,7 @@ import IdeaToProduct from '@/components/sections/IdeaToProduct';
 import Services from '@/components/sections/Services';
 import BuiltFromScratch from '@/components/sections/BuiltFromScratch';
 import Booking from '@/components/sections/Booking'; 
+import FAQ from '@/components/sections/FAQ';
 import Contact from '@/components/sections/Contact';
 import Footer from '@/components/sections/Footer';
 import WhatsAppButton from '@/components/ui/WhatsAppButton'; // <-- IMPORTED HERE
@@ -25,6 +26,7 @@ export default function Home() {
       <Services />
       <BuiltFromScratch />
       <Booking /> 
+      <FAQ />
       <Contact />
       <Footer />
       

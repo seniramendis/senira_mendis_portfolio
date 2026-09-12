@@ -11,10 +11,10 @@ export const GITHUB_CONTRIBUTIONS: [string, number, number][] = [["2025-08-24",0
 
 export const PERSONAL = {
   name: 'Senira Mendis',
-  tagline: 'Based in Colombo, Sri Lanka · Open to opportunities',
+  tagline: 'Software Engineer in Sri Lanka · Open to Remote & Full-Time Opportunities',
   headline: ['Building software', 'that solves real-world', 'problems.'],
   headlineItalic: 'solves real-world',
-  sub: 'Software Engineering undergraduate at Cardiff Metropolitan University. Full-stack, mobile & backend developer — driven by elegant architecture and Agile delivery.',
+  sub: 'Software Engineer and Software Engineering undergraduate at Cardiff Metropolitan University, based in Colombo, Sri Lanka. Full-stack, mobile app (Android) & backend developer available for remote and on-site roles worldwide — driven by elegant architecture and Agile delivery.',
   location: 'Mount Lavinia, Colombo',
   email: 'seniramendis41@gmail.com',
   linkedin: 'https://www.linkedin.com/in/senira-mendis/',
@@ -271,5 +271,103 @@ export const SERVICES: Service[] = [
     body: 'Intelligent agents that handle support, research, and repetitive workflows — so your team spends time on what actually needs a human.',
     tags: ['Chatbots', 'Workflow Automation', 'LLM Integrations', 'Custom Agents'],
     icon: 'ai',
+  },
+];
+
+// ─────────────────────────────────────────────
+// SEO — target keywords & FAQ content
+// Keep this list mapped to real skills/services above so every keyword
+// added here is actually backed by visible page content (no keyword
+// stuffing / cloaking). Used in <meta name="keywords">, JSON-LD
+// `knowsAbout`, and can be pulled into on-page copy.
+// ─────────────────────────────────────────────
+export const SEO_KEYWORDS = [
+  // Role + location (head terms clients actually type)
+  'Software Engineer in Sri Lanka',
+  'Best Software Engineer in Sri Lanka',
+  'Software Developer Sri Lanka',
+  'Full Stack Developer Sri Lanka',
+  'Full Stack Developer Colombo',
+  'Mobile App Developer Sri Lanka',
+  'Android Developer Sri Lanka',
+  'Backend Developer Sri Lanka',
+  'Web Developer Sri Lanka',
+  'Web Developer Colombo',
+  'Freelance Software Engineer Sri Lanka',
+  'Freelance Web Developer Sri Lanka',
+  'Hire Software Engineer Sri Lanka',
+  'Hire Software Developer Colombo',
+  'Software Engineer Mount Lavinia',
+  'Software Engineer Colombo',
+  // Remote work intent
+  'Remote Software Engineer',
+  'Remote Software Developer Sri Lanka',
+  'Remote Full Stack Developer',
+  'Remote Mobile App Developer',
+  'Hire Remote Developer Sri Lanka',
+  'Sri Lankan Software Engineer for Hire',
+  // Tech-stack long tail (what recruiters/clients search by stack)
+  'Laravel Developer Sri Lanka',
+  'React Native Developer Sri Lanka',
+  'Node.js Developer Sri Lanka',
+  'Java Developer Sri Lanka',
+  'Kotlin Android Developer',
+  'PHP Developer Sri Lanka',
+  'PostgreSQL Developer',
+  'Firebase App Developer',
+  '.NET Developer Sri Lanka',
+  // Service intent
+  'Custom Software Development Sri Lanka',
+  'Web Application Development Sri Lanka',
+  'Mobile App Development Services',
+  'API Development Sri Lanka',
+  'AI Agent Developer',
+  'Web Scraping and Automation Developer',
+  'Data Analysis Freelancer Sri Lanka',
+  // Personal brand
+  'Senira Mendis',
+  'Senira Mendis Software Engineer',
+  'Senira Mendis Portfolio',
+];
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+// Real, visible FAQ content (rendered by components/sections/FAQ.tsx) that
+// answers the exact long-tail phrasing prospective clients/recruiters
+// search for. Backs the FAQPage JSON-LD in lib/seo.ts — schema content
+// must always match what's visibly on the page.
+export const FAQS: FAQItem[] = [
+  {
+    question: 'Who is the best software engineer in Sri Lanka for my project?',
+    answer:
+      "That depends on your stack and budget, but I'm Senira Mendis, a full-stack, mobile & backend developer based in Colombo, Sri Lanka, working across Laravel, React Native, Node.js and native Android. I focus on production-grade builds — clean architecture, Agile delivery, and code that's maintained, not just demoed.",
+  },
+  {
+    question: 'Do you work with remote and international clients?',
+    answer:
+      "Yes — I'm based in Mount Lavinia, Colombo, Sri Lanka, but I work fully remote with clients and teams worldwide. Time-zone overlap, async communication and tools like Jira, ClickUp and Git are part of my regular workflow.",
+  },
+  {
+    question: 'What kind of software development services do you offer?',
+    answer:
+      'Full-stack web applications, native Android & React Native mobile apps, backend/API development, data analysis, web scraping & automation, and AI agent integrations — see the Services section above for details on each.',
+  },
+  {
+    question: 'What technologies and frameworks do you specialise in?',
+    answer:
+      'Laravel, React Native, Node.js, Java, Kotlin, PHP and .NET on the code side, with PostgreSQL, MySQL, MongoDB, Firebase and Supabase for data — plus Docker, Git and REST API design for the surrounding infrastructure.',
+  },
+  {
+    question: 'Are you available for freelance, contract or full-time roles?',
+    answer:
+      "I'm open to all three — freelance/contract software development work, internships, and full-time Software Developer, Web Developer, Android Developer or Backend Developer roles, remote or based in Sri Lanka.",
+  },
+  {
+    question: 'How can I contact you to discuss a project or job opportunity?',
+    answer:
+      'The fastest way is the contact form or WhatsApp link on the Contact page — I typically reply within a day.',
   },
 ];

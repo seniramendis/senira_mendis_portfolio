@@ -3,6 +3,7 @@ import Script from 'next/script';
 import './globals.css';
 import Cursor from '../components/ui/Cursor';// <-- Import the Cursor component
 import { SITE_URL, buildMetadata, personJsonLd, websiteJsonLd } from '@/lib/seo';
+import { SEO_KEYWORDS } from '@/lib/data';
 
 // Cloudflare Web Analytics — cookie-free, no personal data collected.
 // Set CF_BEACON_TOKEN in your environment (get it from the
@@ -17,12 +18,14 @@ const CF_BEACON_TOKEN = process.env.CF_BEACON_TOKEN;
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   ...buildMetadata({
-    title: 'Senira Mendis — Software Engineer',
+    title: 'Senira Mendis — Software Engineer in Sri Lanka | Full-Stack & Mobile App Developer',
     description:
-      'Software Engineering undergraduate. Full-stack, mobile & backend developer based in Colombo, Sri Lanka.',
+      'Senira Mendis — Software Engineer in Sri Lanka available for remote & full-time roles. Full-stack (Laravel, React Native, Node.js), Android/mobile app & backend developer based in Colombo, open worldwide.',
     path: '/',
   }),
-  keywords: ['Software Engineer', 'Full-Stack', 'Android Developer', 'Laravel', 'React Native', 'Colombo', 'Sri Lanka'],
+  keywords: SEO_KEYWORDS,
+  authors: [{ name: 'Senira Mendis', url: SITE_URL }],
+  creator: 'Senira Mendis',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { PERSONAL } from './data';
+import { PERSONAL, SEO_KEYWORDS, SKILLS, FAQItem } from './data';
 
 // Update NEXT_PUBLIC_SITE_URL once a custom domain is attached — everything
 // below (canonical URLs, sitemap, OG/Twitter image URLs, JSON-LD) reads
@@ -19,6 +19,9 @@ interface BuildMetadataInput {
    *  project case studies). Omit to fall back to the route's own
    *  opengraph-image.tsx (App Router file convention). */
   image?: string;
+  /** Page-specific target keywords, in addition to/overriding the sitewide
+   *  defaults set in the root layout. */
+  keywords?: string[];
 }
 
 /**
@@ -32,12 +35,14 @@ export function buildMetadata({
   path = '/',
   index = true,
   image,
+  keywords,
 }: BuildMetadataInput): Metadata {
   const url = `${SITE_URL}${path}`;
 
   return {
     title,
     description,
+    ...(keywords ? { keywords } : {}),
     alternates: { canonical: url },
     robots: index
       ? { index: true, follow: true }
@@ -62,19 +67,42 @@ export function buildMetadata({
   };
 }
 
-/** schema.org Person + WebSite JSON-LD for the homepage. */
+/**
+ * schema.org Person JSON-LD for the homepage — this is what powers a
+ * Google knowledge-panel / rich result for searches like "Senira Mendis"
+ * or "software engineer in Sri Lanka [name]". `knowsAbout` and `jobTitle`
+ * are pulled straight from real, visible page content (lib/data.ts) so
+ * the structured data never claims more than the page itself shows.
+ */
 export function personJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: PERSONAL.name,
     url: SITE_URL,
-    jobTitle: 'Software Engineer',
+    jobTitle: ['Software Engineer', 'Full-Stack Developer', 'Mobile App Developer', 'Backend Developer'],
     description: PERSONAL.sub,
     address: {
       '@type': 'PostalAddress',
       addressLocality: PERSONAL.location,
+      addressCountry: 'LK',
     },
+    // Signals to search engines that this person is discoverable both
+    // locally (Sri Lanka) and for remote/worldwide engagements.
+    homeLocation: {
+      '@type': 'Place',
+      address: { '@type': 'PostalAddress', addressCountry: 'LK', addressLocality: PERSONAL.location },
+    },
+    workLocation: [
+      { '@type': 'Place', name: 'Sri Lanka' },
+      { '@type': 'Place', name: 'Remote / Worldwide' },
+    ],
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: 'Cardiff Metropolitan University',
+    },
+    knowsAbout: SKILLS.flatMap((group) => group.items),
+    knowsLanguage: ['English', 'Sinhala'],
     email: `mailto:${PERSONAL.email}`,
     sameAs: [PERSONAL.linkedin, PERSONAL.github, PERSONAL.instagram, PERSONAL.facebook],
   };
@@ -86,6 +114,52 @@ export function websiteJsonLd() {
     '@type': 'WebSite',
     name: SITE_NAME,
     url: SITE_URL,
+    // Enables Google's sitelinks search box for the site name.
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${SITE_URL}/projects?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  };
+}
+
+/**
+ * schema.org ProfessionalService JSON-LD — the "hire me" counterpart to
+ * the Person schema above, aimed squarely at local ("software engineer
+ * in Colombo/Sri Lanka") and remote ("hire remote developer") intent.
+ */
+export function professionalServiceJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: SITE_NAME,
+    url: SITE_URL,
+    image: `${SITE_URL}/opengraph-image`,
+    priceRange: '$$',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: PERSONAL.location,
+      addressCountry: 'LK',
+    },
+    areaServed: [
+      { '@type': 'Country', name: 'Sri Lanka' },
+      { '@type': 'Place', name: 'Remote / Worldwide' },
+    ],
+    founder: { '@type': 'Person', name: PERSONAL.name },
+    knowsAbout: SEO_KEYWORDS,
+  };
+}
+
+/** schema.org FAQPage JSON-LD — must mirror the visible FAQ.tsx content. */
+export function faqJsonLd(faqs: FAQItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
   };
 }
 

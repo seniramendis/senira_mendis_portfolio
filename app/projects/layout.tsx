@@ -7,10 +7,18 @@ import { buildMetadata } from '@/lib/seo';
 // title, description and canonical URL rather than silently inheriting
 // the homepage's.
 export const metadata: Metadata = buildMetadata({
-  title: 'Projects — Senira Mendis',
+  title: 'Projects — Software Engineering Portfolio | Senira Mendis',
   description:
-    'A collection of full-stack, mobile and backend builds by Senira Mendis — production platforms, solo experiments in geospatial systems, and AI.',
+    'Full-stack, mobile (Android/React Native) and backend projects by Senira Mendis, a software engineer in Sri Lanka — production platforms, geospatial systems, and AI builds.',
   path: '/projects',
+  keywords: [
+    'Software Engineer Portfolio Sri Lanka',
+    'Full Stack Developer Projects',
+    'Android Developer Portfolio',
+    'React Native Projects',
+    'Laravel Projects Sri Lanka',
+    'Backend Developer Portfolio',
+  ],
 });
 
 export default function ProjectsLayout({ children }: { children: React.ReactNode }) {
