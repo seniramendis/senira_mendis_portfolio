@@ -1,6 +1,5 @@
 import Reveal from '@/components/ui/Reveal';
-import ServicesCarousel from './ServicesCarousel';
-import ServicesShowcaseCarousel from './ServicesShowcaseCarousel';
+import WhatIDoCarousel from './WhatIDoCarousel';
 import styles from './Services.module.css';
 
 export default function Services() {
@@ -22,16 +21,8 @@ export default function Services() {
       </div>
 
       <div className={styles.wrap}>
-        {/* Desktop / tablet: horizontal showcase carousel — hidden below 560px */}
-        <div className={styles.desktopSet}>
-          <Reveal>
-            <ServicesShowcaseCarousel />
-          </Reveal>
-        </div>
-
-        {/* Mobile: autoplay slide carousel — shown only below 560px */}
         <Reveal>
-          <ServicesCarousel />
+          <WhatIDoCarousel />
         </Reveal>
 
         <Reveal delay={120}>

@@ -206,5 +206,4 @@
 @media (max-width: 560px) {
   .grid { grid-template-columns: 1fr; }
   .ctaRow { flex-direction: column; gap: 14px; }
-  .desktopSet { display: none; }
 }
