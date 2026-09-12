@@ -47,10 +47,13 @@
 /* ── HERO ───────────────────────────────── */
 .hero {
   padding: 64px 22px 60px;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .heroGrid {
   max-width: 1180px;
+  width: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
@@ -65,7 +68,11 @@
   }
 }
 
-.heroText { text-align: center; }
+.heroText {
+  text-align: center;
+  width: 100%;
+  min-width: 0;
+}
 
 @media (min-width: 960px) {
   .heroText { text-align: left; }
@@ -87,6 +94,9 @@
   letter-spacing: -0.03em;
   color: var(--near-black);
   margin-bottom: 24px;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .lede {
@@ -95,7 +105,10 @@
   letter-spacing: -0.01em;
   color: var(--gray-mid);
   max-width: 520px;
+  width: 100%;
   margin: 0 auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 @media (min-width: 960px) {

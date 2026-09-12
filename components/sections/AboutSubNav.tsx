@@ -16,19 +16,25 @@ export default function AboutSubNav() {
   // Only reveal this bar once the hero section has scrolled out of view —
   // it stays hidden (and out of the layout, via position:fixed) while the
   // hero is on screen so it never sits on top of it.
+  // Uses a plain scroll-position check (rather than IntersectionObserver)
+  // so it stays reliable on mobile, where the browser address bar resizing
+  // the viewport can cause intersection thresholds to misfire.
   useEffect(() => {
     const hero = document.getElementById('about-hero');
     if (!hero) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setVisible(!entry.isIntersecting && entry.boundingClientRect.top < 0);
-      },
-      { threshold: 0, rootMargin: '0px' }
-    );
+    const checkScroll = () => {
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      setVisible(heroBottom <= 0);
+    };
 
-    observer.observe(hero);
-    return () => observer.disconnect();
+    checkScroll();
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    window.addEventListener('resize', checkScroll);
+    return () => {
+      window.removeEventListener('scroll', checkScroll);
+      window.removeEventListener('resize', checkScroll);
+    };
   }, []);
 
   useEffect(() => {
