@@ -246,6 +246,7 @@ export type Service = {
   body: string;
   tags: string[];
   icon: 'code' | 'web' | 'data' | 'scrape' | 'ai';
+  image: string;
   featured?: boolean;
 };
 
@@ -258,6 +259,7 @@ export const SERVICES: Service[] = [
     body: 'From internal tools to full-scale products — architected and built around exactly how your business runs. No templates, no bloat, no compromises. Just software engineered to do one thing perfectly: your thing.',
     tags: ['Web Applications', 'Internal Tools', 'System Architecture', 'API Development'],
     icon: 'code',
+    image: 'https://res.cloudinary.com/dukv2otyn/image/upload/v1789233461/custom_software_development_u7ycrl.png',
     featured: true,
   },
   {
@@ -268,6 +270,7 @@ export const SERVICES: Service[] = [
     body: 'Fast, responsive, and animated with intent — every scroll, hover, and transition designed to feel premium, not off-the-shelf.',
     tags: ['Next.js', 'Landing Pages', 'E-commerce', 'Motion & UI'],
     icon: 'web',
+    image: 'https://res.cloudinary.com/dukv2otyn/image/upload/v1789233469/web_development_xksnca.png',
   },
   {
     id: 'data-analysis',
@@ -277,6 +280,7 @@ export const SERVICES: Service[] = [
     body: 'Clean, model, and visualise your data so the patterns are obvious and the next move is easy to call.',
     tags: ['Dashboards', 'Reporting', 'Python', 'SQL'],
     icon: 'data',
+    image: 'https://res.cloudinary.com/dukv2otyn/image/upload/v1789233462/data_analysis_f8mom6.png',
   },
   {
     id: 'web-scraping',
@@ -286,6 +290,7 @@ export const SERVICES: Service[] = [
     body: 'Custom crawlers and pipelines that gather, clean, and deliver exactly the data you need — on schedule, at scale, hands-off.',
     tags: ['Lead Generation', 'Monitoring', 'ETL Pipelines', 'Scheduled Automation'],
     icon: 'scrape',
+    image: 'https://res.cloudinary.com/dukv2otyn/image/upload/v1789233453/web_scraping_ljcjwq.png',
   },
   {
     id: 'ai-agents',
@@ -295,6 +300,7 @@ export const SERVICES: Service[] = [
     body: 'Intelligent agents that handle support, research, and repetitive workflows — so your team spends time on what actually needs a human.',
     tags: ['Chatbots', 'Workflow Automation', 'LLM Integrations', 'Custom Agents'],
     icon: 'ai',
+    image: 'https://res.cloudinary.com/dukv2otyn/image/upload/v1789233463/ai_agents_rjd6bd.png',
   },
 ];
 

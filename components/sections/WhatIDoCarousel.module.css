@@ -1,0 +1,116 @@
+.wrap {
+  position: relative;
+}
+
+/* ── scroll arrows, top-right, Apple product-row style ── */
+.arrows {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.arrowBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--gray-line);
+  background: var(--white);
+  color: var(--near-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.arrowBtn:hover:not(:disabled) { background: var(--off-white); }
+
+.arrowBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ── horizontally scrolling track ── */
+.track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.track::-webkit-scrollbar { display: none; }
+
+.card {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+  background: var(--white);
+  border-radius: 20px;
+  border: 1px solid var(--gray-line);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .card { flex-basis: 320px; }
+}
+
+.cardTop {
+  padding: 26px 24px 20px;
+}
+
+.cardKicker {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-mid);
+  margin-bottom: 10px;
+}
+
+.cardHeadline {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--near-black);
+  margin-bottom: 10px;
+}
+
+.cardHeadline em {
+  font-style: normal;
+  color: var(--gray-mid);
+}
+
+.cardDesc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--gray-mid);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardArt {
+  position: relative;
+  margin: 4px 12px 12px;
+  border-radius: 14px;
+  height: 190px;
+  overflow: hidden;
+  background: var(--off-white);
+}
+
+.cardImg {
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 480px) {
+  .card { flex-basis: 78vw; }
+}

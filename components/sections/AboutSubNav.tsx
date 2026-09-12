@@ -12,6 +12,25 @@ const LINKS = [
 
 export default function AboutSubNav() {
   const [active, setActive] = useState(LINKS[0].id);
+  const [visible, setVisible] = useState(false);
+
+  // Only reveal this bar once the hero section has scrolled out of view —
+  // it stays hidden (and out of the layout, via position:fixed) while the
+  // hero is on screen so it never sits on top of it.
+  useEffect(() => {
+    const hero = document.getElementById('about-hero');
+    if (!hero) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+      },
+      { threshold: 0, rootMargin: '0px' }
+    );
+
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const sections = LINKS.map((l) => document.getElementById(l.id)).filter(
@@ -39,7 +58,7 @@ export default function AboutSubNav() {
   };
 
   return (
-    <div className={styles.bar}>
+    <div className={styles.bar} data-visible={visible}>
       <nav className={styles.inner} aria-label="About page sections">
         {LINKS.map((link) => (
           <a

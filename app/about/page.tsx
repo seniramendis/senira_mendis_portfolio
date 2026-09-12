@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Code2, Database, Rocket } from 'lucide-react';
 import Nav from '@/components/sections/Nav';
 import AboutSubNav from '@/components/sections/AboutSubNav';
 import Footer from '@/components/sections/Footer';
 import SocialIcons from '@/components/ui/SocialIcons';
 import Reveal from '@/components/ui/Reveal';
+import WhatIDoCarousel from '@/components/sections/WhatIDoCarousel';
 import { PERSONAL, COMPANY, ABOUT_BIO } from '@/lib/data';
 import { buildMetadata, personJsonLd, organizationJsonLd } from '@/lib/seo';
 import styles from './about.module.css';
@@ -39,30 +39,11 @@ const birthDateDisplay = new Date(`${PERSONAL.birthDate}T00:00:00Z`).toLocaleDat
   timeZone: 'UTC',
 });
 
-// Chapter headings paired with the ABOUT_BIO narrative paragraphs
+// "What I Do" chapter headings paired with the ABOUT_BIO narrative paragraphs
 const CHAPTERS = [
   { num: '01', heading: 'A foundation in code and curiosity.' },
   { num: '02', heading: 'Building Dopmin Technologies.' },
   { num: '03', heading: 'Looking ahead.' },
-];
-
-// "What I Do" bento cards
-const DISCIPLINES = [
-  {
-    icon: Code2,
-    title: 'Software Engineering',
-    desc: 'Full-stack web and mobile applications — from database design to deployed, production-ready ecosystems.',
-  },
-  {
-    icon: Database,
-    title: 'Data Engineering',
-    desc: 'Turning complex market and operational data into scalable, high-performing digital solutions.',
-  },
-  {
-    icon: Rocket,
-    title: 'Entrepreneurship',
-    desc: 'Founded Dopmin Technologies to deliver high-impact software that streamlines real business operations.',
-  },
 ];
 
 export default function AboutPage() {
@@ -84,7 +65,7 @@ export default function AboutPage() {
       </div>
 
       {/* ── HERO ───────────────────────────── */}
-      <section className={styles.hero}>
+      <section id="about-hero" className={styles.hero}>
         <div className={styles.heroGrid}>
           <div className={styles.heroText}>
             <Reveal>
@@ -133,10 +114,6 @@ export default function AboutPage() {
       <section className={styles.specStrip}>
         <Reveal className={styles.specInner}>
           <div className={styles.specItem}>
-            <span className={styles.specLabel}>Born</span>
-            <span className={styles.specValue}>{birthDateDisplay}</span>
-          </div>
-          <div className={styles.specItem}>
             <span className={styles.specLabel}>Based in</span>
             <span className={styles.specValue}>{PERSONAL.location}, Sri Lanka</span>
           </div>
@@ -151,27 +128,17 @@ export default function AboutPage() {
         </Reveal>
       </section>
 
-      {/* ── WHAT I DO (bento) ──────────────── */}
+      {/* ── WHAT I DO (Apple-style card carousel) ── */}
       <section id="build" className={styles.bento}>
         <div className={styles.bentoInner}>
           <Reveal className={styles.bentoHead}>
             <span className={styles.eyebrow}>What I do</span>
-            <h2 className={styles.bentoTitle}>Three disciplines, one goal.</h2>
+            <h2 className={styles.bentoTitle}>Software built to move your business forward.</h2>
+            <Link href="/#services" className={styles.bentoLink}>
+              See all services <span aria-hidden="true">&rsaquo;</span>
+            </Link>
           </Reveal>
-          <div className={styles.bentoGrid}>
-            {DISCIPLINES.map((d, i) => {
-              const Icon = d.icon;
-              return (
-                <Reveal key={d.title} delay={i * 90} className={styles.bentoCard}>
-                  <span className={styles.bentoIcon} aria-hidden="true">
-                    <Icon size={22} strokeWidth={1.8} />
-                  </span>
-                  <h3 className={styles.bentoCardTitle}>{d.title}</h3>
-                  <p className={styles.bentoCardDesc}>{d.desc}</p>
-                </Reveal>
-              );
-            })}
-          </div>
+          <WhatIDoCarousel />
         </div>
       </section>
 
@@ -189,6 +156,7 @@ export default function AboutPage() {
                 <span className={styles.chapterNum}>{CHAPTERS[i]?.num ?? `0${i + 1}`}</span>
                 <h3 className={styles.chapterHeading}>{CHAPTERS[i]?.heading}</h3>
               </div>
+              {i === 0 && <p className={styles.chapterBorn}>Born {birthDateDisplay}</p>}
               <p className={styles.chapterText}>{paragraph}</p>
             </Reveal>
           </div>
