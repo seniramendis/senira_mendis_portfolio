@@ -1,0 +1,609 @@
+/* ═══════════════════════════════════════════
+   ABOUT PAGE — Apple.com "product story" layout
+   Full-bleed sections, big type, generous air.
+═══════════════════════════════════════════ */
+
+.page {
+  min-height: 100vh;
+  background: var(--white);
+  color: var(--text-1);
+}
+
+.backBar {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 22px 0;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.backLink:hover { text-decoration: underline; }
+
+.arrowBack { font-size: 15px; line-height: 1; }
+
+/* ── HERO ───────────────────────────────── */
+.hero {
+  padding: 64px 22px 60px;
+}
+
+.heroGrid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .heroGrid {
+    grid-template-columns: 1fr 460px;
+    gap: 40px;
+  }
+}
+
+.heroText { text-align: center; }
+
+@media (min-width: 960px) {
+  .heroText { text-align: left; }
+}
+
+.kicker {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--gray-mid);
+  margin-bottom: 18px;
+}
+
+.title {
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--near-black);
+  margin-bottom: 24px;
+}
+
+.lede {
+  font-size: clamp(18px, 2.2vw, 21px);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--gray-mid);
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+@media (min-width: 960px) {
+  .lede { margin: 0; }
+}
+
+/* ── PORTRAIT CARD (Calendly-style, right column) ─ */
+.portraitCol {
+  display: flex;
+  justify-content: center;
+}
+
+.portraitCard {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  height: 480px;
+  margin-top: 70px; /* room for the head that pokes above the box */
+}
+
+.portraitBg {
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 15% 15%, rgba(168, 200, 240, 0.9), transparent 55%),
+    radial-gradient(110% 90% at 85% 10%, rgba(216, 190, 245, 0.85), transparent 55%),
+    radial-gradient(120% 100% at 20% 100%, rgba(255, 200, 220, 0.9), transparent 60%),
+    radial-gradient(120% 100% at 90% 100%, rgba(190, 240, 220, 0.9), transparent 55%),
+    linear-gradient(135deg, #eef3fb, #fbeef4 60%, #eefaf3);
+}
+
+.portraitBg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.portraitWaves {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.portraitWaves span {
+  width: 2px;
+  height: 40%;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+}
+
+.portraitWaves span:nth-child(3n) { height: 65%; }
+.portraitWaves span:nth-child(5n) { height: 28%; }
+.portraitWaves span:nth-child(7n) { height: 80%; }
+
+/* The photo sits ABOVE the background layer, taller than the card,
+   so the head crops out over the top edge of the rounded box. */
+.portraitImg {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: 122%;
+  max-width: none;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 34px rgba(0, 0, 0, 0.2));
+}
+
+.chipsRow {
+  position: absolute;
+  left: 50%;
+  bottom: 36px;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chipIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #d7f27a, #a9e88f);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--near-black);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  padding: 9px 16px;
+  border-radius: 980px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 640px) {
+  .portraitCard { height: 420px; max-width: 360px; margin-top: 60px; }
+  .portraitBg { border-radius: 24px; }
+  .chipsRow { bottom: 22px; gap: 6px; }
+  .chip { font-size: 12px; padding: 7px 12px; }
+  .chipIcon { width: 30px; height: 30px; }
+}
+
+/* ── PRODUCT / MOCKUP SHOWCASE ──────────── */
+.showcase {
+  background: var(--near-black);
+  overflow: hidden;
+  scroll-margin-top: 60px;
+}
+
+.showcaseInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 110px 22px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .showcaseInner {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 130px 40px;
+  }
+}
+
+.showcaseText { color: var(--white); text-align: center; }
+
+@media (min-width: 900px) {
+  .showcaseText { text-align: left; }
+}
+
+.showcaseKicker {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 16px;
+}
+
+.showcaseTitle {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+
+.showcaseDesc {
+  font-size: 17px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 420px;
+}
+
+@media (min-width: 900px) {
+  .showcaseDesc { margin: 0; }
+}
+@media (max-width: 899px) {
+  .showcaseDesc { margin: 0 auto; }
+}
+
+.phoneStage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+.phoneGlow {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 113, 227, 0.45), transparent 70%);
+  filter: blur(30px);
+  z-index: 0;
+}
+
+.phoneFrame {
+  position: relative;
+  z-index: 1;
+  width: min(280px, 72vw);
+  transform: rotate3d(0.3, -1, 0, 10deg);
+  border-radius: 36px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55);
+  transition: transform 0.4s ease;
+}
+
+.phoneFrame:hover {
+  transform: rotate3d(0, 0, 0, 0deg);
+}
+
+.phoneFrame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 36px;
+}
+
+/* ── SPEC / FACT STRIP ──────────────────── */
+.specStrip {
+  border-top: 1px solid var(--gray-line);
+  border-bottom: 1px solid var(--gray-line);
+  background: var(--off-white);
+}
+
+.specInner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 48px 22px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 36px 24px;
+  text-align: center;
+}
+
+@media (min-width: 700px) {
+  .specInner { grid-template-columns: repeat(4, 1fr); }
+}
+
+.specItem { display: flex; flex-direction: column; gap: 6px; }
+
+.specLabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+}
+
+.specValue {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--near-black);
+}
+
+/* ── EYEBROW (shared section label) ─────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--blue);
+  margin-bottom: 14px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+/* ── WHAT I DO (bento) ──────────────────── */
+.bento {
+  padding: 108px 22px;
+  scroll-margin-top: 100px;
+}
+
+.bentoInner {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.bentoHead {
+  max-width: 560px;
+  margin: 0 auto 56px;
+  text-align: center;
+}
+
+.bentoTitle {
+  font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--near-black);
+}
+
+.bentoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 760px) {
+  .bentoGrid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.bentoCard {
+  padding: 34px 28px;
+  border-radius: 24px;
+  background: var(--off-white);
+  border: 1px solid var(--gray-line);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
+.bentoCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.bentoIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--white);
+  color: var(--blue);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
+}
+
+.bentoCardTitle {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--near-black);
+  margin-bottom: 10px;
+}
+
+.bentoCardDesc {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--gray-mid);
+}
+
+/* ── STORY (clean, Apple-leadership-bio style) ─ */
+.story {
+  padding: 100px 22px 40px;
+  scroll-margin-top: 100px;
+}
+
+.storyHead {
+  max-width: 700px;
+  margin: 0 auto 8px;
+  text-align: center;
+}
+
+.storyTitle {
+  font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--near-black);
+}
+
+.chapter {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 56px 0;
+  border-top: 1px solid var(--gray-line);
+}
+
+.chapterInner { display: block; }
+
+.chapterMeta {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.chapterNum {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.chapterHeading {
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--near-black);
+}
+
+.chapterText {
+  font-size: 17px;
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+  color: var(--text-1);
+}
+
+/* ── DARK SPOTLIGHT (Company) ───────────── */
+.spotlight {
+  background: var(--near-black);
+  color: var(--white);
+  padding: 110px 22px;
+  text-align: center;
+  scroll-margin-top: 60px;
+}
+
+.spotlightInner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.spotlightKicker {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 18px;
+}
+
+.spotlightTitle {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 22px;
+}
+
+.spotlightDesc {
+  font-size: clamp(17px, 2vw, 19px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 560px;
+  margin: 0 auto 8px;
+}
+
+.spotlightRole {
+  display: inline-block;
+  margin-top: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── CONNECT / CTA ──────────────────────── */
+.connect {
+  padding: 110px 22px 130px;
+  text-align: center;
+  scroll-margin-top: 100px;
+}
+
+.connectTitle {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--near-black);
+  margin-bottom: 16px;
+}
+
+.connectSub {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--gray-mid);
+  max-width: 480px;
+  margin: 0 auto 32px;
+}
+
+.connectActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 17px;
+  font-weight: 400;
+  padding: 12px 28px;
+  border-radius: 980px;
+  text-decoration: none;
+  color: var(--white);
+  background: var(--blue);
+  border: 1px solid var(--blue);
+  transition: all 0.2s ease;
+}
+
+.ctaBtn:hover {
+  background: var(--blue-hover);
+  border-color: var(--blue-hover);
+}
+
+.connectSocial :global(div) {
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 48px 20px 64px; }
+  .spotlight { padding: 80px 20px; }
+  .connect { padding: 80px 20px 96px; }
+  .bento { padding: 72px 20px; }
+  .story { padding: 72px 20px 20px; }
+  .chapter { padding: 40px 0; }
+  .chapterMeta { flex-direction: column; gap: 6px; align-items: flex-start; }
+}

@@ -50,7 +50,7 @@ export default function Nav() {
 
         <ul className={styles.links}>
           {/* Added the slash so these links work universally across all pages */}
-          <li><Link href="/#about" onClick={close}>About</Link></li>
+          <li><Link href="/about" onClick={close}>About</Link></li>
           <li><Link href="/#skills" onClick={close}>Skills</Link></li>
 
           <li><Link href="/#services" onClick={close}>Services</Link></li>
@@ -90,7 +90,7 @@ export default function Nav() {
       <div className={styles.mobilePanel} id="mobile-menu" data-open={open}>
         <ul className={styles.mobileList}>
           <li style={{ transitionDelay: open ? '60ms' : '0ms' }}>
-            <Link href="/#about" onClick={close}><span>About</span><i /></Link>
+            <Link href="/about" onClick={close}><span>About</span><i /></Link>
           </li>
           <li style={{ transitionDelay: open ? '100ms' : '0ms' }}>
             <Link href="/#skills" onClick={close}><span>Skills</span><i /></Link>

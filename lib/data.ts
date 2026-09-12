@@ -24,6 +24,26 @@ export const PERSONAL = {
   whatsapp: 'https://wa.me/94753356254',
   whatsappDisplay: '+94 75 335 6254',
   available: true,
+  birthDate: '2004-12-11',
+};
+
+/** Company Senira founded — used on the About page + Person/Organization JSON-LD. */
+export const COMPANY = {
+  name: 'Dopmin Technologies',
+  role: 'Founder',
+  description:
+    'An IT services venture specializing in web applications, mobile platforms, and customized POS systems.',
+  url: '',
+};
+
+export const ABOUT_BIO = {
+  kicker: 'About',
+  title: 'Technology entrepreneur, software & data engineer.',
+  paragraphs: [
+    "Senira Mendis is a technology entrepreneur, software and data engineer, and the founder of Dopmin Technologies, an IT services venture specializing in web applications, mobile platforms, and customized POS systems. Based in Sri Lanka and born on 11 December 2004, Senira balances a strong foundation in modern software architecture with an analytical approach to data engineering, transforming complex market challenges into scalable, high-performing digital solutions.",
+    'Driven by an entrepreneurial spirit, Senira founded Dopmin Technologies to deliver high-impact technology solutions that streamline operations, improve user experiences, and accelerate growth for modern businesses. His professional background spans the entire software development lifecycle — from early-stage conceptualization and database design to deploying fully integrated web and mobile ecosystems. By pairing robust software engineering principles with data-driven insights, he ensures that the platforms he builds are both operationally efficient and optimized for strategic business intelligence.',
+    'In addition to leading Dopmin Technologies, Senira has spearheaded the design and delivery of diverse software applications, managing complex projects that integrate advanced data architectures, localized pricing structures, and streamlined operational workflows. Committed to long-term professional excellence, he continues to couple his hands-on industry ventures with ongoing advanced engineering credentials to stay at the forefront of the technology landscape.',
+  ],
 };
 
 // Rotating "currently building with" words for the hero intro typewriter

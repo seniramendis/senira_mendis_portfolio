@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { PERSONAL, SEO_KEYWORDS, SKILLS, FAQItem } from './data';
+import { PERSONAL, SEO_KEYWORDS, SKILLS, COMPANY, FAQItem } from './data';
 
 // Update NEXT_PUBLIC_SITE_URL once a custom domain is attached — everything
 // below (canonical URLs, sitemap, OG/Twitter image URLs, JSON-LD) reads
@@ -80,8 +80,9 @@ export function personJsonLd() {
     '@type': 'Person',
     name: PERSONAL.name,
     url: SITE_URL,
-    jobTitle: ['Software Engineer', 'Full-Stack Developer', 'Mobile App Developer', 'Backend Developer'],
+    jobTitle: ['Software Engineer', 'Full-Stack Developer', 'Mobile App Developer', 'Backend Developer', 'Founder'],
     description: PERSONAL.sub,
+    birthDate: PERSONAL.birthDate,
     address: {
       '@type': 'PostalAddress',
       addressLocality: PERSONAL.location,
@@ -100,6 +101,14 @@ export function personJsonLd() {
     alumniOf: {
       '@type': 'CollegeOrUniversity',
       name: 'Cardiff Metropolitan University',
+    },
+    // Reflects Senira's role founding Dopmin Technologies — helps entity
+    // linking so "Senira Mendis" and "Dopmin Technologies" resolve together
+    // in search (e.g. Knowledge Graph, "founder of" queries).
+    worksFor: {
+      '@type': 'Organization',
+      name: COMPANY.name,
+      description: COMPANY.description,
     },
     knowsAbout: SKILLS.flatMap((group) => group.items),
     knowsLanguage: ['English', 'Sinhala'],
@@ -147,6 +156,21 @@ export function professionalServiceJsonLd() {
     ],
     founder: { '@type': 'Person', name: PERSONAL.name },
     knowsAbout: SEO_KEYWORDS,
+  };
+}
+
+/**
+ * schema.org Organization JSON-LD for Dopmin Technologies — placed on the
+ * About page, this is the correct place (per schema.org) to declare the
+ * `founder` relationship, complementing Person.worksFor above.
+ */
+export function organizationJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: COMPANY.name,
+    description: COMPANY.description,
+    founder: { '@type': 'Person', name: PERSONAL.name },
   };
 }
 
