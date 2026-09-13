@@ -14,7 +14,7 @@ import styles from './about.module.css';
 const PROFILE_STICKER_URL =
   'https://res.cloudinary.com/dukv2otyn/image/upload/v1787525935/Senira_Mendis_Sticker_pzv1cv.png';
 const PRODUCT_MOCKUP_URL =
-  'https://res.cloudinary.com/dukv2otyn/image/upload/v1789056548/mobile_ui_mockuo_serv_foo5bz.png';
+  'https://res.cloudinary.com/dukv2otyn/image/upload/v1789303006/mobile_view_mockup_tech_un8tea.png';
 
 export const metadata: Metadata = buildMetadata({
   title: 'About Senira Mendis — Founder of Dopmin Technologies',
@@ -181,26 +181,35 @@ export default function AboutPage() {
 
       {/* ── PRODUCT SHOWCASE (mobile mockup) ─ */}
       <section id="products" className={styles.showcase}>
-        <div className={styles.showcaseInner}>
-          <Reveal className={styles.showcaseText}>
-            <span className={styles.showcaseKicker}>What I build</span>
-            <h2 className={styles.showcaseTitle}>Products people actually enjoy using.</h2>
-            <p className={styles.showcaseDesc}>
-              From native Android apps to full-stack web platforms — every interface is designed to feel
-              fast, clear, and a little delightful.
-            </p>
-          </Reveal>
-          <Reveal delay={120} className={styles.phoneStage}>
-            <div className={styles.phoneGlow} aria-hidden="true" />
-            <div className={styles.phoneFrame}>
+        <div className={`${styles.tile} ${styles.tileRounded}`}>
+          <div className={styles.tileContent}>
+            <Reveal className={styles.copyWrapper}>
+              <p className={styles.tileEyebrow}>What I build</p>
+              <h2 className={styles.tileHeadline}>
+                Products people
+                <br />
+                actually enjoy using.
+              </h2>
+              <div className={styles.tileCta}>
+                <Link href="/projects" className={styles.iconWrapper} aria-label="See the work">
+                  <span className={styles.iconCopy}>See the work</span>
+                  <span className={`${styles.icon} ${styles.iconAfter}`} aria-hidden="true">
+                    &rsaquo;
+                  </span>
+                </Link>
+              </div>
+            </Reveal>
+            <Reveal delay={120} className={styles.pictureWrapper}>
               <Image
+                className={styles.tileImage}
                 src={PRODUCT_MOCKUP_URL}
                 alt="Mobile app UI built by Senira Mendis"
-                width={560}
-                height={1120}
+                width={1200}
+                height={1500}
+                priority={false}
               />
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
         </div>
       </section>
 

@@ -230,103 +230,105 @@
   .chipIcon { width: 30px; height: 30px; }
 }
 
-/* ── PRODUCT / MOCKUP SHOWCASE ──────────── */
+/* ── PRODUCT / MOCKUP SHOWCASE (Apple tile pattern) ── */
 .showcase {
-  background: var(--near-black);
+  background: var(--white);
   overflow: hidden;
   scroll-margin-top: 60px;
+  padding: 96px 22px;
 }
 
-.showcaseInner {
-  max-width: 1100px;
+@media (min-width: 900px) {
+  .showcase { padding: 120px 40px; }
+}
+
+.tile {
+  max-width: 980px;
   margin: 0 auto;
-  padding: 110px 22px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 56px;
-  align-items: center;
+  background: #fbfbfd;
+}
+
+.tileRounded {
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 @media (min-width: 900px) {
-  .showcaseInner {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    padding: 130px 40px;
-  }
+  .tileRounded { border-radius: 28px; }
 }
 
-.showcaseText { color: var(--white); text-align: center; }
-
-@media (min-width: 900px) {
-  .showcaseText { text-align: left; }
-}
-
-.showcaseKicker {
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 16px;
-}
-
-.showcaseTitle {
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-bottom: 18px;
-}
-
-.showcaseDesc {
-  font-size: 17px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.65);
-  max-width: 420px;
-}
-
-@media (min-width: 900px) {
-  .showcaseDesc { margin: 0; }
-}
-@media (max-width: 899px) {
-  .showcaseDesc { margin: 0 auto; }
-}
-
-.phoneStage {
-  position: relative;
+.tileContent {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  perspective: 1200px;
 }
 
-.phoneGlow {
-  position: absolute;
-  width: 340px;
-  height: 340px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 113, 227, 0.45), transparent 70%);
-  filter: blur(30px);
-  z-index: 0;
+.copyWrapper {
+  text-align: center;
+  max-width: 560px;
+  padding: 56px 24px 0;
 }
 
-.phoneFrame {
+.tileEyebrow {
+  font-size: 21px;
+  line-height: 1.19;
+  font-weight: 600;
+  letter-spacing: 0.011em;
+  color: var(--near-black);
+  margin-bottom: 6px;
+}
+
+.tileHeadline {
+  font-size: clamp(1.9rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.003em;
+  line-height: 1.0625;
+  color: var(--near-black);
+  margin-bottom: 20px;
+}
+
+.tileCta { margin-bottom: 4px; }
+
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 19px;
+  line-height: 1.21;
+  font-weight: 400;
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.iconWrapper:hover { text-decoration: underline; }
+
+.icon { font-size: 19px; line-height: 1; }
+
+.iconAfter { transition: transform 0.2s ease; }
+.iconWrapper:hover .iconAfter { transform: translateX(3px); }
+
+.pictureWrapper {
   position: relative;
-  z-index: 1;
-  width: min(280px, 72vw);
-  transform: rotate3d(0.3, -1, 0, 10deg);
-  border-radius: 36px;
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55);
-  transition: transform 0.4s ease;
-}
-
-.phoneFrame:hover {
-  transform: rotate3d(0, 0, 0, 0deg);
-}
-
-.phoneFrame img {
-  display: block;
   width: 100%;
+  overflow: hidden;
+  margin-top: 12px;
+  aspect-ratio: 1 / 0.86;
+}
+
+.tileImage {
+  display: block;
+  position: absolute;
+  bottom: -18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(460px, 68%);
   height: auto;
-  border-radius: 36px;
+}
+
+@media (min-width: 900px) {
+  .copyWrapper { padding: 72px 24px 0; }
+  .pictureWrapper { margin-top: 16px; }
+  .tileImage { width: min(700px, 72%); bottom: -18%; }
 }
 
 /* ── SPEC / FACT STRIP ──────────────────── */
