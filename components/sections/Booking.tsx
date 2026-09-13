@@ -30,12 +30,12 @@ export default function Booking() {
           </div>
           
           <h2 className={styles.h2}>
-            Let's build something <br />
+            Let&apos;s build something <br />
             <em>exceptional.</em>
           </h2>
           
           <p className={styles.sub}>
-            Whether you need a full-stack architecture consultation, a custom mobile application, or a seamless web platform, let's discuss your vision. 
+            Whether you need a full-stack architecture consultation, a custom mobile application, or a seamless web platform, let&apos;s discuss your vision. 
           </p>
           
           <div className={styles.contactInfo}>
