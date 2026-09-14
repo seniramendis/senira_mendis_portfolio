@@ -107,6 +107,19 @@ body {
   white-space: nowrap;
 }
 
+.mq-item-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mq-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
 .mq-item b {
   width: 3px;
   height: 3px;

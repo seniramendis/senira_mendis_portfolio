@@ -41,6 +41,11 @@ export const TECH_ICONS: Record<string, TechIcon> = {
   MySQL: { slug: 'mysql', color: '4479A1' },
   'CSS Grid': { slug: 'css3', color: '1572B6' },
   'Agile/Scrum': { slug: 'jira', color: '0052CC' },
+  'Agile / Scrum': { slug: 'jira', color: '0052CC' },
+  Laravel: { slug: 'laravel', color: 'FF2D20' },
+  PostgreSQL: { slug: 'postgresql', color: '4169E1' },
+  Kotlin: { slug: 'kotlin', color: '7F52FF' },
+  'Android Development': { slug: 'android', color: '3DDC84' },
 };
 
 export function getTechIconUrl(tag: string): string | null {
