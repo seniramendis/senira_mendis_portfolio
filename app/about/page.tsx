@@ -213,21 +213,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── COMPANY SPOTLIGHT ──────────────── */}
-      <section id="dopmin" className={styles.spotlight}>
-        <div className={styles.spotlightInner}>
-          <Reveal>
-            <span className={styles.spotlightKicker}>Founder &amp; {COMPANY.role}</span>
-          </Reveal>
-          <Reveal delay={80}>
-            <h2 className={styles.spotlightTitle}>{COMPANY.name}</h2>
-          </Reveal>
-          <Reveal delay={140}>
-            <p className={styles.spotlightDesc}>{COMPANY.description}</p>
-          </Reveal>
-        </div>
-      </section>
-
       {/* ── CONNECT ────────────────────────── */}
       <section id="connect" className={styles.connect}>
         <Reveal>
@@ -245,7 +230,7 @@ export default function AboutPage() {
             </Link>
           </div>
           <div className={styles.connectSocial}>
-            <SocialIcons />
+            <SocialIcons theme="dark" />
           </div>
         </Reveal>
       </section>

@@ -49,9 +49,11 @@ const socials = [
 
 interface SocialIconsProps {
   vertical?: boolean;
+  theme?: 'light' | 'dark';
 }
 
-export default function SocialIcons({ vertical = false }: SocialIconsProps) {
+export default function SocialIcons({ vertical = false, theme = 'light' }: SocialIconsProps) {
+  const baseColor = theme === 'dark' ? 'rgba(255,255,255,0.55)' : '#6b7280';
   if (vertical) {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
@@ -111,7 +113,7 @@ export default function SocialIcons({ vertical = false }: SocialIconsProps) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#6b7280',
+            color: baseColor,
             transition: 'color 0.3s, transform 0.3s',
           }}
           onMouseEnter={e => {
@@ -119,7 +121,7 @@ export default function SocialIcons({ vertical = false }: SocialIconsProps) {
             (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
           }}
           onMouseLeave={e => {
-            (e.currentTarget as HTMLElement).style.color = '#6b7280';
+            (e.currentTarget as HTMLElement).style.color = baseColor;
             (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
           }}
         >

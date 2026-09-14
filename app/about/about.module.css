@@ -74,12 +74,13 @@
 }
 
 .kicker {
-  display: inline-block;
-  font-size: 14px;
+  display: block;
+  font-size: clamp(17px, 2vw, 21px);
   font-weight: 600;
   letter-spacing: -0.01em;
+  line-height: 1.2;
   color: var(--gray-mid);
-  margin-bottom: 18px;
+  margin-bottom: 8px;
 }
 
 .title {
@@ -235,11 +236,11 @@
   background: var(--white);
   overflow: hidden;
   scroll-margin-top: 60px;
-  padding: 96px 22px;
+  padding: 96px 22px 0;
 }
 
 @media (min-width: 900px) {
-  .showcase { padding: 120px 40px; }
+  .showcase { padding: 120px 40px 0; }
 }
 
 .tile {
@@ -274,7 +275,7 @@
   line-height: 1.19;
   font-weight: 600;
   letter-spacing: 0.011em;
-  color: var(--near-black);
+  color: var(--gray-mid);
   margin-bottom: 6px;
 }
 
@@ -315,6 +316,10 @@
   aspect-ratio: 1 / 0.86;
 }
 
+.pictureWrapper:hover {
+  overflow: visible;
+}
+
 .tileImage {
   display: block;
   position: absolute;
@@ -323,6 +328,13 @@
   transform: translateX(-50%);
   width: min(460px, 68%);
   height: auto;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease;
+  will-change: transform;
+}
+
+.pictureWrapper:hover .tileImage {
+  transform: translateX(-50%) translateY(-14px) scale(1.035);
+  filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.18));
 }
 
 @media (min-width: 900px) {
@@ -420,24 +432,15 @@
   object-position: center;
 }
 
-/* ── EYEBROW (shared section label) ─────── */
+/* ── EYEBROW (shared section caption, Apple-style) ─ */
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
+  display: block;
+  font-size: clamp(17px, 2vw, 21px);
   font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--blue);
-  margin-bottom: 14px;
-}
-
-.eyebrow::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--blue);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--gray-mid);
+  margin-bottom: 8px;
 }
 
 /* ── WHAT I DO (Apple product-row style) ── */
@@ -595,32 +598,37 @@
 
 /* ── CONNECT / CTA ──────────────────────── */
 .connect {
-  padding: 110px 22px 130px;
+  background: #000;
+  color: var(--white);
+  padding: 150px 22px 160px;
   text-align: center;
   scroll-margin-top: 100px;
+  position: relative;
+  overflow: hidden;
 }
 
 .connectTitle {
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
   font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--near-black);
-  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 20px;
 }
 
 .connectSub {
-  font-size: 18px;
-  line-height: 1.5;
-  color: var(--gray-mid);
+  font-size: clamp(17px, 2vw, 19px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.62);
   max-width: 480px;
-  margin: 0 auto 32px;
+  margin: 0 auto 44px;
 }
 
 .connectActions {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 36px;
 }
 
 .ctaBtn {
@@ -628,19 +636,20 @@
   align-items: center;
   gap: 6px;
   font-size: 17px;
-  font-weight: 400;
-  padding: 12px 28px;
+  font-weight: 500;
+  padding: 13px 32px;
   border-radius: 980px;
   text-decoration: none;
-  color: var(--white);
-  background: var(--blue);
-  border: 1px solid var(--blue);
+  color: #000;
+  background: var(--white);
+  border: 1px solid var(--white);
   transition: all 0.2s ease;
 }
 
 .ctaBtn:hover {
-  background: var(--blue-hover);
-  border-color: var(--blue-hover);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.85);
+  transform: translateY(-1px);
 }
 
 .connectSocial :global(div) {
@@ -650,7 +659,7 @@
 @media (max-width: 640px) {
   .hero { padding: 48px 20px 64px; }
   .spotlight { padding: 80px 20px; }
-  .connect { padding: 80px 20px 96px; }
+  .connect { padding: 96px 20px 110px; }
   .bento { padding: 72px 20px; }
   .story { padding: 72px 20px 20px; }
   .chapter { padding: 40px 0; }
