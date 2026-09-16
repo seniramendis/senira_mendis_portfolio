@@ -6,13 +6,53 @@
 
 .turnstileWrap {
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  /* Reserve the height of a normal Turnstile widget (300x65) so the form
+     doesn't jump once the iframe loads. */
+  min-height: 65px;
 }
 
 .turnstileWrap > div {
   max-width: 100%;
-  overflow: hidden;
   border-radius: 8px;
+}
+
+/* The iframe sizes itself — clipping it with overflow:hidden was cutting off
+   the checkbox on narrow screens. Let it scale instead. */
+.turnstileWrap iframe {
+  max-width: 100%;
+}
+
+.turnstilePlaceholder {
+  font-size: 0.85rem;
+  opacity: 0.55;
+}
+
+.turnstileWrap[data-state='ready'] .turnstilePlaceholder {
+  display: none;
+}
+
+.turnstileFailed {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #d14343;
+  margin: 0;
+}
+
+.turnstileFailed code {
+  font-size: 0.8rem;
+}
+
+.linkBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .honeypot {

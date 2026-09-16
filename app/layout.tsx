@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 import Cursor from '../components/ui/Cursor';// <-- Import the Cursor component
 import { SITE_URL, buildMetadata, personJsonLd, websiteJsonLd } from '@/lib/seo';
@@ -11,6 +12,13 @@ import { SEO_KEYWORDS } from '@/lib/data';
 // Read server-side only, so it doesn't need a NEXT_PUBLIC_ prefix — the
 // value is simply rendered into the page's HTML at build/request time.
 const CF_BEACON_TOKEN = process.env.CF_BEACON_TOKEN;
+
+// Google Analytics 4 — NEXT_PUBLIC_ prefixed so it's also readable from client
+// components if you ever want to fire custom events with sendGAEvent().
+// Heads up: NEXT_PUBLIC_ vars are inlined at BUILD time, so adding this in
+// Vercel requires a fresh build — re-promoting an old deployment won't pick
+// it up (unlike TURNSTILE_SITE_KEY, which is read per-request).
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 // metadataBase anchors every relative/og/twitter image URL emitted below
 // (and by page-level metadata) to an absolute one — required for social
@@ -68,6 +76,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         )}
       </body>
+
+      {/* Google Analytics 4 — only rendered when an ID is configured, so local
+          dev and any build without the env var stay clean. */}
+      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }

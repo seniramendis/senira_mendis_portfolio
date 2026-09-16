@@ -60,7 +60,12 @@ export default function ContactPage() {
         <div className={styles.splitLayout}>
           <Reveal delay={120} className={styles.formCol}>
             <div className={styles.formCard}>
-              <ContactForm turnstileSiteKey={process.env.TURNSTILE_SITE_KEY} />
+              <ContactForm
+                turnstileSiteKey={
+                  process.env.TURNSTILE_SITE_KEY ||
+                  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+                }
+              />
             </div>
           </Reveal>
 

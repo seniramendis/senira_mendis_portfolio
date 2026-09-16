@@ -1,9 +1,10 @@
 'use client';
-import { useRef, useState, FormEvent } from 'react';
+import { useEffect, useRef, useState, FormEvent } from 'react';
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import styles from './ContactForm.module.css';
 
 type Status = 'idle' | 'sending' | 'success' | 'error';
+type WidgetState = 'loading' | 'ready' | 'failed';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -30,7 +31,19 @@ export default function ContactForm({ turnstileSiteKey }: ContactFormProps) {
   const [status, setStatus] = useState<Status>('idle');
   const [serverError, setServerError] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
+  const [widgetState, setWidgetState] = useState<WidgetState>('loading');
   const turnstileRef = useRef<TurnstileInstance>(null);
+
+  // Loud in dev, silent in prod: without a site key the widget is skipped
+  // entirely, which used to look identical to "the widget is broken".
+  useEffect(() => {
+    if (!turnstileSiteKey && process.env.NODE_ENV !== 'production') {
+      console.warn(
+        '[ContactForm] No Turnstile site key — the verification widget will not render. ' +
+          'Set TURNSTILE_SITE_KEY (or NEXT_PUBLIC_TURNSTILE_SITE_KEY) and restart the dev server.'
+      );
+    }
+  }, [turnstileSiteKey]);
 
   const update = (field: keyof FormState) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -177,21 +190,55 @@ export default function ContactForm({ turnstileSiteKey }: ContactFormProps) {
       {/* Cloudflare Turnstile — visible checkbox challenge. Only rendered when
           a site key is configured, so local dev without keys still works. */}
       {turnstileSiteKey && (
-        <div className={styles.turnstileWrap}>
+        <div className={styles.turnstileWrap} data-state={widgetState}>
           <Turnstile
             ref={turnstileRef}
             siteKey={turnstileSiteKey}
-            options={{ size: 'normal', theme: 'auto' }}
+            // Deliberately no `size` here. The widget mode (Managed / Non-
+            // interactive / Invisible) is set in the Cloudflare dashboard, and
+            // forcing size: 'normal' on a widget the dashboard has configured
+            // as Invisible makes Cloudflare reject the config and render
+            // nothing at all — no checkbox, no error, just empty space.
+            options={{ theme: 'auto', appearance: 'always' }}
+            onWidgetLoad={() => setWidgetState('ready')}
             onSuccess={(t) => {
+              setWidgetState('ready');
               setTurnstileToken(t);
               if (status === 'error') setStatus('idle');
             }}
-            onError={() => setTurnstileToken('')}
+            onError={() => {
+              setWidgetState('failed');
+              setTurnstileToken('');
+            }}
             onExpire={() => {
               setTurnstileToken('');
               turnstileRef.current?.reset();
             }}
           />
+
+          {widgetState === 'loading' && (
+            <div className={styles.turnstilePlaceholder} aria-hidden="true">
+              Loading verification…
+            </div>
+          )}
+
+          {widgetState === 'failed' && (
+            <p className={styles.turnstileFailed} role="alert">
+              The verification widget couldn&apos;t load. Check that your browser isn&apos;t
+              blocking <code>challenges.cloudflare.com</code>, then{' '}
+              <button
+                type="button"
+                className={styles.linkBtn}
+                onClick={() => {
+                  setWidgetState('loading');
+                  turnstileRef.current?.reset();
+                }}
+              >
+                try again
+              </button>
+              .
+            </p>
+          )}
         </div>
       )}
 

@@ -152,14 +152,24 @@ RESEND_FROM_EMAIL=Portfolio <onboarding@resend.dev>
 # Cloudflare Turnstile (spam protection on the contact form)
 TURNSTILE_SITE_KEY=your_site_key_here
 TURNSTILE_SECRET_KEY=your_secret_key_here
+
+# Google Analytics 4
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 ```
+
+`NEXT_PUBLIC_GA_ID` is different from the others: `NEXT_PUBLIC_` variables are
+inlined into the JS bundle at **build** time, so after adding it in Vercel you must
+trigger a fresh build. Re-promoting an existing deployment will keep serving a bundle
+with no GA. If the variable is unset, the `<GoogleAnalytics />` tag isn't rendered at all.
 
 With Resend's shared `onboarding@resend.dev` sender, the recipient must be the email
 address that owns the Resend account. For delivery to other addresses, verify a domain
 in Resend and set `RESEND_FROM_EMAIL` to an address on that domain.
 
 `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` come from the Cloudflare dashboard →
-Turnstile → Add Site (widget type: Invisible). Both are read server-side only — the
+Turnstile → Add Site. **Set the widget mode to `Managed`** — this is the one that shows
+the visible checkbox. If it's set to `Invisible` or `Non-interactive`, no checkbox will
+ever appear on the form, no matter what the code does. Both are read server-side only — the
 contact page (`app/contact/page.tsx`) is a Server Component that reads
 `TURNSTILE_SITE_KEY` and passes it into `<ContactForm />` as a prop, so it never needs
 a `NEXT_PUBLIC_` prefix. If these two variables are left unset, the widget and
