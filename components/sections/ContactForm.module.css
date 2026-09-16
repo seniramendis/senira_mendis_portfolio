@@ -4,6 +4,17 @@
   gap: 22px;
 }
 
+.turnstileWrap {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.turnstileWrap > div {
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
 .honeypot {
   position: absolute;
   left: -9999px;

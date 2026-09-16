@@ -56,7 +56,7 @@ export default function ContactForm({ turnstileSiteKey }: ContactFormProps) {
     if (!validate()) return;
 
     if (turnstileSiteKey && !turnstileToken) {
-      setServerError('Please wait a moment for the security check to finish, then try again.');
+      setServerError('Please complete the verification checkbox above.');
       setStatus('error');
       return;
     }
@@ -174,27 +174,36 @@ export default function ContactForm({ turnstileSiteKey }: ContactFormProps) {
         {errors.message && <span className={styles.errorMsg}>{errors.message}</span>}
       </div>
 
+      {/* Cloudflare Turnstile — visible checkbox challenge. Only rendered when
+          a site key is configured, so local dev without keys still works. */}
+      {turnstileSiteKey && (
+        <div className={styles.turnstileWrap}>
+          <Turnstile
+            ref={turnstileRef}
+            siteKey={turnstileSiteKey}
+            options={{ size: 'normal', theme: 'auto' }}
+            onSuccess={(t) => {
+              setTurnstileToken(t);
+              if (status === 'error') setStatus('idle');
+            }}
+            onError={() => setTurnstileToken('')}
+            onExpire={() => {
+              setTurnstileToken('');
+              turnstileRef.current?.reset();
+            }}
+          />
+        </div>
+      )}
+
       {status === 'error' && serverError && (
         <div className={styles.errorBox} role="alert">{serverError}</div>
       )}
 
-      {/* Invisible Cloudflare Turnstile widget — only rendered when a site key
-          is configured, so local dev without keys still works. */}
-      {turnstileSiteKey && (
-        <Turnstile
-          ref={turnstileRef}
-          siteKey={turnstileSiteKey}
-          options={{ size: 'invisible' }}
-          onSuccess={(t) => setTurnstileToken(t)}
-          onError={() => setTurnstileToken('')}
-          onExpire={() => {
-            setTurnstileToken('');
-            turnstileRef.current?.reset();
-          }}
-        />
-      )}
-
-      <button type="submit" className={styles.submitBtn} disabled={status === 'sending'}>
+      <button
+        type="submit"
+        className={styles.submitBtn}
+        disabled={status === 'sending' || (Boolean(turnstileSiteKey) && !turnstileToken)}
+      >
         {status === 'sending' ? 'Sending…' : 'Send message'}
       </button>
 
