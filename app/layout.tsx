@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { GoogleAnalytics } from '@next/third-parties/google';
 import './globals.css';
 import Cursor from '../components/ui/Cursor';// <-- Import the Cursor component
 import { SITE_URL, buildMetadata, personJsonLd, websiteJsonLd } from '@/lib/seo';
@@ -12,9 +11,6 @@ import { SEO_KEYWORDS } from '@/lib/data';
 // Read server-side only, so it doesn't need a NEXT_PUBLIC_ prefix — the
 // value is simply rendered into the page's HTML at build/request time.
 const CF_BEACON_TOKEN = process.env.CF_BEACON_TOKEN;
-
-// Google Analytics 4 — read server-side and rendered only when configured.
-const GA_ID = process.env.GA_ID;
 
 // metadataBase anchors every relative/og/twitter image URL emitted below
 // (and by page-level metadata) to an absolute one — required for social
@@ -51,6 +47,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        {/* Google tag for the account: placed directly under the head element so
+            it loads once on every page without duplication. */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-SPJH137LT5"
+        />
+        <Script id="gtag-init">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-SPJH137LT5');
+          `}
+        </Script>
+
         {/* schema.org structured data — Person + WebSite, read by search
             engines for rich results (knowledge panel, sitelinks search box). */}
         <script
@@ -72,10 +83,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           />
         )}
       </body>
-
-      {/* Google Analytics 4 — only rendered when an ID is configured, so local
-          dev and any build without the env var stay clean. */}
-      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }
