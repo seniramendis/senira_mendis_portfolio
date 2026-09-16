@@ -148,11 +148,23 @@ Enable them for **Production** (and Preview if needed), then redeploy after savi
 RESEND_API_KEY=re_...
 CONTACT_TO_EMAIL=your-inbox@example.com
 RESEND_FROM_EMAIL=Portfolio <onboarding@resend.dev>
+
+# Cloudflare Turnstile (spam protection on the contact form)
+TURNSTILE_SITE_KEY=your_site_key_here
+TURNSTILE_SECRET_KEY=your_secret_key_here
 ```
 
 With Resend's shared `onboarding@resend.dev` sender, the recipient must be the email
 address that owns the Resend account. For delivery to other addresses, verify a domain
 in Resend and set `RESEND_FROM_EMAIL` to an address on that domain.
+
+`TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` come from the Cloudflare dashboard →
+Turnstile → Add Site (widget type: Invisible). Both are read server-side only — the
+contact page (`app/contact/page.tsx`) is a Server Component that reads
+`TURNSTILE_SITE_KEY` and passes it into `<ContactForm />` as a prop, so it never needs
+a `NEXT_PUBLIC_` prefix. If these two variables are left unset, the widget and
+server-side verification are both skipped automatically, so local development without
+Turnstile keys still works.
 
 ### Vercel (recommended — zero config)
 ```bash

@@ -1,5 +1,6 @@
 'use client';
-import { useState, FormEvent } from 'react';
+import { useRef, useState, FormEvent } from 'react';
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import styles from './ContactForm.module.css';
 
 type Status = 'idle' | 'sending' | 'success' | 'error';
@@ -16,11 +17,20 @@ interface FormState {
 
 const initialState: FormState = { name: '', email: '', subject: '', message: '', company: '' };
 
-export default function ContactForm() {
+interface ContactFormProps {
+  /** Cloudflare Turnstile site key, read from TURNSTILE_SITE_KEY on the server
+   * and passed down as a prop (it's safe to expose — only the secret key is
+   * confidential). If omitted, the widget is skipped entirely. */
+  turnstileSiteKey?: string;
+}
+
+export default function ContactForm({ turnstileSiteKey }: ContactFormProps) {
   const [form, setForm] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [status, setStatus] = useState<Status>('idle');
   const [serverError, setServerError] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   const update = (field: keyof FormState) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -45,26 +55,38 @@ export default function ContactForm() {
     setServerError('');
     if (!validate()) return;
 
+    if (turnstileSiteKey && !turnstileToken) {
+      setServerError('Please wait a moment for the security check to finish, then try again.');
+      setStatus('error');
+      return;
+    }
+
     setStatus('sending');
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, turnstileToken }),
       });
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok || !data.ok) {
         setServerError(data?.error || 'Something went wrong. Please try again.');
         setStatus('error');
+        // Tokens are single-use — reset the widget so a retry gets a fresh one.
+        turnstileRef.current?.reset();
+        setTurnstileToken('');
         return;
       }
 
       setStatus('success');
       setForm(initialState);
+      setTurnstileToken('');
     } catch {
       setServerError('Network error — please check your connection and try again.');
       setStatus('error');
+      turnstileRef.current?.reset();
+      setTurnstileToken('');
     }
   };
 
@@ -154,6 +176,22 @@ export default function ContactForm() {
 
       {status === 'error' && serverError && (
         <div className={styles.errorBox} role="alert">{serverError}</div>
+      )}
+
+      {/* Invisible Cloudflare Turnstile widget — only rendered when a site key
+          is configured, so local dev without keys still works. */}
+      {turnstileSiteKey && (
+        <Turnstile
+          ref={turnstileRef}
+          siteKey={turnstileSiteKey}
+          options={{ size: 'invisible' }}
+          onSuccess={(t) => setTurnstileToken(t)}
+          onError={() => setTurnstileToken('')}
+          onExpire={() => {
+            setTurnstileToken('');
+            turnstileRef.current?.reset();
+          }}
+        />
       )}
 
       <button type="submit" className={styles.submitBtn} disabled={status === 'sending'}>

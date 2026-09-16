@@ -43,12 +43,56 @@ export async function POST(req: NextRequest) {
     const email = String(body.email || '').trim();
     const subject = String(body.subject || '').trim();
     const message = String(body.message || '').trim();
+    const turnstileToken = String(body.turnstileToken || '').trim();
     // Honeypot field — real users never fill this in; bots often do.
     const company = String(body.company || '').trim();
 
     if (company) {
       // Silently pretend success so bots don't learn the honeypot worked.
       return NextResponse.json({ ok: true });
+    }
+
+    // Verify the Cloudflare Turnstile token, when a secret key is configured.
+    // (If TURNSTILE_SECRET_KEY isn't set — e.g. local dev without keys — this
+    // check is skipped so the form still works.)
+    if (process.env.TURNSTILE_SECRET_KEY) {
+      if (!turnstileToken) {
+        return NextResponse.json(
+          { ok: false, error: 'Security verification failed. Please refresh and try again.' },
+          { status: 400 }
+        );
+      }
+
+      try {
+        const verifyResponse = await fetch(
+          'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+              secret: process.env.TURNSTILE_SECRET_KEY,
+              response: turnstileToken,
+              remoteip: ip,
+            }),
+          }
+        );
+
+        const verifyJson = await verifyResponse.json();
+
+        if (!verifyJson.success) {
+          console.warn('Turnstile verification failed:', verifyJson['error-codes']);
+          return NextResponse.json(
+            { ok: false, error: 'Security verification failed. Please refresh and try again.' },
+            { status: 400 }
+          );
+        }
+      } catch (verifyErr) {
+        console.error('Turnstile verification request failed:', verifyErr);
+        return NextResponse.json(
+          { ok: false, error: 'Could not verify the request right now. Please try again.' },
+          { status: 502 }
+        );
+      }
     }
 
     if (!name || !email || !message) {
