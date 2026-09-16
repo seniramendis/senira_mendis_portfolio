@@ -13,12 +13,8 @@ import { SEO_KEYWORDS } from '@/lib/data';
 // value is simply rendered into the page's HTML at build/request time.
 const CF_BEACON_TOKEN = process.env.CF_BEACON_TOKEN;
 
-// Google Analytics 4 — NEXT_PUBLIC_ prefixed so it's also readable from client
-// components if you ever want to fire custom events with sendGAEvent().
-// Heads up: NEXT_PUBLIC_ vars are inlined at BUILD time, so adding this in
-// Vercel requires a fresh build — re-promoting an old deployment won't pick
-// it up (unlike TURNSTILE_SITE_KEY, which is read per-request).
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+// Google Analytics 4 — read server-side and rendered only when configured.
+const GA_ID = process.env.GA_ID;
 
 // metadataBase anchors every relative/og/twitter image URL emitted below
 // (and by page-level metadata) to an absolute one — required for social
