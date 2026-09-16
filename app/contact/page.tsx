@@ -9,6 +9,13 @@ import { PERSONAL } from '@/lib/data';
 import { buildMetadata } from '@/lib/seo';
 import styles from './contact.module.css';
 
+// Force this page to render per-request instead of being baked into a static
+// HTML file at build time. Without this, TURNSTILE_SITE_KEY only gets picked
+// up on the build that ran after you added it in Vercel — a plain redeploy of
+// an old build would keep serving a page with no site key, and the widget
+// silently wouldn't render.
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = buildMetadata({
   title: 'Contact — Hire a Software Engineer in Sri Lanka | Senira Mendis',
   description:
