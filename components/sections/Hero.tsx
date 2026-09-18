@@ -2,37 +2,8 @@
 import { useEffect, useRef } from 'react';
 import { PERSONAL } from '@/lib/data';
 import { useMagnetic } from '@/hooks/useMagnetic';
-import { ThreeDMarquee } from '@/components/ui/ThreeDMarquee';
-import { PROJECTS } from '@/lib/data';
+import HeroProjectFan from './HeroProjectFan';
 import styles from './Hero.module.css';
-
-// Only these three local shots, plus every project screenshot already
-// hosted on Cloudinary — no personal/profile photos.
-const HERO_MARQUEE_IMAGES = [
-  '/images/Home_Hero_Page/hero-poster.jpg',
-  '/images/Home_Hero_Page/IMG-20251002-WA0020.jpg',
-  '/images/Home_Hero_Page/IMG-20251004-WA0013.jpg',
-  ...PROJECTS.flatMap((p) => p.images ?? []),
-];
-
-const TOOLS = [
-  { name: 'React',      slug: 'react',      pos: styles.tool1 },
-  { name: 'Next.js',    slug: 'nextjs',     pos: styles.tool2 },
-  { name: 'Node.js',    slug: 'nodejs',     pos: styles.tool3 },
-  { name: 'PHP',        slug: 'php',        pos: styles.tool4 },
-  { name: 'MySQL',      slug: 'mysql',      pos: styles.tool5 },
-  { name: 'Java',       slug: 'java',       pos: styles.tool6 },
-  { name: 'Kotlin',     slug: 'kotlin',     pos: styles.tool7 },
-  { name: 'Docker',     slug: 'docker',     pos: styles.tool8 },
-  { name: 'Laravel',    slug: 'laravel',    pos: styles.tool9 },
-  { name: 'JavaScript', slug: 'js',         pos: styles.tool10 },
-  { name: 'C#',         slug: 'cs',         pos: styles.tool11 },
-  { name: 'PostgreSQL', slug: 'postgres',   pos: styles.tool12 },
-  { name: 'MongoDB',    slug: 'mongodb',    pos: styles.tool13 },
-  { name: 'Firebase',   slug: 'firebase',   pos: styles.tool14 },
-  { name: 'Git',        slug: 'git',        pos: styles.tool15 },
-  { name: 'Figma',      slug: 'figma',      pos: styles.tool16 },
-];
 
 function MagBtn({ href, children, external, className }: {
   href: string; children: React.ReactNode; external?: boolean; className: string;
@@ -49,7 +20,6 @@ function MagBtn({ href, children, external, className }: {
 export default function Hero() {
   const tagRef    = useRef<HTMLDivElement>(null);
   const headRef   = useRef<HTMLHeadingElement>(null);
-  const subRef    = useRef<HTMLParagraphElement>(null);
   const actsRef   = useRef<HTMLDivElement>(null);
   const stickerRef = useRef<HTMLDivElement>(null);
 
@@ -57,10 +27,9 @@ export default function Hero() {
   useEffect(() => {
     const tag = tagRef.current;
     const head = headRef.current;
-    const sub = subRef.current;
     const acts = actsRef.current;
     const sticker = stickerRef.current;
-    if (!tag || !head || !sub || !acts || !sticker) return;
+    if (!tag || !head || !acts || !sticker) return;
 
     const animate = (el: HTMLElement, delay: number) => {
       setTimeout(() => {
@@ -72,56 +41,33 @@ export default function Hero() {
 
     animate(tag, 100);
     animate(head, 250);
-    animate(sub, 500);
-    animate(acts, 700);
+    animate(acts, 500);
     animate(sticker, 400);
   }, []);
 
   return (
-    <section className={styles.hero} style={{ borderBottom: 'none', padding: 0, paddingTop: 'var(--nav-h)' }}>
-      <div className={styles.heroBg}>
-        <ThreeDMarquee images={HERO_MARQUEE_IMAGES} />
-      </div>
+    <section className={styles.hero} style={{ borderBottom: 'none', padding: 0 }}>
+      <div className={styles.heroBg} />
       <div className={styles.heroBgOverlay} />
 
       <div className={styles.heroGrid}>
         <div className={styles.heroCenter}>
-          <div className={styles.heroTag} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }}>
-            {PERSONAL.tagline}
-          </div>
+          <div className={styles.heroMeta} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }} />
 
           <h1 className={styles.h1} ref={headRef} style={{ opacity: 0, transform: 'translateY(18px)' }}>
-            Senira Mendis.
+            {PERSONAL.headline.map((line, i) => (
+              <span className={styles.h1Line} key={i}>{line}</span>
+            ))}
           </h1>
-
-          <p className={styles.sub} ref={subRef} style={{ opacity: 0, transform: 'translateY(16px)' }}>
-            {PERSONAL.sub}
-          </p>
 
           <div className={styles.acts} ref={actsRef} style={{ opacity: 0, transform: 'translateY(14px)' }}>
             <MagBtn href="#work" className={`${styles.btnPrimary} mbtn mbtn-dark`}>View my work</MagBtn>
-            <MagBtn href="/contact" className={`${styles.btnGhost} mbtn mbtn-light`}>Get in touch &rsaquo;</MagBtn>
+            <MagBtn href="/contact" className={`${styles.btnGhost} mbtn mbtn-light`}>Start a project &rsaquo;</MagBtn>
           </div>
         </div>
 
         <div className={styles.heroSticker} ref={stickerRef} style={{ opacity: 0, transform: 'translateY(24px)' }}>
-          <div className={styles.stickerStage}>
-            {TOOLS.map(t => (
-              <span key={t.name} className={`${styles.toolBadge} ${t.pos}`}>
-                <img
-                  src={`https://skillicons.dev/icons?i=${t.slug}`}
-                  alt={t.name}
-                  className={styles.toolIcon}
-                  loading="lazy"
-                />
-              </span>
-            ))}
-            <img
-              src="https://res.cloudinary.com/dukv2otyn/image/upload/v1787525935/Senira_Mendis_Sticker_pzv1cv.png"
-              alt="Senira Mendis"
-              className={styles.stickerImg}
-            />
-          </div>
+          <HeroProjectFan />
         </div>
       </div>
     </section>

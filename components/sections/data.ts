@@ -11,7 +11,7 @@ export const GITHUB_CONTRIBUTIONS: [string, number, number][] = [["2025-08-24",0
 
 export const PERSONAL = {
   name: 'Senira Mendis',
-  tagline: 'Full-Stack Developer',
+  tagline: 'Full-Stack Software Engineer — Web, Mobile & Custom Business Systems',
   headline: ['I build the software', 'your business', 'runs on.'],
   sub: 'Software Engineer and Software Engineering undergraduate at Cardiff Metropolitan University, based in Colombo, Sri Lanka. Full-stack, mobile app (Android) & backend developer available for remote and on-site roles worldwide — driven by elegant architecture and Agile delivery.',
   location: 'Mount Lavinia, Colombo',
