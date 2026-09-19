@@ -14,7 +14,7 @@ export const PERSONAL = {
   tagline: 'Full-Stack Developer',
   // Hero headline: "I build the <rotating word> your business runs on."
   headlineLead: 'I build the',
-  headlineWords: ['mobile apps', 'data analysis', 'PWA web', 'AI agents', 'POS systems', 'CRM'],
+  headlineWords: ['custom software', 'mobile apps', 'data analysis', 'PWA web', 'AI agents', 'POS systems', 'CRM'],
   headlineTail: 'your business runs on.',
   sub: 'Software Engineer and Software Engineering undergraduate at Cardiff Metropolitan University, based in Colombo, Sri Lanka. Full-stack, mobile app (Android) & backend developer available for remote and on-site roles worldwide — driven by elegant architecture and Agile delivery.',
   location: 'Mount Lavinia, Colombo',

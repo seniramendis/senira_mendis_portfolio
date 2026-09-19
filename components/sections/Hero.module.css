@@ -92,6 +92,8 @@
 
 .h1Line {
   display: block;
+  /* if a line has to wrap on small screens, split it evenly (no lone "on.") */
+  text-wrap: balance;
 }
 
 /* the rotating / scrambling word */
