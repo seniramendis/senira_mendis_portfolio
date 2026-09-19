@@ -12,7 +12,10 @@ export const GITHUB_CONTRIBUTIONS: [string, number, number][] = [["2025-08-24",0
 export const PERSONAL = {
   name: 'Senira Mendis',
   tagline: 'Full-Stack Developer',
-  headline: ['I build the software', 'your business', 'runs on.'],
+  // Hero headline: "I build the <rotating word> your business runs on."
+  headlineLead: 'I build the',
+  headlineWords: ['mobile apps', 'data analysis', 'PWA web', 'AI agents', 'POS systems', 'CRM'],
+  headlineTail: 'your business runs on.',
   sub: 'Software Engineer and Software Engineering undergraduate at Cardiff Metropolitan University, based in Colombo, Sri Lanka. Full-stack, mobile app (Android) & backend developer available for remote and on-site roles worldwide — driven by elegant architecture and Agile delivery.',
   location: 'Mount Lavinia, Colombo',
   email: 'seniramendis41@gmail.com',

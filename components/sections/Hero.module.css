@@ -94,6 +94,11 @@
   display: block;
 }
 
+/* the rotating / scrambling word */
+.h1Word {
+  color: var(--blue);
+}
+
 .acts {
   margin-top: 30px;
   display: flex;

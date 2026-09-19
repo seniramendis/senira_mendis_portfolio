@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { PERSONAL } from '@/lib/data';
 import { useMagnetic } from '@/hooks/useMagnetic';
+import ScrambleText from '@/components/ui/ScrambleText';
 import HeroProjectFan from './HeroProjectFan';
 import styles from './Hero.module.css';
 
@@ -55,9 +56,16 @@ export default function Hero() {
           <div className={styles.heroMeta} ref={tagRef} style={{ opacity: 0, transform: 'translateY(12px)' }} />
 
           <h1 className={styles.h1} ref={headRef} style={{ opacity: 0, transform: 'translateY(18px)' }}>
-            {PERSONAL.headline.map((line, i) => (
-              <span className={styles.h1Line} key={i}>{line}</span>
-            ))}
+            <span className={styles.h1Line}>{PERSONAL.headlineLead}</span>
+            <span className={`${styles.h1Line} ${styles.h1Word}`}>
+              <ScrambleText
+                words={PERSONAL.headlineWords}
+                chars={'/!<>-_\\[]{}=+*^?#'}
+                speed={0.8}
+                hold={1.5}
+              />
+            </span>
+            <span className={styles.h1Line}>{PERSONAL.headlineTail}</span>
           </h1>
 
           <div className={styles.acts} ref={actsRef} style={{ opacity: 0, transform: 'translateY(14px)' }}>
