@@ -1,23 +1,15 @@
 import type { Metadata } from 'next';
-import { BLOG_POSTS } from '@/lib/data';
+import { getPostBySlug } from '@/lib/blog';
 import { buildMetadata, breadcrumbJsonLd, blogPostingJsonLd } from '@/lib/seo';
 
-// app/blog/[slug]/page.tsx is a client component, so — same as the
-// project detail pages — it can't export metadata itself. This layout
-// does it instead, per-post, via generateMetadata.
+// app/blog/[slug]/page.tsx fetches per-request (see its `revalidate`
+// export) rather than being pre-built via generateStaticParams — that
+// way a brand-new Sanity post is live at its URL immediately instead of
+// waiting for the next full deploy. generateMetadata still runs per
+// request too, so this stays in sync automatically.
 
-function findPost(slug: string) {
-  return BLOG_POSTS.find((p) => p.slug === slug);
-}
-
-// Pre-render metadata (and let Next statically generate) for every known
-// post slug instead of resolving it at request time.
-export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
-}
-
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const post = findPost(params.slug);
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = await getPostBySlug(params.slug);
 
   if (!post) {
     return buildMetadata({
@@ -36,17 +28,17 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   });
 }
 
-export default function BlogPostLayout({
+export default async function BlogPostLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: { slug: string };
 }) {
-  const post = findPost(params.slug);
+  const post = await getPostBySlug(params.slug);
 
-  // Let the page component itself call notFound() for the client-rendered
-  // 404 UI; here we only skip emitting structured data for a bad slug.
+  // Let the page component itself call notFound() for the proper 404
+  // UI; here we only skip emitting structured data for a bad slug.
   if (!post) {
     return children;
   }

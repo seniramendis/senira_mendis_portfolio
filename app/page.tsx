@@ -6,6 +6,7 @@ import Skills from '@/components/sections/Skills';
 import Projects from '@/components/sections/Projects';
 import IdeaToProduct from '@/components/sections/IdeaToProduct';
 import Services from '@/components/sections/Services';
+import TechNews from '@/components/sections/TechNews';
 import BuiltFromScratch from '@/components/sections/BuiltFromScratch';
 import Booking from '@/components/sections/Booking'; 
 import FAQ from '@/components/sections/FAQ';
@@ -24,6 +25,7 @@ export default function Home() {
       <Projects />
       <IdeaToProduct />
       <Services />
+      <TechNews />
       <BuiltFromScratch />
       <Booking /> 
       <FAQ />

@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
-import { PROJECTS, BLOG_POSTS } from '@/lib/data';
+import { PROJECTS } from '@/lib/data';
+import { getAllPosts } from '@/lib/blog';
 import { SITE_URL } from '@/lib/seo';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -22,7 +23,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+  // getAllPosts() already falls back to local posts if Sanity isn't
+  // configured or reachable, so this never needs its own try/catch.
+  const posts = await getAllPosts();
+  const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${SITE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: 'monthly',

@@ -1,22 +1,18 @@
-import { BLOG_POSTS, PERSONAL } from '@/lib/data';
+import { getAllPosts, bodyToPlainParagraphs } from '@/lib/blog';
+import { PERSONAL } from '@/lib/data';
 import { SITE_URL, SITE_NAME } from '@/lib/seo';
 
 // ─────────────────────────────────────────────
-// AUTOMATIC RSS FEED — now driven by the blog
+// AUTOMATIC RSS FEED — reads through lib/blog.ts
 // ─────────────────────────────────────────────
-// This is a Next.js Route Handler, not a static file. It runs on every
-// request and builds the XML straight from BLOG_POSTS in lib/data.ts.
-//
-// That means it is fully automatic: add a new post object to BLOG_POSTS
-// and this feed includes it the next time it's requested — nothing here
-// needs to be touched.
+// getAllPosts() pulls from Sanity when it's configured and reachable,
+// and falls back to the local BLOG_POSTS array otherwise — so this feed
+// updates itself the moment a post is published in Sanity Studio
+// (/studio), with nothing here to touch.
 //
 // Live at:  https://<your-domain>/feed.xml
-// Also discoverable automatically by feed readers/browsers via the
-// <link rel="alternate" type="application/rss+xml"> tag in app/layout.tsx
-// and app/blog/layout.tsx.
 
-export const dynamic = 'force-dynamic'; // always reflect the latest data.ts content
+export const dynamic = 'force-dynamic'; // always reflect the latest content
 
 /** Escapes text for safe inclusion inside RSS XML nodes. */
 function escapeXml(value: string): string {
@@ -29,14 +25,14 @@ function escapeXml(value: string): string {
 }
 
 export async function GET() {
-  const items = [...BLOG_POSTS]
-    // Newest first — same rule the /blog index page uses, so what a
-    // reader sees in their feed app always matches the site itself.
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const posts = await getAllPosts(); // already sorted newest-first
+
+  const items = posts
     .map((post) => {
       const url = `${SITE_URL}/blog/${post.slug}`;
       const pubDate = new Date(post.date).toUTCString();
-      const body = post.content.map((p) => `<p>${escapeXml(p)}</p>`).join('');
+      const paragraphs = bodyToPlainParagraphs(post);
+      const body = paragraphs.map((p) => `<p>${escapeXml(p)}</p>`).join('');
 
       return `
     <item>
@@ -68,8 +64,6 @@ export async function GET() {
   return new Response(xml, {
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
-      // Feed readers poll this URL repeatedly — a short cache keeps
-      // that cheap while still reflecting new posts quickly.
       'Cache-Control': 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400',
     },
   });

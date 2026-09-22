@@ -1,9 +1,9 @@
-'use client';
-import { BLOG_POSTS } from '@/lib/data';
 import Link from 'next/link';
 import Nav from '@/components/sections/Nav';
 import Footer from '@/components/sections/Footer';
 import Reveal from '@/components/ui/Reveal';
+import TechNewsWidget from '@/components/sections/TechNewsWidget';
+import { getAllPosts } from '@/lib/blog';
 import styles from './blog.module.css';
 
 function formatDate(iso: string) {
@@ -14,12 +14,14 @@ function formatDate(iso: string) {
   });
 }
 
-export default function BlogIndex() {
-  // Newest first — same ordering rule the RSS feed uses (app/feed.xml/route.ts),
-  // so what you see here always matches what a feed reader sees.
-  const posts = [...BLOG_POSTS].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+// This page is a Server Component so it can fetch directly from Sanity
+// (via lib/blog.ts) at request time — see that file for the automatic
+// Sanity → local-fallback logic. Revalidate every 5 minutes so a newly
+// published Sanity post shows up quickly without a full redeploy.
+export const revalidate = 300;
+
+export default async function BlogIndex() {
+  const posts = await getAllPosts();
 
   return (
     <div className={styles.container}>
@@ -44,7 +46,11 @@ export default function BlogIndex() {
           <p className={styles.heroSub}>
             Write-ups on the real problems behind the projects — concurrency bugs,
             architecture decisions, and lessons from running Agile sprints on
-            small teams.
+            small teams. Written in{' '}
+            <a href="/studio" target="_blank" rel="noopener noreferrer">
+              Sanity Studio
+            </a>{' '}
+            — no code required to publish a new one.
           </p>
         </Reveal>
 
@@ -81,6 +87,24 @@ export default function BlogIndex() {
             </Reveal>
           ))}
         </div>
+
+        {/* Live tech news, aggregated automatically — see
+            lib/techNews.ts + app/api/tech-news/route.ts. Requested by
+            the user to sit on this page rather than a separate /news
+            route. */}
+        <Reveal>
+          <h2 className={styles.title} style={{ fontSize: '2rem', marginTop: '32px' }}>
+            Latest in <em>tech.</em>
+          </h2>
+        </Reveal>
+        <Reveal delay={60}>
+          <p className={styles.heroSub}>
+            Live headlines from Hacker News — refreshed hourly, nothing added by hand.
+          </p>
+        </Reveal>
+        <Reveal delay={120}>
+          <TechNewsWidget limit={8} />
+        </Reveal>
       </main>
 
       <Footer />

@@ -1,10 +1,9 @@
-'use client';
-import { useEffect } from 'react';
-import { notFound, useParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { BLOG_POSTS } from '@/lib/data';
+import { PortableText } from '@portabletext/react';
 import Nav from '@/components/sections/Nav';
 import Footer from '@/components/sections/Footer';
+import { getPostBySlug } from '@/lib/blog';
 import styles from '../blog.module.css';
 
 function formatDate(iso: string) {
@@ -15,15 +14,15 @@ function formatDate(iso: string) {
   });
 }
 
-export default function BlogPostPage() {
-  const params = useParams<{ slug: string }>();
-  const post = BLOG_POSTS.find((p) => p.slug === params.slug);
+// Rendered on-demand and cached for 5 minutes (ISR) rather than
+// pre-built for a fixed list of slugs — so a brand-new Sanity post is
+// reachable at /blog/<slug> immediately, without a redeploy.
+export const revalidate = 300;
 
-  useEffect(() => {
-    if (!post) notFound();
-  }, [post]);
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  const post = await getPostBySlug(params.slug);
 
-  if (!post) return null;
+  if (!post) notFound();
 
   return (
     <div className={styles.container}>
@@ -45,9 +44,15 @@ export default function BlogPostPage() {
         </header>
 
         <div className={styles.postBody}>
-          {post.content.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
-          ))}
+          {post.source === 'sanity' ? (
+            // Sanity posts are rich text (Portable Text) written in the
+            // Studio editor — rendered here with sensible defaults.
+            <PortableText value={post.body as any} />
+          ) : (
+            // Local fallback posts (lib/data.ts) are plain paragraph
+            // strings until a Sanity project is configured.
+            (post.body as string[]).map((paragraph, i) => <p key={i}>{paragraph}</p>)
+          )}
         </div>
 
         <footer className={styles.postFooter}>
