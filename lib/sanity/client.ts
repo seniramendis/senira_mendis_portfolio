@@ -7,7 +7,8 @@ import { createClient } from '@sanity/client';
 // hardcoded ID, so this file never needs editing — just set the two
 // env vars once after creating your Sanity project.
 
-export const SANITY_PROJECT_ID = process.env.SANITY_PROJECT_ID || '';
+export const SANITY_PROJECT_ID =
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || process.env.SANITY_PROJECT_ID || '';
 export const SANITY_DATASET = process.env.SANITY_DATASET || 'production';
 export const SANITY_API_VERSION = '2024-01-01';
 

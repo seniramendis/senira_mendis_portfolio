@@ -155,6 +155,10 @@ TURNSTILE_SECRET_KEY=your_secret_key_here
 
 # Google Analytics 4
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+
+# Sanity Studio and blog content
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_sanity_project_id
+SANITY_DATASET=production
 ```
 
 `NEXT_PUBLIC_GA_ID` is different from the others: `NEXT_PUBLIC_` variables are

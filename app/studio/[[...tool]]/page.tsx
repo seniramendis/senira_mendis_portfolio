@@ -11,5 +11,14 @@ import config from '../../../sanity.config';
 export const dynamic = 'force-static';
 
 export default function StudioPage() {
+  if (!config.projectId) {
+    return (
+      <main style={{ padding: '4rem 2rem', textAlign: 'center' }}>
+        <h1>Sanity Studio is not configured</h1>
+        <p>Set NEXT_PUBLIC_SANITY_PROJECT_ID and redeploy this site.</p>
+      </main>
+    );
+  }
+
   return <NextStudio config={config} />;
 }

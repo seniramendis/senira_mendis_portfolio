@@ -13,7 +13,8 @@ import { schemaTypes } from './sanity/schemaTypes';
 //   SANITY_PROJECT_ID
 //   SANITY_DATASET   (usually "production")
 
-const projectId = process.env.SANITY_PROJECT_ID || '';
+const projectId =
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || process.env.SANITY_PROJECT_ID || '';
 const dataset = process.env.SANITY_DATASET || 'production';
 
 export default defineConfig({
