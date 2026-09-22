@@ -187,6 +187,41 @@ export function faqJsonLd(faqs: FAQItem[]) {
   };
 }
 
+interface BlogPostingJsonLdInput {
+  title: string;
+  description: string;
+  path: string;
+  datePublished: string;
+  tags: string[];
+  image?: string;
+}
+
+/** schema.org BlogPosting JSON-LD for an individual blog post page. */
+export function blogPostingJsonLd({
+  title,
+  description,
+  path,
+  datePublished,
+  tags,
+  image,
+}: BlogPostingJsonLdInput) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    url: `${SITE_URL}${path}`,
+    datePublished,
+    image: image ? [image] : undefined,
+    keywords: tags.join(', '),
+    author: {
+      '@type': 'Person',
+      name: PERSONAL.name,
+      url: SITE_URL,
+    },
+  };
+}
+
 /** schema.org BreadcrumbList for nested pages like project case studies. */
 export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   return {

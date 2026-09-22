@@ -58,6 +58,8 @@ export default function Nav() {
           {/* The new dedicated projects page link */}
           <li><Link href="/projects" onClick={close}>Work</Link></li>
 
+          <li><Link href="/blog" onClick={close}>Blog</Link></li>
+
           <li><Link href="/#book" onClick={close}>Book a call</Link></li>
 
           <li>
@@ -100,6 +102,9 @@ export default function Nav() {
           </li>
           <li style={{ transitionDelay: open ? '180ms' : '0ms' }}>
             <Link href="/projects" onClick={close}><span>Work</span><i /></Link>
+          </li>
+          <li style={{ transitionDelay: open ? '200ms' : '0ms' }}>
+            <Link href="/blog" onClick={close}><span>Blog</span><i /></Link>
           </li>
           <li style={{ transitionDelay: open ? '220ms' : '0ms' }}>
             <Link href="/#book" onClick={close}><span>Book a call</span><i /></Link>

@@ -418,3 +418,80 @@ export const FAQS: FAQItem[] = [
       'The fastest way is the contact form or WhatsApp link on the Contact page — I typically reply within a day.',
   },
 ];
+
+// ─────────────────────────────────────────────
+// BLOG  ·  edit this file to add/update posts
+// ─────────────────────────────────────────────
+// This is the single source of truth for the blog. Add a new object to
+// BLOG_POSTS and it automatically shows up in three places, with nothing
+// else to touch:
+//   1. /blog            — the blog index (app/blog/page.tsx)
+//   2. /blog/[slug]      — the post's own page (app/blog/[slug]/page.tsx)
+//   3. /feed.xml         — the RSS feed (app/feed.xml/route.ts)
+
+export type BlogPost = {
+  /** URL-safe unique id, e.g. 'agile-vs-waterfall'. Used as /blog/<slug>. */
+  slug: string;
+  title: string;
+  /** Short 1-2 sentence teaser shown on the index page and in the RSS feed. */
+  excerpt: string;
+  /** ISO date (YYYY-MM-DD) — drives sort order + pubDate in the RSS feed. */
+  date: string;
+  /** Minutes, shown as "X min read" on the index + post page. */
+  readTime: number;
+  tags: string[];
+  /** Full post body. Each string in the array renders as its own paragraph
+   *  — keep it simple (no markdown parser wired up yet). */
+  content: string[];
+  /** Optional cover image (absolute URL, e.g. Cloudinary), shown on the
+   *  post page and used as the RSS item's enclosure/OG image. */
+  coverImage?: string;
+};
+
+export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: 'pessimistic-locking-agrilease',
+    title: 'Why I Used Pessimistic Locking to Stop Double-Bookings in AgriLease',
+    excerpt:
+      "A look at the concurrency bug that nearly broke AgriLease's booking engine during peak season, and why optimistic locking wasn't enough to fix it.",
+    date: '2026-08-10',
+    readTime: 6,
+    tags: ['Backend', 'PostgreSQL', 'Concurrency'],
+    content: [
+      "AgriLease is a sharing-economy platform for agricultural machinery in Sri Lanka — think of it as a booking system where dozens of farmers can be racing to reserve the same tractor for the same narrow planting window. That's a concurrency problem hiding inside what looks like a simple booking form.",
+      "Early on, two requests could both read 'this tractor is free on the 14th', both pass validation, and both write a booking row — a classic race condition. Optimistic locking (checking a version number before committing) reduced the failures but didn't eliminate them under real load, because the retry logic on the client just tried the same doomed booking again.",
+      'The fix was pessimistic locking at the database level: `SELECT ... FOR UPDATE` on the relevant availability row for the duration of the booking transaction, so a second request is forced to wait rather than race. It costs a little throughput under contention, but for a resource with hard physical availability — a single tractor can only be in one field at a time — correctness matters far more than raw concurrency.',
+      "The bigger lesson: not every problem needs the trendier solution. Optimistic locking is usually the right default for low-contention writes, but the moment a resource is physically singular and demand spikes at the same time (peak planting season, everyone booking the same three tractors), pessimistic locking is the boring, correct answer.",
+    ],
+  },
+  {
+    slug: 'scrum-master-lessons-dopmin',
+    title: "What Being Scrum Master on Dopmin's Web Platform Actually Taught Me",
+    excerpt:
+      'Running sprints for a small cross-functional team is a different skill from writing the code — here is what stuck after leading Dopmin through several sprint cycles.',
+    date: '2026-06-15',
+    readTime: 5,
+    tags: ['Agile', 'Scrum', 'Leadership'],
+    content: [
+      "Leading Dopmin's corporate web platform as Scrum Master, on top of writing a lot of the code myself, taught me that the hardest part of Scrum isn't the ceremonies — it's protecting the team's focus between them.",
+      'A two-week sprint dies by a thousand small interruptions: a client message that becomes an unplanned mid-sprint request, a "quick" bug that eats a full day, a scope conversation that should have happened at planning instead happening on day 8. My job stopped being just about code and became about noticing when scope was quietly drifting and saying so out loud before it became a crisis at the retro.',
+      'The other thing that surprised me: velocity numbers are far less useful than the conversation you have about why they moved. A sprint that "under-delivered" but surfaced a real architectural risk early is a good sprint. A sprint that hit every point but shipped something nobody double-checked against the actual requirement is a quiet failure.',
+      "Since then, I try to run retros around one question: what almost went wrong that we caught in time, and what didn't we catch? That question surfaces more useful signal than a burndown chart ever has.",
+    ],
+  },
+  {
+    slug: 'electron-ipc-lessons',
+    title: 'Electron IPC State Sync: The Part Nobody Warns You About',
+    excerpt:
+      "Building the Dopmin Web Scraper's Electron app meant learning the hard way that main/renderer process separation is a discipline, not a default.",
+    date: '2026-04-02',
+    readTime: 7,
+    tags: ['Electron', 'Node.js', 'Desktop Apps'],
+    content: [
+      'Electron makes it deceptively easy to reach across the main/renderer boundary and just... call something. It works, right up until your app has real concurrent state — in the Dopmin Web Scraper\'s case, a query-expansion module scaling out permutations while a concurrent scraping engine is mid-run against dynamic web elements.',
+      'The failure mode is subtle: the renderer shows one version of "current progress," the main process has already moved past it, and now your UI is lying to the user by a few seconds — just enough to look broken without ever throwing an error.',
+      'The fix was treating IPC like an actual API contract instead of a convenient tunnel: typed message shapes, a single source of truth for state living in the main process, and the renderer only ever rendering what it was explicitly sent — never assuming, never polling ad hoc. Once that discipline was in place, adding encrypted local state persistence on top was straightforward, because the state was finally well-defined enough to serialize safely.',
+      "If you're building anything in Electron beyond a static shell, decide on your IPC contract before you write the first scraping job, not after the third race condition report.",
+    ],
+  },
+];
