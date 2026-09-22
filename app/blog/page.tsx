@@ -14,10 +14,7 @@ function formatDate(iso: string) {
   });
 }
 
-// This page is a Server Component so it can fetch directly from Sanity
-// (via lib/blog.ts) at request time — see that file for the automatic
-// Sanity → local-fallback logic. Revalidate every 5 minutes so a newly
-// published Sanity post shows up quickly without a full redeploy.
+// Refresh the post list periodically without requiring a full redeploy.
 export const revalidate = 300;
 
 export default async function BlogIndex() {
@@ -46,11 +43,7 @@ export default async function BlogIndex() {
           <p className={styles.heroSub}>
             Write-ups on the real problems behind the projects — concurrency bugs,
             architecture decisions, and lessons from running Agile sprints on
-            small teams. Written in{' '}
-            <a href="/studio" target="_blank" rel="noopener noreferrer">
-              Sanity Studio
-            </a>{' '}
-            — no code required to publish a new one.
+            small teams.
           </p>
         </Reveal>
 
