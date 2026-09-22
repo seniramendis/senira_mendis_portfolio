@@ -117,6 +117,11 @@ export type Project = {
   tags: string[];
   href: string;
   images?: string[]; // <-- ADD THIS LINE
+  /** ISO date (YYYY-MM-DD) — when this project was added/shipped.
+   *  Drives ordering + pubDate in the RSS feed (app/feed.xml/route.ts).
+   *  New projects without a date just fall to the bottom of the feed
+   *  until you set one — nothing else needs to change. */
+  date?: string;
 };
 
 export const PROJECTS: Project[] = [
@@ -127,6 +132,7 @@ export const PROJECTS: Project[] = [
     description: 'Cross-platform desktop application automating localized data extraction and processing for the Dopmin agency. Architected a decoupled Electron main/renderer process with IPC state sync, an algorithmic query-expansion module for search permutation scaling, a concurrent scraping engine for dynamic web elements, and encrypted local state persistence.',
     tags: ['JavaScript (ES6+)', 'Node.js', 'Electron', 'Svelte', 'Vite', 'HTML/CSS'],
     href: '#',
+    date: '2025-11-10',
     images: [
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571941/web_scraper_jzagm8.png',
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571942/web_scraper_1_cuozvq.png',
@@ -139,6 +145,7 @@ export const PROJECTS: Project[] = [
     description: 'Production-grade corporate web platform for Dopmin, an IT solutions agency, built as both a digital storefront and a technical proof-of-concept with a premium "digital luxury" UI/UX. Engineered with the Next.js App Router for optimized SSR/SSG, a strictly typed TypeScript codebase, and a modular PostCSS component system, deployed via a continuous Vercel pipeline. Led the project as Scrum Master, coordinating frontend, backend, and QA across sprints.',
     tags: ['Next.js', 'React.js', 'TypeScript', 'Vercel', 'PostCSS', 'ESLint', 'Node.js'],
     href: 'https://dopmin.vercel.app/',
+    date: '2025-12-05',
     images: [
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571915/dopmin_w191aj.png',
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571912/dopmin_1_pwvw2z.png',
@@ -151,6 +158,7 @@ export const PROJECTS: Project[] = [
     description: 'Cross-platform mobile app digitizing the national curriculum into an interactive node-based roadmap. Facilitated agile sprints for complex features including interactive roadmap logic and Firebase integration.',
     tags: ['React Native', 'Firebase', 'Android Studio', 'Agile/Scrum'],
     href: '#',
+    date: '2026-01-15',
     images: [
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657169/Brain_Path_vdex8k.png',
     ],
@@ -162,6 +170,7 @@ export const PROJECTS: Project[] = [
   description: "'Sharing economy platform digitising Sri Lanka's Custom Hiring system. Engineered geospatial radius searches via PostGIS and a high-concurrency booking engine with pessimistic locking to eliminate double-booking during peak seasons",
   tags: ['Laravel 10', 'PostgreSQL 15', 'PostGIS', 'Supabase Auth', 'Docker'],
   href: 'https://github.com/seniramendis/AgriLease-Platform',
+    date: '2026-02-20',
   images: [
     'https://res.cloudinary.com/dukv2otyn/image/upload/v1787560571/agri_lease_ieludf.png',
   ],
@@ -173,6 +182,7 @@ export const PROJECTS: Project[] = [
     description: 'A highly scalable, bilingual numerology platform for the Sri Lankan market. Engineered a custom mathematical engine in JS to process complex destiny nodes and integrated Gemini 1.5 Flash with robust fail-safes to prevent UI crashes during API rate limits.',
     tags: ['React.js', 'Node.js', 'Gemini API', 'Tailwind CSS', 'Vite', 'Vercel'],
     href: 'https://github.com/seniramendis/Daiwaya',
+    date: '2026-03-25',
     images: [
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571634/daiwaya_bywpkx.png',
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571632/daiwaya1_yfbcit.png'
@@ -185,6 +195,7 @@ export const PROJECTS: Project[] = [
   description: 'A centralized hub bridging ancient Kandyan traditions with digital ticketing. Built a dynamic organizer command center with real-time KPI tracking and secure "Digital Cultural Passports" for event attendees.',
   tags: ['ASP.NET Core MVC', 'C#', 'Entity Framework', 'Bootstrap 5'],
   href: 'https://github.com/seniramendis/KMCSolution',
+    date: '2026-04-28',
   images: [
     'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571683/kmc_solutions_1_owf4bl.png',
     'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571683/kmc_solution_azhste.png',
@@ -197,6 +208,7 @@ export const PROJECTS: Project[] = [
   description: 'Native Android app streamlining device repairs. Features a custom "Live Repair Tracker" utilizing background handlers for real-time progress updates, automated local notifications, and complex SQLite database architecture.',
   tags: ['Java', 'XML', 'Android Studio', 'SQLite'],
   href: 'https://github.com/seniramendis/TechCare',
+    date: '2026-05-30',
   images: [
     'https://res.cloudinary.com/dukv2otyn/image/upload/v1787571844/techcare_zb2gcm.png',
     'https://res.cloudinary.com/dukv2otyn/image/upload/v1787572039/Techcare11_oqkaiv.png',
@@ -209,6 +221,7 @@ export const PROJECTS: Project[] = [
     description: 'Secure healthcare platform featuring an automated 24/7 online scheduling system, telemedicine direct messaging via AJAX, and an e-prescription module with role-based access control.',
     tags: ['PHP', 'MySQL', 'JavaScript', 'AJAX', 'CSS Grid'],
     href: 'https://github.com/seniramendis/Medicare-Plus',
+    date: '2026-06-22',
     images: [
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657204/Medicare_ufze84.png',
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657197/Medicare1_fxwwjx.png',
@@ -222,6 +235,7 @@ export const PROJECTS: Project[] = [
     description: 'An interactive 2D game exploring a magical world where code transforms reality. Developed as a team project, combining creative game mechanics with core Java programming concepts.',
     tags: ['Java', 'Game Development', 'OOP'],
     href: '#',
+    date: '2026-07-18',
     images: [
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657335/java_Game_tsd8lw.png',
     ],
@@ -233,6 +247,7 @@ export const PROJECTS: Project[] = [
     description: 'A management system digitizing bookstore workflows, including inventory tracking, sales processing, and customer record management. Built with a focus on clean CRUD operations and robust data modelling.',
     tags: ['Java', 'MySQL', 'OOP'],
     href: 'https://github.com/seniramendis/Little-Haven-Bookstore-Management-System',
+    date: '2026-08-20',
     images: [
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657013/Little_Heaven_almhdw.png',
       'https://res.cloudinary.com/dukv2otyn/image/upload/v1787657017/Little_Heaven1_huzrea.png',

@@ -15,14 +15,24 @@ const CF_BEACON_TOKEN = process.env.CF_BEACON_TOKEN;
 // metadataBase anchors every relative/og/twitter image URL emitted below
 // (and by page-level metadata) to an absolute one — required for social
 // previews and silences Next's "metadataBase not set" build warning.
+const baseMetadata = buildMetadata({
+  title: 'Senira Mendis — Software Engineer in Sri Lanka | Full-Stack & Mobile App Developer',
+  description:
+    'Senira Mendis — Software Engineer in Sri Lanka available for remote & full-time roles. Full-stack (Laravel, React Native, Node.js), Android/mobile app & backend developer based in Colombo, open worldwide.',
+  path: '/',
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  ...buildMetadata({
-    title: 'Senira Mendis — Software Engineer in Sri Lanka | Full-Stack & Mobile App Developer',
-    description:
-      'Senira Mendis — Software Engineer in Sri Lanka available for remote & full-time roles. Full-stack (Laravel, React Native, Node.js), Android/mobile app & backend developer based in Colombo, open worldwide.',
-    path: '/',
-  }),
+  ...baseMetadata,
+  // Merge in the RSS autodiscovery link rather than overwriting
+  // baseMetadata.alternates (which already carries the canonical URL).
+  alternates: {
+    ...baseMetadata.alternates,
+    types: {
+      'application/rss+xml': `${SITE_URL}/feed.xml`,
+    },
+  },
   keywords: SEO_KEYWORDS,
   authors: [{ name: 'Senira Mendis', url: SITE_URL }],
   creator: 'Senira Mendis',
