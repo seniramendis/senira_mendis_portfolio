@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './TechNewsWidget.module.css';
 
 type TechNewsItem = {
@@ -7,6 +7,7 @@ type TechNewsItem = {
   link: string;
   source: string;
   isoDate: string;
+  image: string | null;
 };
 
 function timeAgo(iso: string): string {
@@ -19,15 +20,19 @@ function timeAgo(iso: string): string {
 }
 
 /** Fetches /api/tech-news (itself cached hourly server-side) and renders
- *  the merged, live headline list. Pure presentation — all the actual
- *  aggregation logic lives in lib/techNews.ts + app/api/tech-news. */
-export default function TechNewsWidget({ limit = 6 }: { limit?: number }) {
+ *  it as an Apple-style, self-advancing photo carousel. All aggregation
+ *  (including pulling each story's lead image) lives in lib/techNews.ts
+ *  + app/api/tech-news — this component is pure presentation. */
+export default function TechNewsWidget({ limit = 8 }: { limit?: number }) {
   const [items, setItems] = useState<TechNewsItem[] | null>(null);
   const [failed, setFailed] = useState(false);
+  const [active, setActive] = useState(0);
+
+  const trackRef = useRef<HTMLDivElement>(null);
+  const pausedRef = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
-
     fetch('/api/tech-news')
       .then((res) => res.json())
       .then((data) => {
@@ -36,11 +41,59 @@ export default function TechNewsWidget({ limit = 6 }: { limit?: number }) {
       .catch(() => {
         if (!cancelled) setFailed(true);
       });
-
     return () => {
       cancelled = true;
     };
   }, [limit]);
+
+  const scrollToIndex = useCallback((i: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cards = track.querySelectorAll<HTMLElement>('[data-card]');
+    const card = cards[i];
+    if (!card) return;
+    track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+    setActive(i);
+  }, []);
+
+  // Auto-advance, like Apple's own product/story carousels — pauses the
+  // moment a visitor hovers, touches, or drags it.
+  useEffect(() => {
+    if (!items || items.length < 2) return;
+    const id = setInterval(() => {
+      if (pausedRef.current) return;
+      setActive((prev) => {
+        const next = (prev + 1) % items.length;
+        scrollToIndex(next);
+        return next;
+      });
+    }, 4500);
+    return () => clearInterval(id);
+  }, [items, scrollToIndex]);
+
+  // Keep the active dot in sync if the visitor swipes/drags manually.
+  const onScroll = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cards = Array.from(track.querySelectorAll<HTMLElement>('[data-card]'));
+    let closest = 0;
+    let min = Infinity;
+    cards.forEach((c, i) => {
+      const d = Math.abs(c.offsetLeft - track.offsetLeft - track.scrollLeft);
+      if (d < min) {
+        min = d;
+        closest = i;
+      }
+    });
+    setActive(closest);
+  }, []);
+
+  const pause = () => {
+    pausedRef.current = true;
+  };
+  const resume = () => {
+    pausedRef.current = false;
+  };
 
   if (failed) {
     return <p className={styles.state}>Couldn&apos;t load tech news right now.</p>;
@@ -48,9 +101,9 @@ export default function TechNewsWidget({ limit = 6 }: { limit?: number }) {
 
   if (!items) {
     return (
-      <div className={styles.list}>
+      <div className={styles.track}>
         {Array.from({ length: limit }).map((_, i) => (
-          <div key={i} className={styles.skeleton} />
+          <div key={i} className={styles.skeletonCard} />
         ))}
       </div>
     );
@@ -61,24 +114,73 @@ export default function TechNewsWidget({ limit = 6 }: { limit?: number }) {
   }
 
   return (
-    <div className={styles.list}>
-      {items.map((item) => (
-        <a
-          key={item.link}
-          href={item.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.item}
+    <div
+      className={styles.carousel}
+      onMouseEnter={pause}
+      onMouseLeave={resume}
+      onTouchStart={pause}
+      onTouchEnd={resume}
+    >
+      <div className={styles.track} ref={trackRef} onScroll={onScroll}>
+        {items.map((item, i) => (
+          <a
+            key={item.link}
+            href={item.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.card}
+            data-card
+          >
+            {item.image ? (
+              <img
+                src={item.image}
+                alt=""
+                className={styles.cardImage}
+                loading={i < 2 ? 'eager' : 'lazy'}
+              />
+            ) : (
+              <div className={styles.cardImageFallback} />
+            )}
+            <div className={styles.cardGradient} />
+            <div className={styles.cardContent}>
+              <span className={styles.cardEyebrow}>{item.source}</span>
+              <h3 className={styles.cardTitle}>{item.title}</h3>
+              <span className={styles.cardMeta}>{timeAgo(item.isoDate)}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div className={styles.controls}>
+        <button
+          type="button"
+          className={styles.navBtn}
+          onClick={() => scrollToIndex((active - 1 + items.length) % items.length)}
+          aria-label="Previous story"
         >
-          <span className={styles.itemLeft}>
-            <span className={styles.itemTitle}>{item.title}</span>
-            <span className={styles.itemMeta}>
-              {item.source} &middot; {timeAgo(item.isoDate)}
-            </span>
-          </span>
-          <span className={styles.itemArrow}>&rarr;</span>
-        </a>
-      ))}
+          &larr;
+        </button>
+        <div className={styles.dots}>
+          {items.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              className={`${styles.dot} ${i === active ? styles.dotActive : ''}`}
+              onClick={() => scrollToIndex(i)}
+              aria-label={`Go to story ${i + 1}`}
+              aria-current={i === active}
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          className={styles.navBtn}
+          onClick={() => scrollToIndex((active + 1) % items.length)}
+          aria-label="Next story"
+        >
+          &rarr;
+        </button>
+      </div>
     </div>
   );
 }

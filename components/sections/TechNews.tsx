@@ -21,8 +21,8 @@ export default function TechNews() {
 
         <Reveal delay={60}>
           <p className={styles.sub}>
-            Live headlines pulled automatically from Hacker News — refreshed hourly,
-            nothing curated by hand.
+            Live headlines pulled automatically from Hacker News, each paired with the
+            real photo from its own article — refreshed hourly, nothing curated by hand.
           </p>
         </Reveal>
 
