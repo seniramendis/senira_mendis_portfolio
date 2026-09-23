@@ -15,7 +15,9 @@
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1px;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
   padding: 4px 0 8px;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -92,6 +94,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  overflow-wrap: anywhere;
 }
 
 .cardExcerpt {
@@ -214,10 +217,12 @@
     margin-top: 20px;
   }
   .card {
-    min-height: 340px;
+    flex-basis: calc(100% - 28px);
+    min-height: 360px;
     padding: 24px;
   }
   .cardTitle {
-    font-size: 22px;
+    font-size: clamp(20px, 6vw, 22px);
   }
+  .cardExcerpt { font-size: 14px; }
 }

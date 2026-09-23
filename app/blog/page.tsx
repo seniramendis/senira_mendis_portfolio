@@ -56,7 +56,7 @@ export default async function BlogIndex() {
             route. Renders as a self-advancing photo carousel with each
             story's own lead image pulled straight from its source feed. */}
         <Reveal>
-          <h2 className={styles.title} style={{ fontSize: '2rem', marginTop: '32px' }}>
+          <h2 className={`${styles.title} ${styles.techTitle}`}>
             Latest in <em>tech.</em>
           </h2>
         </Reveal>

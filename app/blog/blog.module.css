@@ -16,6 +16,7 @@
   margin: 0 auto;
   padding: 120px 24px 24px;
   width: 100%;
+  overflow: hidden;
 }
 
 .heroKicker {
@@ -38,6 +39,11 @@
 .title em {
   color: var(--gray-mid);
   font-style: normal;
+}
+
+.techTitle {
+  font-size: 2rem;
+  margin-top: 32px;
 }
 
 .heroSub {
@@ -275,6 +281,16 @@
 }
 
 @media (max-width: 768px) {
+  .main { padding: 88px 16px 24px; }
+  .backLink { margin-bottom: 32px; }
+  .title {
+    font-size: clamp(2.75rem, 12vw, 4.5rem);
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+  .heroSub { font-size: 16px; line-height: 1.5; }
+  .feedLink { margin-bottom: 40px; }
+  .techTitle { font-size: clamp(2rem, 9vw, 3rem); margin-top: 24px; }
   .postMain { padding: 80px 20px 60px; }
   .postTitle { font-size: 2rem; }
 }
